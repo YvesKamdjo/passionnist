@@ -182,7 +182,7 @@ p:last-child {
   background-repeat: no-repeat;
 }
 .landing-professional .homepage {
-  background-image: url(/img/background-pass-pro.jpg);/*background-professionnel*/
+  background-image: url(/img/background-pass-pro-2.jpg);/*background-professionnel*/
 }
 .passionnist-bg-class{
 
@@ -1198,13 +1198,40 @@ fieldset[disabled] .navbar-default .navbar-nav > li > a.navbar-btn.focus {
 }
 
 .padding-horizontal20{
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 
 .set-width-to100{
   width: 100%;
 }
+.textT30{font-size: 3em;font-weight: 600;}
+.textT16{font-size: 1.5em;}
+
+.caption {
+  width:100%;
+  bottom: 42.5%;
+  height: 15%;
+  position: absolute;
+  font-weight: 600;
+}
+.caption-white{ background-color: rgba(255, 255, 255, 0.5);}
+.caption-black{ background-color: rgba(77, 77, 77, 0.8);}
+.caption-black span{color: #fff;}
+.caption-white span{
+  color: #000;}
+.thumbnail {
+  border: 0 none;
+  box-shadow: none;
+  margin:0;
+  padding:0;
+}
+
+.caption span{
+  -webkit-font-smoothing: antialiased;
+  font-size: 2em;
+}
+
 /*******Fin passionnist ********/
 @media screen and (min-width: 768px) {
   .modal-form {
