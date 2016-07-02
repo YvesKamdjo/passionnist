@@ -1,0 +1,177 @@
+<?php $this->headTitle()->set('HAIRLOV.com : 2000 coiffeurs privés à domicile ou salon de coiffure'); ?>
+<div class="homepage">
+    <div class="overlay"></div>
+    <div class="container">
+
+        <div class="header-nav clearfix">
+            <a href="/" class="header-nav-logo">
+                Hairlov<br />
+                <span class="baseline">Coiffeurs Professionnels</span>
+            </a>
+
+            <ul class="righ-nav clearfix">
+                <li>
+                    <a href="<?= $this->url('application-professional-landing-page'); ?>" class="btn btn-no-border border-transparent btn-icon btn-dark">
+                        <i class="fa fa-suitcase"></i>
+                        <span>Espace PRO</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-md-12 col-lg-12">
+                <div class="hero">
+                    <h1 class="hero-title">Faites un cadeau à vos cheveux</h1>
+                    <h2 class="hero-subtitle hidden-xs">Devenez membre HAIRLOV</h2>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-5 col-md-offset-7 col-sm-8 col-sm-offset-2 col-xs-12">
+                <div class="login-box">
+                    <div class="inner">
+                        <?= $this->plugin('displayFlashMessages')->setAutoEscape(false)->__invoke('error'); ?>
+                        
+                        <a href="#" class="btn btn-blue btn-block btn-lg js-facebook-login">
+                            <span class="hidden-xs">Se connecter avec <b>FACEBOOK</b></span>
+                            <span class="visible-xs-inline">Login <b>FACEBOOK</b></span>
+                        </a>
+                        <?php
+                            $this->facebookLogInForm
+                                ->setAttribute('id', 'facebookLogInForm')
+                                ->setAttribute('class', 'js-facebook-log-in-form')
+                                ->setAttribute('action', $this->url('application-facebook-login'))
+                            ;
+                        ?>
+                        <?= $this->form()->openTag($this->facebookLogInForm); ?>
+                        <?php
+                            $facebookLogInAccessTokenElement = $this->facebookLogInForm->get('access_token');
+                            $facebookLogInAccessTokenElement
+                                ->setAttribute('class', 'js-facebook-log-in-access-token')
+                            ;
+                        ?>
+                        <?= $this->formHidden($facebookLogInAccessTokenElement); ?>
+                        
+                        <?= $this->form()->closeTag($this->facebookLogInForm); ?>
+                        <div class="line-container">
+                            <div class="line"><span>ou</span></div>
+                        </div>
+
+                        <?php
+                            $this->logInForm
+                                ->setAttribute('id', 'logInForm')
+                                ->setAttribute('action', $this->url('application-login'))
+                            ;
+                        ?>
+                        <?= $this->form()->openTag($this->logInForm); ?>
+
+                            <?= $this->displayFlashMessages('success'); ?>
+                            <div class="alert alert-danger hidden js-login-form-error"></div>
+
+                            <?php
+                                $logInEmailElement = $this->logInForm->get('email');
+                                $logInEmailElement
+                                    ->setAttribute('id', 'login-email')
+                                    ->setAttribute('class', 'form-control input-lg')
+                                    ->setAttribute('placeholder', 'Adresse e-mail')
+                                    ->setAttribute('required', true)
+                                ;
+                            ?>
+                            <div class="form-group <?= ($logInEmailElement->getMessages()) ? 'has-error' : ''; ?> js-login-form-row">
+                                <?= $this->formEmail($logInEmailElement); ?>
+                                <?= $this->displayFormElementErrors($logInEmailElement); ?>
+                            </div>
+
+                            <?php
+                                $logInPasswordElement = $this->logInForm->get('password');
+                                $logInPasswordElement
+                                    ->setAttribute('id', 'login-password')
+                                    ->setAttribute('class', 'form-control input-lg')
+                                    ->setAttribute('placeholder', 'Mot de passe')    
+                                    ->setAttribute('required', true)
+                                ;
+                            ?>
+                            <div class="form-group <?= ($logInPasswordElement->getMessages()) ? 'has-error' : ''; ?> js-login-form-row">
+                                <?= $this->formPassword($logInPasswordElement); ?>
+                                <?= $this->displayFormElementErrors($logInPasswordElement); ?>
+                            </div>
+                            
+                            <input type="hidden" name="isSignUp" value="0" class="js-is-signup" />
+                            
+                            <div class="btn-group" role="group">
+                                <button type="submit" class="btn btn-lg btn-primary text-center js-login-form-submit uppercase">
+                                    <span>Se connecter</span>
+                                </button>
+                                <button type="submit" class="btn btn-lg btn-primary text-center js-signup-form-submit uppercase">
+                                    <span>S'inscrire</span>
+                                </button>
+                            </div>
+
+                            <p class="text-muted small text-center margin-top-24">En cliquant ci-dessus, vous acceptez les <a href="<?= $this->url('application-legal'); ?>" class="underline link-muted h-link-muted">CGU</a></p>
+                            
+                        <?= $this->form()->closeTag($this->logInForm); ?>
+                    </div>
+                    <div class="text-right">
+                        <a href="<?= $this->url('application-password-lost') ?>" class="btn btn-link btn-sm link-white h-link-white underline">Vous avez oubliez votre mot de passe ?</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="customer-landing-page-footer footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-3 separated text-center">
+                            <img class="img" src="/img/file-icon.png" alt="Carte de la France" />
+                            <div class="content">
+                                Découvrez les meilleurs coiffeurs
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-3 separated text-center">
+                            <img class="img" src="/img/file-icon.png" alt="Prestations" />
+                            <div class="content">
+                                Inspirez-vous des meilleures coiffures
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-3 separated text-center">
+                            <img class="img" src="/img/file-icon.png" alt="Salons" />
+                            <div class="content">
+                                Choisissez un salon ou à domicile
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-3 text-center">
+                            <img class="img" src="/img/file-icon.png" alt="Salons" />
+                            <div class="content">
+                                Réservez aux meilleurs prix
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="footer-main">
+            <div class="container">
+                <ul class="list-inline pull-right">
+                    <li><a href="<?= $this->url('application-contact'); ?>">Contact</a></li>
+                    <li><a href="<?= $this->url('application-legal'); ?>">CGU / Légal</a></li>
+                    <li><a href="<?= $this->url('application-search-job-service'); ?>">Prestations</a></li>
+                    <li><a href="<?= $this->url('application-search-professional'); ?>">Coiffeurs</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<?php $this->inlineScript()->captureStart(); ?>
+    $(document).ready(function() {
+        hairlov.application.index.customerLandingPage.init(<?= $facebookApi['applicationId'] ?>);
+    });
+<?php $this->inlineScript()->captureEnd(); ?>

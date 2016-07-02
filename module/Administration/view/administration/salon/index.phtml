@@ -1,0 +1,81 @@
+<?php if ($this->salonCollection->count() > 0) : ?>
+    <div class="box">
+        <div class="box-title-container clearfix">
+            <div class="box-tools pull-right">
+                <div class="btn-group">
+            
+                    <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown">
+                        Filtres <span class="caret"></span>
+                    </button>
+
+                    <ul class="dropdown-menu">
+                        <li><a href="<?= $this->url('administration-salon') ?>">Tous les salons</a></li>
+                        <li><a href="<?= $this->url('administration-salon') ?>?filter=active">Salon actifs</a></li>
+                        <li><a href="<?= $this->url('administration-salon') ?>?filter=inactive">Salon inactifs</a></li>
+                    </ul>
+
+                </div>
+            </div>
+            <div class="box-title">Liste des salons</div>
+        </div>
+        <div class="box-content">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Ville</th>
+                            <th>Statut</th>
+                            <th>K-bis</th>
+                            <th width="110"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($this->salonCollection as $salon) : ?>
+                
+                        <tr>
+                
+                            <td><?= $salon->getName() ?></td>
+                            <td><?= $salon->getCity() ?></td>
+                            <td>
+                                <?php if($salon->isActive() === true) : ?>
+                                    <span class="label label-success">Actif</span>
+                                <?php else : ?>
+                                    <span class="label label-danger">Inactif</span>
+                                <?php endif; ?>
+                            </td>
+                            <td>
+                                <?php if(!empty($salon->getCertificateFilename())) : ?>
+                                    <span class="label label-success">Disponible</span>
+                                <?php else : ?>
+                                    <span class="label label-danger">Indisponible</span>
+                                <?php endif; ?>
+                            </td>
+                            <td>
+                                <?php if(!empty($salon->getCertificateFilename())) : ?>
+                                    <a href="<?= $this->url('administration-salon/certificate', ['idSalon' => $salon->getIdSalon()] ) ?>" class="btn btn-default btn-square" target="_blank" data-toggle="tooltip" data-placement="left" title="Visionner le K-Bis"><i class="fa fa-paperclip"></i></a>
+                                <?php else: ?>
+                                    <button type="button" disabled="disabled" class="btn btn-default btn-square disabled"><span class="text-gray"><i class="fa fa-paperclip"></i></span></button>
+                                <?php endif; ?>
+                                    
+                                <?php if($salon->isActive() === false) : ?>
+                                    <a href="<?= $this->url('administration-salon/activate', ['idSalon' => $salon->getIdSalon()] ) ?>" class="btn btn-success btn-square" data-toggle="tooltip" data-placement="left" title="Activer le salon"><i class="fa fa-check"></i></a>
+                                <?php else: ?>
+                                    <a href="<?= $this->url('administration-salon/deactivate', ['idSalon' => $salon->getIdSalon()] ) ?>" class="btn btn-warning btn-square" data-toggle="tooltip" data-placement="left" title="Désactiver le salon"><i class="fa fa-ban"></i></a>
+                                <?php endif; ?>
+                            </td>
+                            
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+<?php else : ?>
+
+    <div class="alert alert-info">
+        Aucun salon ne répond à cette recherche.
+    </div>
+
+<?php endif; ?>

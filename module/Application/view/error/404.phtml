@@ -1,0 +1,39 @@
+<?php
+    $this->layout()->setVariable('isLoggedIn', false);
+    
+    $this->headTitle('Erreur 404')
+        ->setSeparator(' - ')
+        ->append('Hairlov');
+    
+    $this->headLink()
+        ->appendStylesheet("https://fonts.googleapis.com/css?family=Open+Sans:400,300,700")
+        ->appendStylesheet("https://fonts.googleapis.com/icon?family=Material+Icons")
+        ->appendStylesheet("/css/vendor.css")
+        ->appendStylesheet("/css/components.css")
+        ->appendStylesheet("/css/hairlov-application.css");
+    
+    $this->headScript()
+        ->appendFile("/js/vendor.js")
+        ->appendFile("/js/hairlov.js")
+        ->appendFile("/js/hairlov-application.js")
+    
+?>
+
+<div class="container">
+    <div class="box no-border">
+        <div class="box-content">
+            <h1>Une erreur 404 est survenue</h1>
+            <h2>La page que vous demandez est introuvable</h2>
+            
+            <div class="text-center">
+                <div class="h3">Vous vouliez peut-être rechercher une prestation ou un coiffeur ?</div>
+            
+                <div class="btn-group" role="group">
+                    <a href="<?= $this->url('application-search-job-service'); ?>" class="btn btn-primary">Recherchez une prestation</a>
+                    <a href="<?= $this->url('application-search-professional'); ?>" class="btn btn-primary">Recherchez un coiffeur</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>

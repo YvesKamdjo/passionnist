@@ -1,0 +1,70 @@
+<div class="row">
+    <div class="col-sm-4">
+        <div class="box">
+            <div class="box-title-container clearfix">
+                <div class="box-title">Solde courant</div>
+            </div>
+            <div class="box-content">
+                <?= number_format($totalBalance, 2, ',', ' ') ?>€
+            </div>
+        </div>   
+    </div>
+    <div class="col-sm-4">
+        <div class="box">
+            <div class="box-title-container clearfix">
+                <div class="box-title">Chiffre d'affaire du mois courant</div>
+            </div>
+            <div class="box-content">
+                <?= number_format($currentMonthSales, 2, ',', ' ') ?>€
+            </div>
+        </div>   
+    </div>
+    <div class="col-sm-4">
+        <div class="box">
+            <div class="box-title-container clearfix">
+                <div class="box-title">Chiffre d'affaire total</div>
+            </div>
+            <div class="box-content">
+                <?= number_format($globalSales, 2, ',', ' ') ?>€
+            </div>
+        </div>   
+    </div>
+</div>
+
+<div class="box">
+    <div class="box-title-container clearfix">
+        <div class="box-title">Liste des transactions</div>
+    </div>
+    <div class="box-content">
+        <?php if ($transactionCollection->count() > 0) : ?>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Montant de la transaction</th>
+                        <th>Description</th>
+                        <th>Employé</th>
+                        <th>Date de la transaction</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($transactionCollection as $transaction) : ?>
+                    <?php /* @var $transaction \Backend\Infrastructure\DataTransferObject\TransactionListResult */ ?>
+                    <?php $date = new DateTime($transaction->creationDate); ?>
+                    <tr>
+                        <td><?= number_format($transaction->amount, 2, ',', ' ') ?>€</td>
+                        <td><?= $transaction->description ?></td>
+                        <td><?= $transaction->firstName . ' ' . $transaction->lastName ?></td>
+                        <td>Le <b><?= $date->format('d/m/Y') ?></b> à <b><?= $date->format('H') ?>h<?= $date->format('i') ?></b></td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+        <?php else: ?>
+            <div class="alert alert-info">
+                Aucune transaction n'a été effectuée.
+            </div>
+        <?php endif; ?>
+    </div>
+</div>

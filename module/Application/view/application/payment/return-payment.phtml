@@ -1,0 +1,5 @@
+<?php if ($this->payment->getStatus() == Backend\Entity\Payment::PAYMENT_STATUS_SUCCESSED) : ?>
+Paiement réussi.
+<?php elseif ($this->payment->getStatus() == Backend\Entity\Payment::PAYMENT_STATUS_FAILED) : ?>
+Paiement échoué.
+<?php endif; ?>

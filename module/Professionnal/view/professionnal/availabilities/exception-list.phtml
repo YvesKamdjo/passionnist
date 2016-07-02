@@ -1,0 +1,61 @@
+<div class="box">
+    <div class="box-title-container clearfix">
+        <div class="box-tools pull-right">
+                <a href="<?= $this->url('professionnal-availabilities/create-availability'); ?>" class="btn btn-primary btn-sm">
+                    <i class="fa fa-plus-circle"></i>&nbsp;
+                    Nouvelle disponibilité
+                </a>
+                <a href="<?= $this->url('professionnal-availabilities/create-absence'); ?>" class="btn btn-primary btn-sm">
+                    <i class="fa fa-plus-circle"></i>&nbsp;
+                    Nouvelle absence
+                </a>
+        </div>
+        <div class="box-title">Absences et disponibilités</div>
+    </div>
+    <div class="box-content">
+        <?php if ($this->availabilityList->count() > 0) : ?>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Date de début</th>
+                            <th>Date de fin</th>
+                            <th>Type</th>
+                            <th width="150"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($this->availabilityList as $availabilityException) : ?>
+                            <tr>
+                                <td>
+                                    <?php $date = new DateTime($availabilityException->getStartDatetime()) ?>
+                                    Le <b><?= $date->format('d/m/Y') ?></b> à <b><?= $date->format('H') ?>h<?= $date->format('i') ?></b>
+                                </td>
+                                <td>
+                                    <?php $date = new DateTime($availabilityException->getEndDatetime()) ?>
+                                    Le <b><?= $date->format('d/m/Y') ?></b> à <b><?= $date->format('H') ?>h<?= $date->format('i') ?></b>
+                                </td>
+                                <td>
+                                    <?php if($availabilityException->getIsAvailability()) : ?>
+                                        <span class="label label-success">Disponibilité</span>
+                                    <?php else : ?>
+                                        <span class="label label-danger">Absence</span>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
+                                    <a href="<?= $this->url('professionnal-availabilities/delete-exception', ['idAvailabilityException' => $availabilityException->getIdAvailabilityException()]); ?>" class="btn btn-danger btn-square" data-toggle="tooltip" data-placement="top" title="Supprimer"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        <?php else : ?>
+
+            <div class="alert alert-info">
+                Aucune exception n'a été créée.
+            </div>
+
+        <?php endif; ?>
+    </div>
+</div>

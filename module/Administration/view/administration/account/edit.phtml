@@ -1,0 +1,125 @@
+<?php
+    use Application\View\Helper\DisplayAlert;
+    
+    $this->editAccountForm->setAttribute('class', 'form-horizontal');
+
+    $lastNameElement = $this->editAccountForm->get('last-name');
+    $lastNameElement
+        ->setAttribute('id', 'signup-last-name')
+        ->setAttribute('class', 'form-control')
+    ;
+
+    $firstNameElement = $this->editAccountForm->get('first-name');
+    $firstNameElement
+        ->setAttribute('id', 'signup-first-name')
+        ->setAttribute('class', 'form-control')
+    ;
+
+    $emailElement = $this->editAccountForm->get('email');
+    $emailElement
+        ->setAttribute('id', 'signup-email')
+        ->setAttribute('class', 'form-control')
+    ;
+
+    $phoneElement = $this->editAccountForm->get('phone');
+    $phoneElement
+        ->setAttribute('id', 'signup-phone')
+        ->setAttribute('class', 'form-control')
+    ;
+
+    $addressElement = $this->editAccountForm->get('address');
+    $addressElement
+        ->setAttribute('id', 'signup-address')
+        ->setAttribute('class', 'form-control')
+    ;
+
+    $zipcodeElement = $this->editAccountForm->get('zipcode');
+    $zipcodeElement
+        ->setAttribute('id', 'signup-zipcode')
+        ->setAttribute('class', 'form-control')
+    ;
+
+    $cityElement = $this->editAccountForm->get('city');
+    $cityElement
+        ->setAttribute('id', 'signup-city')
+        ->setAttribute('class', 'form-control')
+    ;
+?>
+<div class="box">
+    <div class="box-title-container clearfix">
+        <div class="box-title">Modifier les données du profil</div>
+    </div>
+    <div class="box-content pb-5">
+        <?= $this->form()->openTag($this->editAccountForm); ?>
+        
+            <?php if (isset($this->editAccountError) === true) {
+                echo $this->displayAlert($this->editAccountError, DisplayAlert::ERROR);
+            } ?>
+        
+            <div class="form-group <?= ($lastNameElement->getMessages()) ? ' has-error' : ''; ?>">
+                <label class="col-xs-12 col-sm-3 control-label" for="signup-last-name">Nom</label>
+                <div class="col-xs-12 col-sm-8">
+                    <?= $this->formText($lastNameElement); ?>
+                    <?= $this->displayFormElementErrors($lastNameElement); ?>
+                </div>
+            </div>
+        
+            <div class="form-group <?= ($firstNameElement->getMessages()) ? ' has-error' : ''; ?>">
+                <label class="col-xs-12 col-sm-3 control-label" for="signup-first-name">Prénom</label>
+                <div class="col-xs-12 col-sm-8">
+                    <?= $this->formText($firstNameElement); ?>
+                    <?= $this->displayFormElementErrors($firstNameElement); ?>
+                </div>
+            </div>
+        
+            <div class="form-group <?= ($emailElement->getMessages()) ? ' has-error' : ''; ?>">
+                <label class="col-xs-12 col-sm-3 control-label" for="signup-email">Email</label>
+                <div class="col-xs-12 col-sm-8">
+                    <?= $this->formText($emailElement); ?>
+                    <?= $this->displayFormElementErrors($emailElement); ?>
+                </div>
+            </div>
+        
+            <div class="form-group <?= ($phoneElement->getMessages()) ? ' has-error' : ''; ?>">
+                <label class="col-xs-12 col-sm-3 control-label" for="signup-phone">Téléphone</label>
+                <div class="col-xs-12 col-sm-8">
+                    <?= $this->formText($phoneElement); ?>
+                    <?= $this->displayFormElementErrors($phoneElement); ?>
+                </div>
+            </div>
+        
+            <div class="form-group <?= ($addressElement->getMessages()) ? ' has-error' : ''; ?>">
+                <label class="col-xs-12 col-sm-3 control-label" for="signup-address">Adresse</label>
+                <div class="col-xs-12 col-sm-8">
+                    <?= $this->formText($addressElement); ?>
+                    <?= $this->displayFormElementErrors($addressElement); ?>
+                </div>
+            </div>
+        
+            <div class="form-group <?= ($zipcodeElement->getMessages()) ? ' has-error' : ''; ?>">
+                <label class="col-xs-12 col-sm-3 control-label" for="signup-zipcode">Code postal</label>
+                <div class="col-xs-12 col-sm-8">
+                    <?= $this->formText($zipcodeElement); ?>
+                    <?= $this->displayFormElementErrors($zipcodeElement); ?>
+                </div>
+            </div>
+        
+            <div class="form-group <?= ($cityElement->getMessages()) ? ' has-error' : ''; ?>">
+                <label class="col-xs-12 col-sm-3 control-label" for="signup-city">Ville</label>
+                <div class="col-xs-12 col-sm-8">
+                    <?= $this->formText($cityElement); ?>
+                    <?= $this->displayFormElementErrors($cityElement); ?>
+                </div>
+            </div>
+        
+            <div class="form-group text-right">
+                <div class="col-sm-8 col-sm-offset-3">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa fa-check"></i>&nbsp;
+                        Enregistrer
+                    </button>
+                </div>
+            </div>
+        <?= $this->form()->closeTag($this->editAccountForm); ?>
+    </div>
+</div>

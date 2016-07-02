@@ -1,0 +1,126 @@
+<?php if ($hasAttachmentRequest) : ?>
+    <div class="alert alert-info">
+        <div class="row">
+            <div class="col-md-8">
+                <b>Vous avez des demandes de rattachement en attente.</b><br>
+                Vous pouvez les gérer en accédant à l'interface des demandes de rattachement.
+            </div>
+            <div class="col-md-4 text-right">
+                <a href="<?= $this->url('professionnal-salon/salon-attachment-request-list'); ?>" class="btn btn-default">Gérer les demandes</a>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
+
+<div class="row">
+    <div class="col-sm-3">
+        <div class="box dashboard-profil">
+            <div class="box-content">
+                <?php $account = $this->layout()->account; ?>
+                <?php if($account->getAccountImageFilename() !== null): ?>
+                <img src="<?= $this->url('application-load-image', [
+                    'category' => 'account-image',
+                    'idImage' => $account->getAccountImageFilename()
+                ]); ?>" class="img-responsive ma"/>
+                <?php else: ?>
+                <img src="/img/avatar.jpg" class="img-responsive ma"/>
+                <?php endif; ?>
+                <div class="box-content">
+                    <div class="text-center">
+                        <div class="dashboard-profil-nom">
+                            <?= $account->getFirstName(); ?> <?= $account->getLastName(); ?>
+                        </div>
+                        <?php if ($this->isAllowed('professionnal-profile-edit')) : ?>
+                            <a href="<?= $this->url('professionnal-profile-edit'); ?>" class="btn btn-primary btn-block edit-profil">Modifier mon profil</a>
+                        <?php endif; ?>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box">
+            <div class="box-content">
+
+                <a href="<?= $this->url('application-professional', ['idProfessional' => $account->getIdAccount()]); ?>" target="_blank" class="btn btn-info btn-block">Voir ma page</a>
+                
+                <?php if ($salon !== null) : ?>
+                <hr>
+                <a href="<?= $this->url('application-salon', ['salonId' => $salon->getIdSalon()]); ?>" target="_blank" class="btn btn-info btn-block">Voir mon salon</a>
+                <?php endif; ?>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-9">
+        <div class="box mb-20">
+            <div class="box-title-container clearfix">
+                <div class="box-title">Bienvenue sur HAIRLOV</div>
+            </div>
+            
+            <div class="row box-content">
+                <div class="col-md-5">
+                    <p>
+                        Bonjour <?= $account->getFirstName(); ?>,
+                    </p>
+                    <p>
+                        Merci d'avoir rejoint Hairlov, la première plateforme 
+                        exclusivement dédiée aux professionnels de la coiffure.
+                    </p>
+                    <p>
+                        Prenez maintenant deux minutes pour compléter votre
+                        profil, définir vos horaires de travail, créer votre
+                        book professionnel et publier vos prestations.
+                    </p>
+                    <p class="text-center">
+                        L'équipe HAIRLOV.com
+                    </p>
+                </div>
+                <div class="col-md-7">
+                    
+                    <?php
+                        if ($hasManagerProfile) :
+                            echo $this->partial('partial/manager-checklist', [
+                                'isAccountActive' => $isAccountActive,
+                                'isSalonActive' => $isSalonActive,
+                                'isManager' => $isManager,
+                                'isEmployee' => $isEmployee,
+                                'hasSalonImages' => $hasSalonImages,
+                                'hasSalonJobServiceTemplate' => $hasSalonJobServiceTemplate,
+                                'hasSalonDiscount' => $hasSalonDiscount,
+                                'hasBiography' => $hasBiography,
+                                'hasAccountImage' => $hasAccountImage,
+                                'hasQualification' => $hasQualification,
+                                'hasAvailability' => $hasAvailability,
+                                'hasJobService' => $hasJobService,
+                                'hasSalonCertificate' => $hasSalonCertificate,
+                            ]);
+                        elseif ($hasEmployeeProfile) :
+                            echo $this->partial('partial/employee-checklist', [
+                                'isAccountActive' => $isAccountActive,
+                                'isSalonActive' => $isSalonActive,
+                                'isEmployee' => $isEmployee,
+                                'hasBiography' => $hasBiography,
+                                'hasAccountImage' => $hasAccountImage,
+                                'hasQualification' => $hasQualification,
+                                'hasAvailability' => $hasAvailability,
+                                'hasJobService' => $hasJobService,
+                            ]);
+                        elseif ($hasFreelanceProfile) :
+                            echo $this->partial('partial/freelance-checklist', [
+                                'isAccountActive' => $isAccountActive,
+                                'hasBiography' => $hasBiography,
+                                'hasAccountImage' => $hasAccountImage,
+                                'hasQualification' => $hasQualification,
+                                'hasAvailability' => $hasAvailability,
+                                'hasJobService' => $hasJobService,
+                                'hasDiscount' => $hasDiscount,
+                                'hasMoveRange' => $hasMoveRange,
+                            ]);
+                        endif;
+                    ?>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

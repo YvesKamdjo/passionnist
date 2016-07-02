@@ -1,0 +1,69 @@
+.profil-toggle {
+    position: relative;
+    float: left;
+    padding: 18px 10px !important;
+    background-color: transparent;
+    background-image: none;
+    border: none;
+    border-radius: 0px;
+    &:hover,
+    &:focus {
+        background-color: #F2F2F2;
+    }
+    &:hover {
+        .icon-bar {
+            background-color: @brand-primary;
+        }
+    }
+    .icon-bar {
+        display: block;
+        width: 22px;
+        height: 2px;
+        border-radius: 1px;
+        background-color: #333333;
+        + .icon-bar {
+            margin-top: 4px;
+        }
+    }
+}
+
+.navbar {
+    .dropdown-menu {
+        padding-top: 0;
+        padding-bottom: 0;
+        border: none;
+        //.box-shadow(none);
+        > li {
+            > a {
+                padding: 10px 20px 10px 10px;
+                font-size: 14px;
+                .fa {
+                    margin-right: 5px;
+                }
+                &:hover,
+                &:focus {
+                    color: @brand-primary;
+                }
+            }
+        }
+        .divider {
+            margin: 0;
+        }
+    }
+    .profil {
+        text-transform: initial !important;
+        img {
+            margin-right: 10px;
+        }
+    }
+}
+
+.navbar-default {
+    .navbar-nav > li > a.navbar-btn {
+        .button-variant(#FFFFFF; @gray-darker; @btn-dark-border; @btn-primary-bg);
+        padding: 6px 12px;
+        text-transform: initial;
+        font-weight: normal;
+        font-size: 16px;
+    }
+}

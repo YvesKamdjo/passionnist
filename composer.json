@@ -1,0 +1,17 @@
+{
+    "name": "wixiweb/wixiweb-zf2-skeleton",
+    "homepage": "http://wixiweb.fr/",
+    "require": {
+        "php": ">=5.5",
+        "zendframework/zendframework": "~2.5",
+        "giggsey/libphonenumber-for-php": "^7.2",
+        "payplug/payplug-php": "^2.2",
+        "dompdf/dompdf": "0.7.x@beta",
+        "facebook/php-sdk-v4": "^5.1",
+        "eventviva/php-image-resize": "^1.5"
+    },
+    "require-dev": {
+        "zendframework/zend-developer-tools": "dev-master",
+        "firephp/firephp-core": "dev-master"
+    }
+}

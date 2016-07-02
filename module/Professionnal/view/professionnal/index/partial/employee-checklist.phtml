@@ -1,0 +1,43 @@
+<p><b>En tant qu'employé, vous devez :</b></p>
+
+<div class="list-group account-checklist">
+    
+    <?php if (!$isEmployee) : ?>
+        <div class="list-group-item"><i class="fa fa-arrow-circle-right mod-icon mod-default fa-2x pull-left"></i> Rejoindre un salon <a href="<?= $this->url('professionnal-join-salon') ?>" class="btn btn-primary btn-sm pull-right">Définir</a></div>
+    <?php else : ?>
+        <div class="list-group-item list-group-item-success"><i class="fa fa-check-circle mod-icon mod-success fa-2x pull-left"></i> Rejoindre un salon</div>
+    <?php endif; ?>
+    
+    <?php if (!$hasBiography) : ?>
+        <div class="list-group-item"><i class="fa fa-arrow-circle-right mod-icon mod-default fa-2x pull-left"></i> Ajouter une biographie <a href="<?= $this->url('professionnal-profile-edit') ?>" class="btn btn-primary btn-sm pull-right">Définir</a></div>
+    <?php else : ?>
+        <div class="list-group-item list-group-item-success"><i class="fa fa-check-circle mod-icon mod-success fa-2x pull-left"></i> Ajouter une biographie <a href="<?= $this->url('professionnal-profile-edit') ?>" class="btn btn-success btn-sm pull-right">Modifier</a></div>
+    <?php endif; ?>
+    
+    <?php if (!$hasAccountImage) : ?>
+        <div class="list-group-item"><i class="fa fa-arrow-circle-right mod-icon mod-default fa-2x pull-left"></i> Ajouter une photo de profil <a href="<?= $this->url('professionnal-profile-edit') ?>" class="btn btn-primary btn-sm pull-right">Définir</a></div>
+    <?php else : ?>
+        <div class="list-group-item list-group-item-success"><i class="fa fa-check-circle mod-icon mod-success fa-2x pull-left"></i> Ajouter une photo de profil <a href="<?= $this->url('professionnal-profile-edit') ?>" class="btn btn-success btn-sm pull-right">Modifier</a></div>
+    <?php endif; ?>
+        
+    <?php if (!$hasQualification) : ?>
+        <div class="list-group-item"><i class="fa fa-arrow-circle-right mod-icon mod-default fa-2x pull-left"></i> Ajouter un diplôme <a href="<?= $this->url('professionnal-profile-edit') ?>" class="btn btn-primary btn-sm pull-right">Définir</a></div>
+    <?php else : ?>
+        <div class="list-group-item list-group-item-success"><i class="fa fa-check-circle mod-icon mod-success fa-2x pull-left"></i> Ajouter un diplôme <a href="<?= $this->url('professionnal-profile-edit') ?>" class="btn btn-success btn-sm pull-right">Modifier</a></div>
+    <?php endif; ?>
+        
+    <?php if (!$hasAvailability) : ?>
+        <div class="list-group-item"><i class="fa fa-arrow-circle-right mod-icon mod-default fa-2x pull-left"></i> Définir votre planning hebdo <a href="<?= $this->url('professionnal-availabilities/edit') ?>" class="btn btn-primary btn-sm pull-right">Définir</a></div>
+    <?php else : ?>
+        <div class="list-group-item list-group-item-success"><i class="fa fa-check-circle mod-icon mod-success fa-2x pull-left"></i> Définir votre planning hebdo <a href="<?= $this->url('professionnal-availabilities/edit') ?>" class="btn btn-success btn-sm pull-right">Modifier</a></div>
+    <?php endif; ?>
+        
+    <?php if (!$isEmployee) : ?>
+        <div class="list-group-item disabled"><i class="fa fa-arrow-circle-right mod-icon fa-2x pull-left"></i> Publier des prestations <a class="btn btn-primary btn-sm pull-right" disabled="disabled">Définir</a></div>
+    <?php elseif (!$hasJobService) : ?>
+        <div class="list-group-item"><i class="fa fa-arrow-circle-right mod-icon mod-default fa-2x pull-left"></i> Publier des prestations <a href="<?= $this->url('professionnal-job-service') ?>" class="btn btn-primary btn-sm pull-right">Définir</a></div>
+    <?php else : ?>
+        <div class="list-group-item list-group-item-success"><i class="fa fa-check-circle mod-icon mod-success fa-2x pull-left"></i> Publier des prestations <a href="<?= $this->url('professionnal-job-service') ?>" class="btn btn-success btn-sm pull-right">Modifier</a></div>
+    <?php endif; ?>
+    
+</div>

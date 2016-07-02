@@ -1,0 +1,189 @@
+<?php
+    use Application\View\Helper\DisplayAlert;
+    
+    // Chargement de l'API Google Maps
+    $this->headScript()
+        ->appendFile('https://maps.googleapis.com/maps/api/js?key='.$mapsApiConfig['applicationKey'].'&libraries=places');
+    
+    $this->professionnalEditSalonForm->setAttribute('class', 'form-horizontal');
+
+    $nameElement = $this->professionnalEditSalonForm->get('name');
+    $nameElement
+        ->setAttribute('id', 'edit-salon-name')
+        ->setAttribute('class', 'form-control')
+    ;
+
+    $addressElement = $this->professionnalEditSalonForm->get('address');
+    $addressElement
+        ->setAttribute('id', 'edit-salon-address')
+        ->setAttribute('class', 'form-control js-address-address')
+    ;
+
+    $zipcodeElement = $this->professionnalEditSalonForm->get('zipcode');
+    $zipcodeElement
+        ->setAttribute('id', 'edit-salon-zipcode')
+        ->setAttribute('class', 'form-control js-address-zipcode')
+    ;
+
+    $cityElement = $this->professionnalEditSalonForm->get('city');
+    $cityElement
+        ->setAttribute('id', 'edit-salon-city')
+        ->setAttribute('class', 'form-control js-address-city')
+    ;
+
+    $latitudeElement = $this->professionnalEditSalonForm->get('latitude');
+    $latitudeElement
+        ->setAttribute('id', 'edit-salon-latitude')
+        ->setAttribute('class', 'form-control js-address-latitude')
+    ;
+
+    $longitudeElement = $this->professionnalEditSalonForm->get('longitude');
+    $longitudeElement
+        ->setAttribute('id', 'edit-salon-longitude')
+        ->setAttribute('class', 'form-control js-address-longitude')
+    ;
+
+    $idSalonElement = $this->professionnalEditSalonForm->get('idSalon');
+    $idSalonElement
+        ->setAttribute('id', 'edit-salon-salon')
+    ;
+    
+    $this->uploadSalonCertificateForm
+            ->setAttribute('class', 'form-horizontal')
+            ->setAttribute('action', $this->url('professionnal-salon/send-certificate'))
+            ->setAttribute('enctype', 'multipart/form-data');
+
+    $certificateElement = $this->uploadSalonCertificateForm->get('certificate');
+    $certificateElement
+        ->setAttribute('id', 'certificate-certificate')
+    ;
+?>
+
+<div class="box">
+    <div class="box-title-container clearfix">
+        <div class="box-title">Modifier les informations de mon salon</div>
+    </div>
+    <div class="box-content pb-5">
+    <?= $this->form()->openTag($this->professionnalEditSalonForm); ?>
+        <?= $this->formHidden($idSalonElement); ?>
+
+        <?php if (isset($this->editSalonSuccess) === true) {
+            echo $this->displayAlert($this->editSalonSuccess, DisplayAlert::SUCCESS);
+        } ?>
+        <?php if (isset($this->editSalonError) === true) {
+            echo $this->displayAlert($this->editSalonError, DisplayAlert::ERROR);
+        } ?>
+
+        <div class="form-group <?= ($nameElement->getMessages()) ? ' has-error' : ''; ?>">
+            <label class="col-xs-12 col-sm-3 control-label" for="edit-salon-name">Nom du salon</label>
+            <div class="col-xs-12 col-sm-6">
+                <?= $this->formText($nameElement); ?>
+                <?= $this->displayFormElementErrors($nameElement); ?>
+            </div>
+        </div>
+        
+        <?php
+            if ($addressElement->getMessages()
+                || $zipcodeElement->getMessages()
+                || $cityElement->getMessages()
+                || $latitudeElement->getMessages()
+                || $longitudeElement->getMessages()
+            ) {
+                $addressError = true;                
+            }
+            else {
+                $addressError = false;
+            }
+        ?>
+
+        <div class="form-group <?= ($addressError) ? ' has-error' : ''; ?>">
+            <label class="col-xs-12 col-sm-3 control-label" for="salon-name">Adresse</label>
+            <div class="col-xs-12 col-sm-6">
+                <input type="text" class="js-address form-control" value="<?= $addressElement->getValue() ?>, <?= $cityElement->getValue() ?>"/>
+                <?= $this->displayFormElementErrors($addressElement); ?>
+            </div>
+        </div>
+
+        <?= $this->formHidden($addressElement); ?>
+
+        <?= $this->formHidden($zipcodeElement); ?>
+
+        <?= $this->formHidden($cityElement); ?>
+
+        <?= $this->formHidden($latitudeElement); ?>
+
+        <?= $this->formHidden($longitudeElement); ?>
+
+        <div class="form-group text-right">
+            <div class="col-xs-12 col-sm-offset-3 col-sm-6">
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-paper-plane"></i>&nbsp;
+                Enregistrer
+            </button>
+            </div>
+        </div>
+    <?= $this->form()->closeTag($this->professionnalEditSalonForm); ?>
+    </div>
+</div>
+    
+
+<div class="box">
+    <div class="box-title-container clearfix">
+        <div class="box-title">Mon K-bis</div>
+    </div>
+    <div class="box-content pb-5">
+        
+        <?php if ($this->salon->getCertificateFilename() !== null) : ?>
+            <div class="box box-content clearfix">
+                <div>
+                    <div class="pull-left " style="line-height: 38px;">
+                        <b>Un K-bis à déjà été ajouté</b>
+                    </div>
+                    <div class="pull-right">
+                        <a class="btn btn-default js-certificate-preview" target="_blank" href="<?= $this->url('application-load-image', ['category' => 'certificate', 'idImage' => $this->salon->getCertificateFilename()]) ?>">Voir mon K-bis</a>
+                        <button class="btn btn-primary js-show-certificate-edit">Modifier mon K-bis</button>
+                    </div>
+                </div>
+            </div>
+        <?php else : ?>
+            <p>Il est nécessaire de nous fournir votre K-bis afin de vérifier votre identité et la conformité de votre salon avant que celui-ci soit opérationnel sur notre plateforme.</p>
+        <?php endif; ?>
+        
+        <?= $this->form()->openTag($this->uploadSalonCertificateForm); ?>
+            <?= $this->formHidden($idSalonElement); ?>
+
+            <div class="alert alert-success alert-dismissible hidden js-certificate-upload-success">
+                <button type="button" class="close" data-dismiss="alert"><i class="material-icons">&#xE5CD;</i></button>
+                Votre K-bis a été envoyé avec succès. Nous le traiterons dans les plus brefs délais.
+            </div>
+
+            <div class="form-group js-certificate-upload-dropzone-row <?= ($this->salon->getCertificateFilename() !== null) ? 'hidden': ''?>">
+                <div class="col-xs-12 col-sm-12">
+                    <label for="certificate-certificate">Nouveau K-bis</label>
+                    <div class="file-dropzone js-certificate-upload-dropzone">
+                        <div class="drop-text">Glissez-déposez votre fichier ici</div>
+                        <div class="separator-text"><div class="text">ou</div></div>
+                        <?= $this->formFile($certificateElement); ?>
+
+                        <div class="overlay hidden js-certificate-upload-dropzone-overlay">
+                            <div class="loading-text">
+                                Envoi en cours&hellip;<br />
+                                Progression : <span class="js-certificate-upload-dropzone-percentage">0</span>%
+                            </div>
+                        </div>
+                    </div>
+                    <div class="help-block hidden js-certificate-upload-dropzone-error"></div>
+                    <div class="text-muted text-small">Fichier autorisés: JPG, JPEG, PNG, PDF &mdash; Taille maximale : 10 Mo</div>
+
+                    <?= $this->displayFormElementErrors($certificateElement); ?>
+                </div>
+            </div>
+        <?= $this->form()->closeTag($this->uploadSalonCertificateForm); ?>
+    </div>
+</div>
+
+<?php $this->inlineScript()->captureStart(); ?>
+$(document).ready(function() {
+    hairlov.professionnal.salon.edit.init(<?= $idSalonElement->getValue(); ?>);
+});
+<?php $this->inlineScript()->captureEnd(); ?>

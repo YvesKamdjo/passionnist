@@ -1,0 +1,266 @@
+<?php $this->headTitle()->set('HAIRLOV.com : Plus de 7500 prestations de coiffure près de chez vous.'); ?>
+<?php
+
+use Backend\Infrastructure\DataTransferObject\JobServiceSearchResult;
+
+    // Chargement de l'API Google Maps
+    $this->headScript()
+        ->appendFile('https://maps.googleapis.com/maps/api/js?key='.$mapsApiConfig['applicationKey'].'&libraries=places');
+
+    $this->jobServiceSearchForm
+        ->setAttribute('method', 'get')
+        ->setAttribute('class', 'form-search');
+
+    $dateElement = $this->jobServiceSearchForm->get('date');
+    $dateElement
+        ->setAttribute('id', 'date')
+        ->setAttribute('class', 'form-control datepicker-search')
+        ->setAttribute('placeholder', 'Date')
+    ;
+    
+    $dateHiddenElement = $this->jobServiceSearchForm->get('date_hidden');
+    
+    $minLikeElement = $this->jobServiceSearchForm->get('minLike');
+    $minLikeElement
+        ->setAttribute('id', 'min-like')
+        ->setAttribute('class', 'form-control')
+    ;
+
+    $minRateElement = $this->jobServiceSearchForm->get('minRate');
+    $minRateElement
+        ->setAttribute('id', 'min-rate')
+        ->setAttribute('class', 'form-control')
+    ;
+
+    $maxPriceElement = $this->jobServiceSearchForm->get('maxPrice');
+    $maxPriceElement
+        ->setAttribute('id', 'max-price')
+        ->setAttribute('class', 'form-control')
+        ->setAttribute('placeholder', 'Prix max')
+    ;
+
+    $jobSeviceTypeElement = $this->jobServiceSearchForm->get('idJobServiceType');
+    $jobSeviceTypeElement
+        ->setAttribute('id', 'job-service-type')
+        ->setAttribute('class', 'form-control')
+    ;
+
+    $customerCharacteristicElement = $this->jobServiceSearchForm->get('idCustomerCharacteristic');
+    $customerCharacteristicElement
+        ->setAttribute('id', 'customer-characteristic')
+        ->setAttribute('class', 'form-control')
+    ;
+
+    $professionalTypeElement = $this->jobServiceSearchForm->get('idAccountType');
+    $professionalTypeElement
+        ->setAttribute('id', 'account-type')
+        ->setAttribute('class', 'form-control')
+    ;
+    
+    $addressElement = $this->jobServiceSearchForm->get('address');
+    $addressElement
+        ->setAttribute('id', 'address')
+        ->setAttribute('class', 'form-control js-address')
+        ->setAttribute('placeholder', 'Ma localisation')
+    ;
+
+    $latitudeElement = $this->jobServiceSearchForm->get('latitude');
+    $latitudeElement
+        ->setAttribute('id', 'latitude')
+        ->setAttribute('class', 'form-control js-latitude')
+    ;
+
+    $longitudeElement = $this->jobServiceSearchForm->get('longitude');
+    $longitudeElement
+        ->setAttribute('id', 'longitude')
+        ->setAttribute('class', 'form-control js-longitude')
+    ;
+?>
+
+<div class="container">
+    
+    <?= $this->form()->openTag($this->jobServiceSearchForm); ?>
+    
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <?= $this->formText($addressElement); ?>
+                    <?= $this->displayFormElementErrors($addressElement); ?>
+                </div>
+            </div>
+            
+            <?= $this->formHidden($latitudeElement); ?>
+            <?= $this->formHidden($longitudeElement); ?>
+            
+            <div class="col-md-3">
+                <div class="form-group <?= ($dateElement->getMessages()) ? ' has-error' : ''; ?>">
+                    <?= $this->formText($dateElement); ?>
+                    <?= $this->formHidden($dateHiddenElement); ?>
+                    <?= $this->displayFormElementErrors($dateElement); ?>
+                </div>
+            </div>
+            
+            <div class="col-md-3">
+                <div class="form-group <?= ($maxPriceElement->getMessages()) ? ' has-error' : ''; ?>">
+                    <?= $this->formText($maxPriceElement); ?>
+                    <?= $this->displayFormElementErrors($maxPriceElement); ?>
+                </div>
+            </div>
+            
+            <div class="col-md-3">
+                <div class="form-group <?= ($minRateElement->getMessages()) ? ' has-error' : ''; ?>">
+                     <?= $this->formSelect($minRateElement); ?>
+                    <?= $this->displayFormElementErrors($minRateElement); ?>
+                </div>
+            </div>
+        </div>
+    
+        <div class="row">
+            <div class="col-md-3">
+                <div class="btn-group btn-block">
+                    <?php $countCustomerCharacteristicElement = (count($customerCharacteristicElement->getValue()) > 0) ? '('.count($customerCharacteristicElement->getValue()).')' : ''; ?>
+                    <button type="button" class="btn btn-default dropdown-toggle btn-square btn-block" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Mon type de cheveux <span class="counter"><?= $countCustomerCharacteristicElement; ?></span> <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-form">
+                        <?php foreach($customerCharacteristicElement->getValueOptions() as $key => $item): ?>
+                            <?php $checked = (!is_array($customerCharacteristicElement->getValue()) || !in_array($key, $customerCharacteristicElement->getValue())) ? '' : ' checked="checked"'; ?>
+                            <li><label><input type="checkbox" name="idCustomerCharacteristic[]" value="<?= $key ?>"<?= $checked; ?>> <?= $item; ?></label></li>
+
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="btn-group btn-block">
+                    <?php $countJobSeviceTypeElement = (count($jobSeviceTypeElement->getValue()) > 0) ? '('.count($jobSeviceTypeElement->getValue()).')' : ''; ?>
+                    <button type="button" class="btn btn-default dropdown-toggle btn-square btn-block" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Type de prestation <span class="counter"><?= $countJobSeviceTypeElement; ?></span> <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-form">
+                        <?php foreach($jobSeviceTypeElement->getValueOptions() as $key => $item): ?>
+                            <?php $checked = (!is_array($jobSeviceTypeElement->getValue()) || !in_array($key, $jobSeviceTypeElement->getValue())) ? '' : ' checked="checked"'; ?>
+                            <li><label><input type="checkbox" name="idJobServiceType[]" value="<?= $key ?>"<?= $checked; ?>> <?= $item; ?></label></li>
+
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="col-md-3">
+                <?php foreach($professionalTypeElement->getValueOptions() as $key => $item): ?>
+                    <?php $checked = (!is_array($professionalTypeElement->getValue()) || !in_array($key, $professionalTypeElement->getValue())) ? '' : ' checked="checked"'; ?>
+                    <div class="checkbox-inline">
+                        <label>
+                            <input type="checkbox" name="idAccountType[]" value="<?= $key ?>"<?= $checked; ?>> <?= $item; ?>
+                        </label>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+            
+            <div class="col-md-3">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <i class="fa fa-check"></i>&nbsp;
+                        Lancer la recherche
+                    </button>
+                </div>
+            </div>
+            
+        </div>
+    <?= $this->form()->closeTag($this->jobServiceSearchForm); ?>
+    
+    <h1 class="h2 title main margin-top-0">Les prestations</h1>
+    
+    <?php if(isset($this->jobServiceList) && !$this->jobServiceList->isEmpty() ): ?>
+        
+        <div class="row">
+            <?php foreach($this->jobServiceList as $jobService): ?>
+            <?php /* @var $jobService JobServiceSearchResult */ ?>
+            <div class="col-md-3">
+                <div class="prestation-list">
+                    <div class="prestation-image-container">
+                        <?php if ($jobService->isSalon) : ?>
+                            <span class="professional-location">En salon</span>
+                        <?php else : ?>
+                            <span class="professional-location">A domicile</span>
+                        <?php endif; ?>
+                        <?php 
+                            $jobServiceSlug = $this->slugify(
+                                $jobService->jobServiceName . ' par ' .
+                                $jobService->accountName
+                            );
+                            
+                            $professionalSlug = $this->slugify(
+                                $jobService->accountName . ' a ' .
+                                $jobService->jobServiceLocation
+                            );
+                        ?>
+                        <a href="<?= $this->url('application-job-service', ['idJobService' => $jobService->jobServiceId]) ?>-<?= $jobServiceSlug ?>"
+                           class="prestation-slider-container overflow-image image-cover show"
+                           style="background-image: url('<?= $this->url('application-load-image', [
+                               'category' => 'job-service-image',
+                               'idImage' => $jobService->jobServiceImageFilename,
+                               'width' => 263,
+                               'height' => 300
+                            ]) ?>')">
+
+                        </a>
+                        <?php $jobService->accountImageFilename = ($jobService->accountImageFilename != null)?$jobService->accountImageFilename:'avatar.jpg';  ?>
+                        <a href="<?= $this->url('application-professional', ['idProfessional' => $jobService->accountId]) ?>-<?= $professionalSlug ?>"
+                            class="author-avatar image-cover"
+                            data-toggle="tooltip"
+                            data-placement="top"
+                            title="<?= $jobService->accountName; ?>" style="background-image:url('<?= $this->url('application-load-image', [
+                                'category' => 'account-image',
+                                'idImage' => $jobService->accountImageFilename,
+                                'width' => 40,
+                                'height' => 40
+                            ]) ?>')">
+                        </a>
+                    </div>
+                    <div class="inner">
+                        <div class="prestation-title-container">
+                            <h2 class="prestation-title"><a href="<?= $this->url('application-job-service', ['idJobService' => $jobService->jobServiceId]) ?>-<?= $jobServiceSlug ?>"><?= $jobService->jobServiceName; ?></a></h2>
+                            <div class="author">
+                                Proposé par <a href="<?= $this->url('application-professional', ['idProfessional' => $jobService->accountId]) ?>-<?= $professionalSlug ?>"><?= $jobService->accountName; ?></a>
+                            </div>
+                        </div>
+                        <?php $customerCharacteristicList = explode(',', $jobService->customerCharacteristicList); ?>
+                        <?php if (count($customerCharacteristicList) > 0) : ?>
+                            <div class="item characteristic-list">
+                                <?php foreach ($customerCharacteristicList as $customerCharacteristic) : ?>
+                                    <span class="badge"><?= $customerCharacteristic ?></span>
+                                <?php endforeach; ?>
+                            </div>
+                        <?php endif; ?>
+                        
+                        <form method="post" class="text-right" action="<?= $this->url('application-job-service', ['idJobService' => $jobService->jobServiceId]) ?>-<?= $jobServiceSlug ?>">
+                            <input type="hidden" name="expectedDate" value="<?= $dateHiddenElement->getValue(); ?>" />
+                            <?php $calculatedPrice = ($jobService->jobServicePrice - ($jobService->jobServicePrice * ($jobService->maxDiscount/100))) ?>
+                            
+                            <button class="btn btn-primary btn-block btn-details">À partir de <?= $calculatedPrice; ?> €</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <?php endforeach; ?>
+        </div>
+        
+    <?php else : ?>
+
+    <div class="alert alert-info">Nous n'avons trouvé aucune prestation correspondant à vos critères</div>
+
+    <?php endif; ?>
+</div>
+
+<?php if(isset($logInForm)): ?>
+    <?= $this->partial('partials/login'); ?>
+<?php endif; ?>
+
+<?php $this->inlineScript()->captureStart(); ?>
+$(document).ready(function () {
+    hairlov.application.jobService.search.init();
+    <?php if (isset($facebookApi)) : ?>
+    hairlov.application.index.customerLandingPage.init(<?= $facebookApi['applicationId'] ?>);
+    <?php endif; ?>
+});
+<?php $this->inlineScript()->captureEnd(); ?>

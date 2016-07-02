@@ -1,0 +1,211 @@
+<?php
+
+use Backend\Entity\Account;
+use Backend\Infrastructure\DataTransferObject\CompleteBookingComment;
+use Backend\Infrastructure\DataTransferObject\CompleteJobService;
+
+/* @var $professional Account */
+$professional = $this->professional;
+?>
+<?php $this->headTitle()->prepend($professional->getFirstName(). ' ' .$professional->getLastName() . ' coiffeur '. (!empty($professional->getCity()) ? 'à '.$professional->getCity() : '')); ?>
+
+<div class="container">
+    
+    <div class="row">
+        <div class="col-md-8">
+            <div class="coiffeur-title-container clearfix">
+                <?php $professional->setAccountImageFilename(($professional->getAccountImageFilename() != null)?$professional->getAccountImageFilename():'avatar.jpg');  ?>
+                <div class="avatar-container" style="background-image: url('<?= $this->url('application-load-image', [
+                    'category' => 'account-image',
+                    'idImage' => $professional->getAccountImageFilename(),
+                    'width' => 100,
+                    'height' => 100
+                ]) ?>')">
+                </div>
+                <div class="coiffeur-nom-container va-middle">
+                    <h1 class="h2 coiffeur-nom"><?= $professional->getFirstName(); ?> <?= $professional->getLastName(); ?></h1>
+                    
+                    <div class="professional-location">
+                        <?php if ($salon != null) : ?>
+                            <p class="label label-default">En salon</p>
+                        <?php else : ?>
+                            <p class="label label-default">A domicile</p>
+                        <?php endif; ?>
+                    </div>
+                    
+                    <div>
+                    <?php if($averageRate != null) : ?>
+                        <ul class="list-inline note-count">
+                            <?php
+                                foreach(range(1, 5) as $key):
+                            ?>
+                                <?php if($averageRate >= $key): ?>
+                                    <li class="active"><span><i class="fa fa-circle"></i></span></li>
+                                <?php else: ?>
+                                    <li><span><i class="fa fa-circle-thin"></i></span></li>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </ul>
+                        <a href="#avis">(<?= $bookingComments->count() ?> avis)</a>
+                    <?php else: ?>
+                        <span class="badge">Aucune évaluation</span>
+                    <?php endif; ?>
+                    </div>
+                    
+                </div>
+                <div class="pull-right">
+                    <div class="coiffeur-lov-height">
+                        <button class="js-like-switch coiffeur-lov va-middle" data-professional="<?= $professional->getIdAccount(); ?>" data-toggle="tooltip" data-placement="bottom" title="Lover">
+                            <span><?= $likeCounter ?></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="coiffeur-bio">
+                <p><?= nl2br($professional->getBiography()) ?></p>
+            </div>
+            
+            <?php $jobServiceImageList = iterator_to_array($jobServiceImagesCollection); ?>
+            <?php if (count($jobServiceImageList) > 0) : ?>
+                <div class="section-internal book">
+                    <h2 class="title coiffeur">Book</h2>
+                    <div class="row">
+                        <?php for ($i = 0; $i < 4 && $i < count($jobServiceImageList); $i++) : ?>
+                            <div class="col-md-3 col-sm-3 col-xs-4">
+                                <div class="book-photo overflow-image small image-cover" style="background-image: url('<?= $this->url('application-load-image', [
+                                    'category' => 'job-service-image',
+                                    'idImage' => $jobServiceImageList[$i]->getFilePath(),
+                                    'width' => '165',
+                                    'height' => '200'
+                                ]) ?>')">
+                                    
+                                </div>
+                            </div>
+                        <?php endfor; ?>
+                        <?php if (count($jobServiceImageList) > 4) : ?>
+                            <div class="hidden">
+                                <?php for ($i = 4; $i < count($jobServiceImageList); $i++) : ?>
+                                    <div class="col-md-3 col-sm-3 col-xs-4">
+                                        <div class="book-photo overflow-image small image-cover" style="background-image: url('<?= $this->url('application-load-image', [
+                                            'category' => 'job-service-image',
+                                            'idImage' => $jobServiceImageList[$i]->getFilePath(),
+                                            'width' => '165',
+                                            'height' => '200'
+                                        ]) ?>')">
+
+                                        </div>
+                                    </div>
+                                <?php endfor; ?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                    <?php if (count($jobServiceImageList) > 4) : ?>
+                        <div class="text-center margin-top-24">
+                            <button type="button" class="btn btn-primary btn-lg" id="js-show-more-photo">Voir plus de photos</button>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
+            
+            <div id="avis" class="section-internal avis margin-bottom-24">
+                <h2 class="title avis">Avis</h2>
+                <?php if ($bookingComments->count() > 0) : ?>
+                    <?php foreach ($bookingComments as $bookingComment) : ?>
+                        <?php /* @var $bookingComment CompleteBookingComment */ ?>
+                        <div class="avis-container clearfix">
+                            <div class="pull-left avatar-container text-center">
+                                <img src="/img/avatar.jpg" class="img-circle avatar" width="80">
+                            </div>
+                            <div class="pull-right avis-content">
+                                <div class="inner">
+                                    <div class="avis-header clearfix">
+                                        <div class="pull-left">
+                                            <?php $date = DateTime::createFromFormat('Y-m-d H:i:s', $bookingComment->bookingStart) ?>
+                                            <div class="avis-date"><?= $date->format('d/m/Y') ?></div>
+                                        </div>
+                                        <div class="pull-right">
+                                            <div class="avis-note">
+                                                <ul class="list-inline note-count">
+                                                    <?php
+                                                        foreach(range(1, 5) as $key):
+                                                    ?>
+                                                        <?php if($bookingComment->rate >= $key): ?>
+                                                            <li class="active"><span><i class="fa fa-circle"></i></span></li>
+                                                        <?php else: ?>
+                                                            <li><span><i class="fa fa-circle-thin"></i></span></li>
+                                                        <?php endif; ?>
+                                                    <?php endforeach; ?>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="avis-body">
+                                        <p><?= $bookingComment->comment ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else : ?>
+                    <div class="alert alert-info">Aucun avis n'a été déposé sur ce professionnel.</div>
+                <?php endif; ?>
+            </div>
+            
+        </div>
+        <div class="col-md-4">
+            
+            <div class="widget prestations-availabilities">
+                <h2 class="title-box">Prestations</h2>
+                
+                <?php if(isset($this->jobServiceCollection)): ?>
+                    <?php foreach($this->jobServiceCollection as $jobService): ?>
+                    <?php
+                        $jobServiceSlug = $this->slugify(
+                            $jobService->name . ' par ' .
+                            $professional->getFirstName() . ' ' .
+                            $professional->getLastName()
+                        );
+                    ?>
+                
+                    <?php /* @var $jobService CompleteJobService */ ?>
+                        <div class="prestation-link">
+                            <?php $calculatedPrice = ($jobService->price - ($jobService->price * ($maxDiscount->getRate()/100))) ?>
+                            <a href="<?= $this->url('application-job-service', ['idJobService' => $jobService->idJobService]) ?>-<?= $jobServiceSlug ?>" class="btn btn-primary btn-square btn-block"><?= $jobService->name; ?><br /><small>À partir de <?= $calculatedPrice; ?> €</small></a>
+
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
+            
+            <?php if ($salon != null): ?>
+                <?php
+                    $salonSlug = $this->slugify(
+                        $salon->getName() . ' a ' .
+                        $salon->getCity()
+                    );
+                ?>
+                <?php if ( $salonImage->count() > 0 ): ?>
+                <div class="widget prestation-salon">
+                    <div class="prestation-salon-image text-center image-cover" style="background-image: url(/image/salon-image/<?= $salonImage->get(0)->getFilepath() ?>)">
+                        <div class="prestation-salon-content content">
+                            <h2 class="prestation-salon-title"><?= $salon->getName(); ?></h2><br>
+                            <a href="<?= $this->url('application-salon', ['salonId' => $salon->getIdSalon()]) ?>-<?= $salonSlug ?>" class="btn btn-primary">Voir le salon</a>
+                        </div>
+                    </div>
+                </div>
+                <?php else : ?>
+                <div class="widget prestations-availabilities">
+                    <h2 class="title-box"><?= $salon->getName(); ?></h2><br>
+                    <a href="<?= $this->url('application-salon', ['salonId' => $salon->getIdSalon()]) ?>-<?= $salonSlug ?>" class="btn btn-primary">Voir le salon</a>
+                </div>
+                <?php endif; ?>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>
+
+<?php $this->inlineScript()->captureStart(); ?>
+$(document).ready(function() {
+    hairlov.application.professional.professionalPage.init();
+});
+<?php $this->inlineScript()->captureEnd(); ?>

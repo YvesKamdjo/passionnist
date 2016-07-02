@@ -1,0 +1,474 @@
+<?php
+    // Chargement de l'API Google Maps
+    $this->headScript()
+        ->appendFile('https://maps.googleapis.com/maps/api/js?key='.$mapsApiConfig['applicationKey'].'&libraries=places');
+
+    $this->headTitle()->set('PASSIONNIST.com : L\'artiste de la beauté ');
+?>
+
+<div class="homepage">
+    <div class="overlay"></div>
+    <div class="container">
+
+        <div class="header-nav row" style="align-content: center">
+            <div class="col-lg-11 col-md-11 col-sm-12 center-block">
+                <a href="/" class="header-nav-logo text-right clearfix" style="width: 100%; margin: auto;">
+                    Passionnist<br />
+                    <span class="baseline text-capitalize">L'artiste de la beauté</span>
+                </a>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-12">
+            <ul class="righ-nav clearfix " style="width: 100%; margin: auto;" >
+                <li>
+                    <button type="button" class="btn btn-no-border border-transparent btn-icon btn-dark js-show-login-form">
+                        <i class="fa fa-user"></i>
+                        Connexion
+                    </button>
+                </li>
+            </ul>
+            </div>
+        </div>
+
+        <div class="homepage-spacer"></div>
+        
+        <div class="row">
+            <div class="col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+                <div class="hero">
+                    <!--p class="hero-subtitle">Vous êtes coiffeur professionnel</p-->
+                    <h1 class="hero-title">Créer votre salon<br> de beauté chez vous</h1>
+                    <h2 class="hero-subtitle">Et partager votre passion avec vos voisins !</h2>
+                </div>
+
+                <button class="btn btn-primary btn-shadow btn-no-border btn-icon btn-lg call-to-action js-show-pro-signup-form" type="button">
+                    <i class="fa fa-chevron-right"></i>
+                    Rejoignez la communauté !
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        <div class="container padding-horizontal20 set-width-to100" >
+            <div class="row">
+                <div class="col-lg-3 col-xs-12 col-sm-6 col-md-3 separated text-justify">
+                    <div class="row">
+                        <div class="numberCircle text-danger pull-left col-lg-4">1</div>
+                        <div class="pull-left col-lg-8 description"><span class="fontWeightBold">Inscrivez-vous et constituez le book</span> photo de vos réalisations avec l'aide de vos proches.</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-xs-12 col-sm-6 col-md-3 separated text-justify">
+                    <div class="row">
+                        <div class="numberCircle text-danger pull-left col-lg-4">2</div>
+                        <div class="pull-left col-lg-8 description">
+                            <span class="fontWeightBold">Amenagez votre home salon</span> chez vous pour accuillir vos clients
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-xs-12 col-sm-6 col-md-3 separated text-justify">
+                    <div class="row">
+                        <div class="numberCircle text-danger pull-left col-lg-4">3</div>
+                        <div class="pull-left col-lg-8 description">
+                            <span class="fontWeightBold">Publiez avec votre coach vos prestations</span> et recevez vos premiers clients
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-xs-12 col-sm-6 col-md-3 button">
+                    <a href="#decouvrez-le-concept" class="btn btn-primary btn-shadow btn-no-border btn-icon btn-lg" type="button">
+                        <i class="fa fa-chevron-right"></i> Découvrez le concept
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div id="decouvrez-le-concept" class="row section padding-top-96 padding-horizontal20 padding-bottom-96 padding-top-xs-48 padding-bottom-xs-48">
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+            <div class="row page-header text-center text-uppercase">
+                partagez votre passion avec vos voisins.
+            </div>
+        <div class="row padding- padding-horizontal20 text-justify">
+            <p>
+                Vos passionnés gagnent en moyenne entre  100€ et 500€ <br>par jour travaillé.
+                Une règle d’or, bien mettre en valeur <br>vos réalisations sur votre page et fidéliser vos clients
+                en leur apportant toute votre convivialité et votre professionnalisme.
+            </p>
+            <p>
+                Vos clients reviendront et vous gagnerez encore plus.
+            </p>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <img src="/img/la-passion-pro.jpg" class="img-responsive ma">
+    </div>
+</div>
+<!--div  class="section padding-top-96 padding-bottom-96 padding-top-xs-48 padding-bottom-xs-48">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-push-6 col-sm-4 col-sm-push-8">
+                <img src="/img/premier-site-dedie-aux-coiffeurs.png" class="img-responsive ma">
+            </div>
+            <div class="col-md-6 col-md-pull-6 col-sm-8 col-sm-pull-4">
+                <h2 class="title-section bold">Le premier site dédié aux coiffeurs</h2>
+                <p>HAIRLOV est la première plateforme exclusivement dédiée aux professionnels de la coiffure,
+                    qu'ils soient coiffeurs indépendant ou qu'ils travaillent en équipe au sein d'un salon.</p>
+                <p>Créez dès maintenant votre profil HAIRLOV et prenez des réservations directement en ligne.</p>
+            </div>
+        </div>
+    </div>
+</div-->
+
+<div class="section dark padding-top-48 padding-bottom-24 padding-top-xs-48 padding-bottom-xs-24">
+    <div class="container">
+        <h2 class="title-section text-center dark bold">Un service adapté à tous les professionnels de la coiffure</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="service">
+                    <div class="service-image">
+                        <div class="overlay"></div>
+                        <img src="/img/coiffeur-independant.jpg" class="img-responsive">
+                        <div class="service-description">
+                            <h3 class="service-title">Coiffeur indépendant</h3>
+                            <a href="<?= $this->url('application-professional-landing-page')?>?account-type=<?= Backend\Entity\AccountType::ACCOUNT_TYPE_FREELANCE?>" class="btn btn-dark">Inscription</a>
+                        </div>
+                    </div>
+                    <div class="service-content">
+                        <ul>
+                            <li>Attirez de nouveaux clients</li>
+                            <li>Simplifiez la gestion de votre agenda</li>
+                            <li>Proposez un outil de réservation 24H/24 à vos clients</li>
+                            <li>Boostez votre chiffre d’affaires</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="service">
+                    <div class="service-image">
+                        <div class="overlay"></div>
+                        <img src="/img/coiffeur-salarie.jpg" class="img-responsive">
+                        <div class="service-description">
+                            <h3 class="service-title">Coiffeur salarié</h3>
+                            <a href="<?= $this->url('application-professional-landing-page')?>?account-type=<?= Backend\Entity\AccountType::ACCOUNT_TYPE_EMPLOYEE?>" class="btn btn-dark">Inscription</a>
+                        </div>
+                    </div>
+                    <div class="service-content">
+                        <ul>
+                            <li>Valorisez vos compétences</li>
+                            <li>Augmentez votre visibilité́ sur le web</li>
+                            <li>Boostez le taux de satisfaction de vos clients</li>
+                            <li>Fidélisez vos clients</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="service">
+                    <div class="service-image">
+                        <div class="overlay"></div>
+                        <img src="/img/gerant-de-salon.jpg" class="img-responsive">
+                        <div class="service-description">
+                            <h3 class="service-title">Gérant<br /> de salon</h3>
+                            <a href="<?= $this->url('application-professional-landing-page')?>?account-type=<?= Backend\Entity\AccountType::ACCOUNT_TYPE_MANAGER?>" class="btn btn-dark">Inscription</a>
+                        </div>
+                    </div>
+                    <div class="service-content">
+                        <ul>
+                            <li>Attirez de nouveaux clients</li>
+                            <li>Réduisez vos rendez-vous non honorés</li>
+                            <li>Valorisez vos périodes creuses</li>
+                            <li>Dynamisez et responsabilisez vos coiffeurs</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section padding-top-96 padding-bottom-96 padding-top-xs-48 padding-bottom-xs-48">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-4">
+                <img src="/img/coiffeurs-diplomes.png" class="img-responsive ma">
+            </div>
+            <div class="col-md-6 col-sm-8">
+                <h2 class="title-section bold">Réservé aux coiffeurs diplômés</h2>
+                <p>
+                    L’inscription et la création d’une page coiffeur ou salon sur la
+                    plateforme hairlov.com sont strictement réservés aux coiffeurs diplômés.
+                </p>
+                <p class="text-center">
+                    <button class="btn btn-primary js-show-pro-signup-form">Rejoignez la communauté</button>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section inverse padding-top-48 padding-bottom-96 padding-top-xs-48 padding-bottom-xs-48">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h2 class="title-section bold">Nous aimons ce métier.</h2>
+                <p>
+                    Votre page Hairlov vous permettra de montrer le meilleur de votre métier.<br>
+                    Le site est conçu pour mettre en avant votre profession sur internet et accompagner son évolution.
+                </p>
+                <button class="btn btn-default js-show-pro-signup-form">Provoquez votre réussite !</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-form js-modal js-login-form">
+    <div class="container">
+        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+            <div class="inner">
+                <button class="close-action js-modal-close" type="button">
+                    <i class="fa fa-close"></i>
+                </button>
+
+                <div class="title">Se connecter</div>
+
+                <?php
+                    $this->logInForm
+                        ->setAttribute('id', 'logInForm')
+                        ->setAttribute('action', $this->url('application-login'))
+                    ;
+                ?>
+                <?= $this->form()->openTag($this->logInForm); ?>
+
+                    <div class="alert alert-danger hidden js-login-form-error"></div>
+
+                    <?php
+                        $logInEmailElement = $this->logInForm->get('email');
+                        $logInEmailElement
+                            ->setAttribute('id', 'login-email')
+                            ->setAttribute('class', 'form-control')
+                            ->setAttribute('required', true)
+                        ;
+                    ?>
+                    <div class="form-group <?= ($logInEmailElement->getMessages()) ? 'has-error' : ''; ?> js-login-form-row">
+                        <label for="login-email" class="form-label">Adresse e-mail</label>
+                        <?= $this->formEmail($logInEmailElement); ?>
+                        <?= $this->displayFormElementErrors($logInEmailElement); ?>
+                    </div>
+
+                    <?php
+                        $logInPasswordElement = $this->logInForm->get('password');
+                        $logInPasswordElement
+                            ->setAttribute('id', 'login-password')
+                            ->setAttribute('class', 'form-control')
+                            ->setAttribute('required', true)
+                        ;
+                    ?>
+                    <div class="form-group <?= ($logInPasswordElement->getMessages()) ? 'has-error' : ''; ?> js-login-form-row">
+                        <label for="login-password" class="form-label">Mot de passe</label>
+                        <?= $this->formPassword($logInPasswordElement); ?>
+                        <?= $this->displayFormElementErrors($logInPasswordElement); ?>
+                    </div>
+
+                    <button type="submit" class="btn btn-block btn-primary text-center js-login-form-submit">
+                        Se connecter
+                    </button>
+                <?= $this->form()->closeTag($this->logInForm); ?>
+            </div>
+            <a href="<?= $this->url('application-password-lost')?>">Mot de passe oublié ?</a>
+            
+        </div>
+    </div>
+</div>
+
+<div class="modal-form js-modal js-pro-signup-form">
+    <div class="container">
+        <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+            <div class="inner">
+                <button class="close-action js-modal-close" type="button">
+                    <i class="fa fa-close"></i>
+                </button>
+
+                <div class="title">Inscrivez-vous, c'est gratuit</div>
+
+                <?php
+                    $this->professionnalSignUpForm
+                        ->setAttribute('id', 'professionnalSignUpForm')
+                        ->setAttribute('action', $this->url('application-professionnal-sign-up'))
+                    ;
+                ?>
+                <?= $this->form()->openTag($this->professionnalSignUpForm); ?>
+
+                    <div class="alert alert-danger hidden js-pro-signup-form-error"></div>
+
+                    <div class="row">
+                        <?php
+                            $signUpLastNameElement = $this->professionnalSignUpForm->get('last-name');
+                            $signUpLastNameElement
+                                ->setAttribute('id', 'signup-lastname')
+                                ->setAttribute('class', 'form-control')
+                                ->setAttribute('placeholder', 'Nom')
+                            ;
+                        ?>
+                        <div class="form-group col-xs-12 col-sm-6 js-pro-signup-form-row">
+                            <?= $this->formText($signUpLastNameElement); ?>
+                        </div>
+
+                        <?php
+                            $signUpFirstNameElement = $this->professionnalSignUpForm->get('first-name');
+                            $signUpFirstNameElement
+                                ->setAttribute('id', 'signup-firstname')
+                                ->setAttribute('class', 'form-control')
+                                ->setAttribute('placeholder', 'Prénom')
+                            ;
+                        ?>
+                        <div class="form-group col-xs-12 col-sm-6 js-pro-signup-form-row">
+                            <?= $this->formText($signUpFirstNameElement); ?>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <?php
+                            $signUpEmailElement = $this->professionnalSignUpForm->get('email');
+                            $signUpEmailElement
+                                ->setAttribute('id', 'signup-email')
+                                ->setAttribute('class', 'form-control js-pro-signup-email-input')
+                                ->setAttribute('placeholder', 'Adresse e-mail')
+                            ;
+                        ?>
+                        <div class="form-group col-xs-12 col-sm-6 js-pro-signup-form-row">
+                            <?= $this->formEmail($signUpEmailElement); ?>
+                        </div>
+
+                        <?php
+                            $signUpPhoneElement = $this->professionnalSignUpForm->get('phone');
+                            $signUpPhoneElement
+                                ->setAttribute('id', 'signup-phone')
+                                ->setAttribute('class', 'form-control')
+                                ->setAttribute('placeholder', 'Téléphone')
+                            ;
+                        ?>
+                        <div class="form-group col-xs-12 col-sm-6 js-pro-signup-form-row">
+                            <?= $this->formText($signUpPhoneElement); ?>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <?php
+                            $signUpPasswordElement = $this->professionnalSignUpForm->get('password');
+                            $signUpPasswordElement
+                                ->setAttribute('id', 'signup-password')
+                                ->setAttribute('class', 'form-control')
+                                ->setAttribute('placeholder', 'Mot de passe')
+                            ;
+                        ?>
+                        <div class="form-group col-xs-12 col-sm-6 js-pro-signup-form-row">
+                            <?= $this->formPassword($signUpPasswordElement); ?>
+                        </div>
+
+                        <?php
+                            $signUpAccountTypeElement = $this->professionnalSignUpForm->get('account-type');
+                            $signUpAccountTypeElement
+                                ->setAttribute('id', 'signup-account-type')
+                                ->setAttribute('class', 'form-control js-pro-signup-account-type-input')
+                                ->setAttribute('placeholder', 'Votre profil')
+                            ;
+                        ?>
+                        <div class="form-group col-xs-12 col-sm-6 js-pro-signup-form-row">
+                            <?= $this->formSelect($signUpAccountTypeElement); ?>
+                        </div>
+                    </div>
+                    
+                    <?php
+                        $addressElement = $this->professionnalSignUpForm->get('address');
+                        $addressElement
+                            ->setAttribute('id', 'salon-address')
+                            ->setAttribute('class', 'form-control js-address-address')
+                        ;
+                        echo $this->formHidden($addressElement);
+
+                        $zipcodeElement = $this->professionnalSignUpForm->get('zipcode');
+                        $zipcodeElement
+                            ->setAttribute('id', 'salon-zipcode')
+                            ->setAttribute('class', 'form-control js-address-zipcode')
+                        ;
+                        echo $this->formHidden($zipcodeElement);
+
+                        $cityElement = $this->professionnalSignUpForm->get('city');
+                        $cityElement
+                            ->setAttribute('id', 'salon-city')
+                            ->setAttribute('class', 'form-control js-address-city')
+                        ;
+                        echo $this->formHidden($cityElement);
+
+                        $latitudeElement = $this->professionnalSignUpForm->get('latitude');
+                        $latitudeElement
+                            ->setAttribute('id', 'salon-zipcode')
+                            ->setAttribute('class', 'form-control js-address-latitude')
+                        ;
+                        echo $this->formHidden($latitudeElement);
+
+                        $longitudeElement = $this->professionnalSignUpForm->get('longitude');
+                        $longitudeElement
+                            ->setAttribute('id', 'salon-city')
+                            ->setAttribute('class', 'form-control js-address-longitude')
+                        ;
+                        echo $this->formHidden($longitudeElement);
+                    ?>
+
+                    <?php
+                        if ($addressElement->getMessages()
+                            || $zipcodeElement->getMessages()
+                            || $cityElement->getMessages()
+                            || $latitudeElement->getMessages()
+                            || $longitudeElement->getMessages()
+                        ) {
+                            $addressError = true;                
+                        }
+                        else {
+                            $addressError = false;
+                        }
+                    ?>
+                    
+                    <div class="row">
+                        <div class="form-group <?= ($addressError) ? ' has-error' : ''; ?>">
+                            <div class="col-xs-12 col-sm-12">
+                                <input type="text" class="js-address form-control" placeholder="Entrez votre adresse"/>
+                                <?= $this->displayFormElementErrors($addressElement); ?>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <?php
+                            $signUpTermsElement = $this->professionnalSignUpForm->get('terms');
+                            $signUpTermsElement
+                                ->setAttribute('id', 'signup-terms')
+                            ;
+                        ?>
+                        <div class="form-group col-xs-12">
+                            <div class="checkbox js-pro-signup-form-row">
+                                <label for="signup-terms" class="js-signup-terms-input">
+                                    <?= $this->formCheckbox($signUpTermsElement); ?>
+                                    J'ai compris et j'accepte les <a href="<?= $this->url('application-legal'); ?>" title="Conditions Générales d'Utilisation" target="_blank">CGU</a>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block text-center js-pro-signup-form-submit">
+                        Rejoindre HAIRLOV PRO
+                    </button>
+                <?= $this->form()->closeTag($this->professionnalSignUpForm); ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php $this->inlineScript()->captureStart(); ?>
+$(document).ready(function() {
+    hairlov.application.index.professionalLandingPage.init();
+});
+<?php $this->inlineScript()->captureEnd(); ?>
+

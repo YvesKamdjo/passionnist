@@ -1,0 +1,19 @@
+<?php $this->headTitle()->prepend($this->salon->getName() . ' à ' .$this->salon->getCity().', salon de coiffure'); ?>
+<div class="container">
+    <?= $this->partial('partials/header', ['activeTab' => 'salon', 'salon' => $this->salon, 'salonImage' => $salonImage]); ?>
+    
+    <div class="salon-information">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="salon-titre">Adresse du salon</div>
+                <address>
+                    <?= $this->salon->getName() ?> <br />
+                    <?= $this->salon->getAddress() ?> <br />
+                    <?= $this->salon->getZipcode() ?>, <?= $this->salon->getCity() ?> <br />
+                </address>
+            </div>
+        </div>
+        
+    </div>
+    
+</div>

@@ -1,0 +1,50 @@
+<div class="box">
+    <div class="box-title-container clearfix">
+        <div class="box-title">Liste des demandes de rattachement</div>
+    </div>
+
+    <div class="box-content">
+        <div class="text-muted mg-b">
+            <p>
+                Les coiffeurs salariés dans votre salon enverront leur demande de rattachement à votre salon.<br>
+                Si vous acceptez ils auront le droit de publier leur page sur le site.
+            </p>
+            <p><b class="underline">Départ du salon :</b> Si un coiffeur quitte votre salon, sa page disparaïtra et ils devront recommencer et créer un nouveau profil.</p>
+        </div>
+
+        <?php if ($this->salonInvitationList->count() > 0) : ?>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+
+                        <th>Identité</th>
+                        <th width="110"></th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($this->salonInvitationList as $account) : ?>
+                        <tr>
+                            <td>
+                                <?= $account->getfirstName() . ' ' . $account->getLastName() ?>
+                                <span class="text-small text-gray">(<?= $account->getEmail() ?>)</span>
+                            </td>
+                            <td>
+                                <a href="<?= $this->url('professionnal-salon/salon-attachment-request-list/accept', ['idEmployee' => $account->getIdAccount()]); ?>" class="btn btn-success btn-square" data-toggle="tooltip" data-placement="left" title="Accepter dans le salon"><i class="fa fa-check"></i></a>
+
+                                <a href="<?= $this->url('professionnal-salon/salon-attachment-request-list/refuse', ['idEmployee' => $account->getIdAccount()]); ?>" class="btn btn-danger btn-square" data-toggle="tooltip" data-placement="left" title="Refuser dans le salon"><i class="fa fa-close"></i></a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+        <?php else: ?>
+            <div class="alert alert-info">
+                Vous n'avez aucune demande de rattachement
+            </div>
+
+        <?php endif; ?> 
+    </div>
+</div>

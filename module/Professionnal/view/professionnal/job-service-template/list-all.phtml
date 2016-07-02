@@ -1,0 +1,59 @@
+<div class="text-muted mg-b">
+    <p><b><span class="underline">Attention :</span> Tant que les prestations modèles ne sont pas créées par le gérant, aucun coiffeur ne peut créer de prestation.</b></p>
+    <p>
+        C'est grâce à ces prestations modèles que le salarié pourra ensuite créer sa prestation.<br>
+        La création des prestations modèles est réservée uniquement au gérant.
+    </p>
+</div>
+
+<div class="box">
+    <div class="box-title-container clearfix">
+        <div class="box-tools pull-right">
+            <div class="btn-group">
+                <a href="<?= $this->url('professionnal-job-service-template/create'); ?>" class="btn btn-primary btn-sm">
+                    <i class="fa fa-plus-circle"></i>&nbsp;
+                    Nouvelle prestation modèle
+                </a>
+            </div>
+        </div>
+        <div class="box-title">Liste des prestations modèles</div>
+    </div>
+    <div class="box-content">
+        <?php if ($this->jobServiceTemplateList->count() > 0) : ?>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prix</th>
+                            <th width="110"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($this->jobServiceTemplateList as $jobServiceTemplate) : ?>
+                        <tr>
+                            <td><?= $jobServiceTemplate->getName() ?></td>
+                            <?php if ($jobServiceTemplate->getPrice() !== null) : ?>
+                            <td><?= $jobServiceTemplate->getPrice() ?>€</td>
+                            <?php else : ?>
+                            <td>- €</td>
+                            <?php endif; ?>
+                            <td>
+                                <a href="<?= $this->url('professionnal-job-service-template/edit', ['idJobServiceTemplate' => $jobServiceTemplate->getIdJobServiceTemplate()]); ?>" class="btn btn-default btn-square" data-toggle="tooltip" data-placement="top" title="Modifier"><i class="fa fa-pencil"></i></a>
+
+                                <a href="<?= $this->url('professionnal-job-service-template/delete', ['idJobServiceTemplate' => $jobServiceTemplate->getIdJobServiceTemplate()]); ?>" class="btn btn-danger btn-square" data-toggle="tooltip" data-placement="top" title="Supprimer"><i class="fa fa-trash"></i></a>
+
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+
+                </table>
+            </div>
+        <?php else : ?>
+            <div class="alert alert-info">
+                Aucun modèle de prestation n'a été créé.
+            </div>
+        <?php endif; ?>
+    </div>
+</div>

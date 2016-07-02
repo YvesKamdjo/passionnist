@@ -1,0 +1,120 @@
+<?php
+    $this->freelanceEditJobServiceForm
+            ->setAttribute('class', 'form-horizontal');
+
+    $nameElement = $this->freelanceEditJobServiceForm->get('name');
+    $nameElement
+        ->setAttribute('id', 'job-service-name')
+        ->setAttribute('class', 'form-control')
+    ;
+
+    $durationElement = $this->freelanceEditJobServiceForm->get('duration');
+    $durationElement
+        ->setAttribute('id', 'job-service-duration')
+        ->setAttribute('class', 'form-control')
+    ;
+    
+    $priceElement = $this->freelanceEditJobServiceForm->get('price');
+    $priceElement
+        ->setAttribute('id', 'job-service-duration')
+        ->setAttribute('class', 'form-control')
+        ->setAttribute('placeholder', '€')
+    ;
+    
+    $descriptionElement = $this->freelanceEditJobServiceForm->get('description');
+    $descriptionElement
+        ->setAttribute('id', 'job-service-description')
+        ->setAttribute('class', 'form-control')
+    ;
+
+    $typeElement = $this->freelanceEditJobServiceForm->get('jobServiceType');
+    $typeElement->setAttribute('id', 'job-service-type');
+
+    $customerCharacteristicElement = $this->freelanceEditJobServiceForm->get('customerCharacteristic');
+    $customerCharacteristicElement->setAttribute('id', 'job-service-customer-characteristic');
+?>
+
+<div class="box">
+    <div class="box-title-container clearfix">
+        <div class="box-title">Modifier une prestation</div>
+    </div>
+    <div class="box-content pb-5">
+        <?= $this->form()->openTag($this->freelanceEditJobServiceForm); ?>
+            <?php if (isset($this->freelanceEditJobServiceFormError) === true) {
+                echo $this->displayAlert($this->freelanceEditJobServiceFormError, DisplayAlert::ERROR);
+            } ?>
+
+            <div class="form-group <?= ($nameElement->getMessages()) ? ' has-error' : ''; ?>">
+                <label class="col-xs-12 col-sm-3 control-label" for="job-service-name">Titre</label>
+                <div class="col-xs-12 col-sm-8">
+                    <?= $this->formText($nameElement); ?>
+                    <?= $this->displayFormElementErrors($nameElement); ?>
+                </div>
+            </div>
+
+            <div class="form-group <?= ($durationElement->getMessages()) ? ' has-error' : ''; ?>">
+                <label class="col-xs-12 col-sm-3 control-label" for="job-service-duration">Durée</label>
+                <div class="col-xs-12 col-sm-8">
+                    <?= $this->formSelect($durationElement); ?>
+                </div>
+            </div>
+
+            <div class="form-group <?= ($priceElement->getMessages()) ? ' has-error' : ''; ?>">
+                <label class="col-xs-12 col-sm-3 control-label" for="job-service-price">Prix</label>
+                <div class="col-xs-12 col-sm-8">
+                    <div class="input-group">
+                        <?= $this->formText($priceElement); ?>
+                        <span class="input-group-addon">€</span>
+                    </div>
+                    <p class="help-block">Le prix inclut <?= number_format($fees, 2, ',', ' ') ?>€ de frais de gestion retenus par Hairlov</p>
+                    <?= $this->displayFormElementErrors($priceElement); ?>
+                </div>
+            </div>
+
+            <div class="form-group <?= ($descriptionElement->getMessages()) ? ' has-error' : ''; ?>">
+                <label class="col-xs-12 col-sm-3 control-label" for="job-service-description">Description</label>
+                <div class="col-xs-12 col-sm-8">
+                    <?= $this->formTextarea($descriptionElement); ?>
+                    <?= $this->displayFormElementErrors($descriptionElement); ?>
+                </div>
+            </div>
+
+            <div class="form-group <?= ($typeElement->getMessages()) ? ' has-error' : ''; ?>">
+                <label class="col-xs-12 col-sm-3 control-label" for="job-service-type">Types</label>
+                <div class="col-xs-12 col-sm-8">
+                    <?php foreach($typeElement->getValueOptions() as $key => $item): ?>
+                        <?php $checked = (!is_array($typeElement->getValue()) || !in_array($key, $typeElement->getValue())) ?: ' checked="checked"'; ?>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="jobServiceType[]" value="<?= $key ?>"<?= $checked; ?>>
+                            <?= $item; ?>
+                        </label>
+                    <?php endforeach; ?>
+                    <?= $this->displayFormElementErrors($typeElement); ?>
+                </div>
+            </div>
+
+            <div class="form-group <?= ($customerCharacteristicElement->getMessages()) ? ' has-error' : ''; ?>">
+                <label class="col-xs-12 col-sm-3 control-label" for="job-service-customer-characteristic">S'adresse aux cheveux</label>
+                <div class="col-xs-12 col-sm-8">
+                    <?php foreach($customerCharacteristicElement->getValueOptions() as $key => $item): ?>
+                        <?php $checked = (!is_array($customerCharacteristicElement->getValue()) || !in_array($key, $customerCharacteristicElement->getValue())) ?: ' checked="checked"'; ?>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="customerCharacteristic[]" value="<?= $key ?>"<?= $checked; ?>>
+                            <?= $item; ?>
+                        </label>
+                    <?php endforeach; ?>
+                    <?= $this->displayFormElementErrors($customerCharacteristicElement); ?>
+                </div>
+            </div>
+
+            <div class="form-group text-right">
+                <div class="col-sm-8 col-sm-offset-3">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa fa-check"></i>&nbsp;
+                        Modifier la prestation
+                    </button>
+                </div>
+            </div>
+        <?= $this->form()->closeTag($this->freelanceEditJobServiceForm); ?>
+    </div>
+</div>

@@ -1,0 +1,88 @@
+.form-group {
+    .form-control-feedback {
+        color: #CCCCCC;
+    }
+    &.form-control-newsletter-container {
+        width: 60%;
+        
+        @media screen and (max-width: @screen-sm) {
+            width: 100%;
+        }
+    }
+    .form-control-newsletter {
+        padding-right: 90px;
+    }
+    .form-control-icon {
+        background-position: 16px center;
+        background-repeat: no-repeat;
+        &.icon-coiffeur {
+            background-image: url(/img/icon/coiffeur.png);
+        }
+    }
+    &.button-submit {
+        button[type="submit"],
+        input[type="submit"] {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    }
+}
+
+.checkbox {
+    font-weight: 400;
+}
+
+.dropdown-menu-form {
+    li {
+        padding: 0 20px;
+        > label {
+            font-weight: 400;
+        }
+    }
+}
+
+.login-modal {
+    .modal-body {
+        background: #F5F5F5;
+    }
+}
+
+.login-box {
+    margin-top: 48px;
+    margin-bottom: 20px;
+    .modal & {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    .inner {
+        background: #F5F5F5;
+        padding: 20px;
+        border: 1px solid #797979;
+        .modal & {
+            border: none;
+        }
+    }
+    .line-container {
+        margin: 5px 0 25px;
+        .line {
+            font-size:15px;
+            text-align:center;
+            border-bottom:1px solid #797979;
+            position:relative;
+        }
+        span {
+            background: #F5F5F5;
+            position: relative;
+            top: 10px;
+            padding: 0 10px;
+        }
+    }
+    .btn-group {
+        width: 100%;
+        .btn {
+            width: 50%;
+        }
+    }
+}

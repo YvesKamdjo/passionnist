@@ -1,0 +1,66 @@
+.file-dropzone {
+    background-color: #FFFFFF;
+    border: 1px solid rgba(54, 64, 74, 0.22);
+    border-radius: 0;
+    // box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    line-height: @line-height;
+    margin: 0;
+    padding: @line-height @gutter;
+    position: relative;
+    text-align: center;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    
+    .form-group.has-error & {
+        border-color: #a94442;
+        color: #a94442;
+    }
+    
+    .drop-text {
+        font-size: 18px;
+        margin-bottom: @line-height;
+    }
+    
+    .separator-text {
+        color: #999999;
+        margin-bottom: @line-height;
+        position: relative;
+        
+        .text {
+            display: inline;
+            background-color: #FFFFFF;
+            padding: 0 @gutter;
+            position: relative;
+            z-index: 2;
+        }
+        
+        &:before {
+            background-color: #CCCCCC;
+            content: "";
+            height: 1px;
+            left: 25%;
+            position: absolute;
+            right: 25%;
+            top: 50%;
+            z-index: 1;
+        }
+    }
+    
+    input[type="file"] {
+        display: inline;
+        width: 100%;
+    }
+    
+    .overlay {
+        background-color: fade(#FFFFFF, 80%);
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 3;
+        
+        .loading-text {
+            margin-top: 2.5 * @line-height;
+        }
+    }
+}

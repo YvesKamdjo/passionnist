@@ -1,0 +1,209 @@
+/**
+ * @package hairlov.fr
+ * @author contact@wixiweb.fr
+ * @module Professionnal
+ */
+.thumbnail-with-delete-button {
+  position: relative;
+}
+.thumbnail-with-delete-button button {
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+}
+.thumbnail-with-delete-button:hover button {
+  opacity: 1;
+}
+.icon-dashboard {
+  text-align: center;
+}
+.icon-dashboard .icon {
+  margin: 0 auto 5px;
+  width: 80px;
+  height: 80px;
+  line-height: 80px;
+}
+.icon-dashboard .icon.lov {
+  background: url(/img/professionnel/heart.png) no-repeat;
+}
+.icon-dashboard .icon.avis {
+  background: url(/img/professionnel/circle.png) no-repeat;
+}
+.icon-dashboard .icon .text {
+  font-size: 30px;
+  font-weight: 700;
+  color: #FFF;
+  line-height: normal;
+  display: inline-block;
+  vertical-align: middle;
+}
+.icon-dashboard > .text {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 15px;
+}
+.row.gutters-5 {
+  margin-right: -5px;
+  margin-left: -5px;
+}
+.row.gutters-5 > [class^="col-"],
+.row.gutters-5 > [class*=" col-"] {
+  margin-bottom: 10px;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+.row.no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+}
+.row.no-gutters > [class^="col-"],
+.row.no-gutters > [class*=" col-"] {
+  padding-right: 0;
+  padding-left: 0;
+}
+.galerie-item {
+  display: block;
+  border: 3px solid #FFFFFF;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+  margin-bottom: 12px;
+}
+.galerie-item:hover {
+  border-color: #FE6C6C;
+}
+.galerie-item.grey {
+  border-color: #e5e5e5;
+}
+.galerie-item.grey:hover {
+  border-color: #FE6C6C;
+}
+.dashboard-profil .box-content .box-content {
+  padding-bottom: 0;
+}
+.dashboard-profil .dashboard-profil-nom {
+  font-weight: 700;
+}
+.dashboard-profil .edit-profil {
+  margin-top: 10px;
+}
+.title.main {
+  background-color: #FFFFFF;
+  padding: 12px;
+  font-weight: 300;
+  margin-bottom: 12px;
+  font-size: 24px;
+}
+.overflow-image {
+  height: 300px;
+  overflow: hidden;
+}
+.overflow-image.small {
+  height: 250px;
+}
+#submenu {
+  background-color: #FFFFFF;
+  border-top: 1px solid #F5F5F5;
+}
+#submenu ul > li > a {
+  color: #333333;
+}
+#submenu ul > li > a:hover {
+  color: #FE6C6C;
+}
+#submenu ul > li.active > a {
+  color: #333333;
+  color: #FE6C6C;
+  background-color: #eeeeee;
+}
+.collapsing {
+  display: none;
+}
+.ma {
+  margin: 0 auto;
+}
+.image-cover {
+  background-size: cover;
+  background-position: center center;
+}
+.underline {
+  text-decoration: underline;
+}
+.file-dropzone {
+  background-color: #FFFFFF;
+  border: 1px solid rgba(54, 64, 74, 0.22);
+  border-radius: 0;
+  line-height: 24px;
+  margin: 0;
+  padding: 24px 24px;
+  position: relative;
+  text-align: center;
+  -webkit-transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+  transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+}
+.form-group.has-error .file-dropzone {
+  border-color: #a94442;
+  color: #a94442;
+}
+.file-dropzone .drop-text {
+  font-size: 18px;
+  margin-bottom: 24px;
+}
+.file-dropzone .separator-text {
+  color: #999999;
+  margin-bottom: 24px;
+  position: relative;
+}
+.file-dropzone .separator-text .text {
+  display: inline;
+  background-color: #FFFFFF;
+  padding: 0 24px;
+  position: relative;
+  z-index: 2;
+}
+.file-dropzone .separator-text:before {
+  background-color: #CCCCCC;
+  content: "";
+  height: 1px;
+  left: 25%;
+  position: absolute;
+  right: 25%;
+  top: 50%;
+  z-index: 1;
+}
+.file-dropzone input[type="file"] {
+  display: inline;
+  width: 100%;
+}
+.file-dropzone .overlay {
+  background-color: rgba(255, 255, 255, 0.8);
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 3;
+}
+.file-dropzone .overlay .loading-text {
+  margin-top: 60px;
+}
+.account-checklist .list-group-item {
+  line-height: 33px;
+}
+.account-checklist .list-group-item .fa.mod-icon {
+  margin-right: 10px;
+}
+.account-checklist .list-group-item .fa.mod-default {
+  color: #FE6C6C;
+}
+.account-checklist .list-group-item .fa.mod-success {
+  color: #62b944;
+}
+.account-checklist .list-group-item-success {
+  color: #62b944;
+  background-color: #dff0d8;
+}

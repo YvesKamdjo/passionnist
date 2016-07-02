@@ -1,0 +1,129 @@
+<?php
+    // Chargement de l'API Google Maps
+    $this->headScript()
+        ->appendFile('https://maps.googleapis.com/maps/api/js?key='.$mapsApiConfig['applicationKey'].'&libraries=places');
+
+    $this->professionnalCreateSalonForm
+            ->setAttribute('class', 'form-horizontal');
+
+    $nameElement = $this->professionnalCreateSalonForm->get('name');
+    $nameElement
+        ->setAttribute('id', 'salon-name')
+        ->setAttribute('class', 'form-control')
+    ;
+
+    $addressElement = $this->professionnalCreateSalonForm->get('address');
+    $addressElement
+        ->setAttribute('id', 'salon-address')
+        ->setAttribute('class', 'form-control js-address-address')
+    ;
+
+    $zipcodeElement = $this->professionnalCreateSalonForm->get('zipcode');
+    $zipcodeElement
+        ->setAttribute('id', 'salon-zipcode')
+        ->setAttribute('class', 'form-control js-address-zipcode')
+    ;
+
+    $cityElement = $this->professionnalCreateSalonForm->get('city');
+    $cityElement
+        ->setAttribute('id', 'salon-city')
+        ->setAttribute('class', 'form-control js-address-city')
+    ;
+
+    $latitudeElement = $this->professionnalCreateSalonForm->get('latitude');
+    $latitudeElement
+        ->setAttribute('id', 'salon-zipcode')
+        ->setAttribute('class', 'form-control js-address-latitude')
+    ;
+
+    $longitudeElement = $this->professionnalCreateSalonForm->get('longitude');
+    $longitudeElement
+        ->setAttribute('id', 'salon-city')
+        ->setAttribute('class', 'form-control js-address-longitude')
+    ;
+
+    $termsElement = $this->professionnalCreateSalonForm->get('terms');
+    $termsElement
+        ->setAttribute('id', 'salon-terms')
+    ;
+?>
+
+<div class="box">
+    <div class="box-title-container clearfix">
+        <div class="box-title">Créer un salon de coiffure</div>
+    </div>
+    <div class="box-content pb-5">
+        <?= $this->form()->openTag($this->professionnalCreateSalonForm); ?>
+
+            <div class="form-group <?= ($nameElement->getMessages()) ? ' has-error' : ''; ?>">
+                <label class="col-xs-12 col-sm-3 control-label" for="salon-name">Nom du salon</label>
+                <div class="col-xs-12 col-sm-6">
+                    <?= $this->formText($nameElement); ?>
+                    <?= $this->displayFormElementErrors($nameElement); ?>
+                </div>
+            </div>
+        
+            <?php
+                if ($addressElement->getMessages()
+                    || $zipcodeElement->getMessages()
+                    || $cityElement->getMessages()
+                    || $latitudeElement->getMessages()
+                    || $longitudeElement->getMessages()
+                ) {
+                    $addressError = true;                
+                }
+                else {
+                    $addressError = false;
+                }
+            ?>
+        
+            <div class="form-group <?= ($addressError) ? ' has-error' : ''; ?>">
+                <label class="col-xs-12 col-sm-3 control-label" for="salon-name">Adresse</label>
+                <div class="col-xs-12 col-sm-6">
+                    <input type="text" class="js-address form-control" placeholder=""/>
+                    <?= $this->displayFormElementErrors($addressElement); ?>
+                </div>
+            </div>
+                    
+            <?= $this->formHidden($addressElement); ?>
+        
+            <?= $this->formHidden($zipcodeElement); ?>
+        
+            <?= $this->formHidden($cityElement); ?>
+        
+            <?= $this->formHidden($latitudeElement); ?>
+        
+            <?= $this->formHidden($longitudeElement); ?>
+
+            <div class="form-group <?= ($termsElement->getMessages()) ? ' has-error' : ''; ?>">
+                <label class="col-xs-12 col-sm-3 control-label" for="salon-terms">
+                    <abbr title="Conditions Générales d'Utilisation">CGU</abbr>
+                </label>
+                <div class="col-xs-12 col-sm-6">
+                    <div class="checkbox">
+                        <label>
+                            <?= $this->formCheckbox($termsElement); ?>
+                            J'ai compris et j'accepte les <a href="#" target="_blank">Conditions Générales d'Utilisation</a>
+                        </label>
+                    </div>
+                    <?= $this->displayFormElementErrors($termsElement); ?>
+                </div>
+            </div>
+
+            <div class="form-group text-right">
+            <div class="col-sm-6 col-sm-offset-3">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-check"></i>&nbsp;
+                    Créer le salon
+                </button>
+            </div>
+        </div>
+        <?= $this->form()->closeTag($this->professionnalCreateSalonForm); ?>
+    </div>
+</div>
+
+<?php $this->inlineScript()->captureStart(); ?>
+$(document).ready(function() {
+    hairlov.professionnal.salon.create.init();
+});
+<?php $this->inlineScript()->captureEnd(); ?>

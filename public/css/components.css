@@ -1,0 +1,114 @@
+.box {
+  margin-bottom: 20px;
+  background: #FFF;
+  border: 1px solid rgba(54, 64, 74, 0.22);
+}
+.box.inverse {
+  background: #FE6C6C;
+}
+.box.inverse .title {
+  color: #FFFFFF;
+}
+.box .title {
+  margin-top: 0;
+  font-size: 18px;
+}
+.box .title span {
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.box-title-container {
+  padding: 10px 20px;
+  background-color: #F5F5F5;
+  border-bottom: 1px solid #DADFE2;
+}
+.box-title {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 16px;
+}
+.box-tools.pull-right + .box-title {
+  line-height: 33px;
+}
+.box-content.pb-5 {
+  padding-bottom: 5px;
+}
+.box-content {
+  padding: 20px;
+}
+.box-content .form-actions {
+  padding-top: 10px;
+}
+.box-footer {
+  border-top: 1px solid #DADFE2;
+}
+.box-footer .form-actions {
+  margin: 0;
+  padding: 20px 0;
+  background: #f9f9f9;
+}
+.box-social {
+  width: 48px;
+  height: 48px;
+  text-align: center;
+  display: inline-block;
+  background: #FFFFFF;
+  margin-bottom: 10px;
+  margin-right: 10px;
+}
+.box-social a {
+  display: block;
+  color: #CCCCCC;
+  line-height: 48px;
+}
+.box-social a:hover {
+  color: #FE6C6C;
+}
+.box-social .fa {
+  vertical-align: middle;
+}
+
+.panel {
+  border: none;
+}
+.panel .panel-heading {
+  border-bottom: none;
+}
+.panel-heading {
+  backgound: #81c868;
+  border: none;
+  padding: 10px 20px;
+}
+.panel-title {
+  float: left;
+  display: inline-block;
+}
+.panel-tools {
+  text-align: right;
+}
+.panel-border .panel-heading {
+  background-color: #ffffff;
+  border-top: 3px solid #DADFE2;
+  padding: 10px 20px 0px;
+}
+.panel-border.panel-primary .panel-heading {
+  color: #FE6C6C;
+  border-color: #FE6C6C;
+}
+.panel-border.panel-success .panel-heading {
+  color: #81c868;
+  border-color: #81c868;
+}
+.panel-border.panel-info .panel-heading {
+  color: #68A0C8;
+  border-color: #68A0C8;
+}
+.panel-border.panel-warning .panel-heading {
+  color: #ffbd4a;
+  border-color: #ffbd4a;
+}
+.panel-border.panel-danger .panel-heading {
+  color: #f05050;
+  border-color: #f05050;
+}

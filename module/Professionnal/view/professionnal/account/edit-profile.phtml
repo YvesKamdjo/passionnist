@@ -1,0 +1,337 @@
+<?php
+    use Application\View\Helper\DisplayAlert;
+
+    // Chargement de l'API Google Maps
+    $this->headScript()
+        ->appendFile('https://maps.googleapis.com/maps/api/js?key='.$mapsApiConfig['applicationKey'].'&libraries=places');
+    
+    // Avatar
+    $this->uploadProfessionnalAccountImageForm
+            ->setAttribute('action', $this->url('professionnal-profile-edit/send-avatar'))
+            ->setAttribute('enctype', 'multipart/form-data');
+
+    $accountImageElement = $this->uploadProfessionnalAccountImageForm->get('account-image');
+    $accountImageElement
+        ->setAttribute('id', 'account-image-image')
+        ->setAttribute('class', 'form-control')
+    ;
+
+    // Diplôme
+    $this->uploadProfessionnalQualificationForm
+            ->setAttribute('action', $this->url('professionnal-profile-edit/send-qualification'))
+            ->setAttribute('enctype', 'multipart/form-data');
+
+    $qualificationElement = $this->uploadProfessionnalQualificationForm->get('qualification');
+    $qualificationElement
+        ->setAttribute('id', 'qualification-qualification')
+        ->setAttribute('class', 'form-control')
+    ;
+    
+    // Profil
+    $this->editProfessionnalProfileForm->setAttribute('class', 'form-horizontal');
+
+    $lastNameElement = $this->editProfessionnalProfileForm->get('last-name');
+    $lastNameElement
+        ->setAttribute('id', 'signup-last-name')
+        ->setAttribute('class', 'form-control')
+    ;
+
+    $firstNameElement = $this->editProfessionnalProfileForm->get('first-name');
+    $firstNameElement
+        ->setAttribute('id', 'signup-first-name')
+        ->setAttribute('class', 'form-control')
+    ;
+
+    $emailElement = $this->editProfessionnalProfileForm->get('email');
+    $emailElement
+        ->setAttribute('id', 'signup-email')
+        ->setAttribute('class', 'form-control')
+    ;
+
+    $phoneElement = $this->editProfessionnalProfileForm->get('phone');
+    $phoneElement
+        ->setAttribute('id', 'signup-phone')
+        ->setAttribute('class', 'form-control')
+    ;
+
+    $addressElement = $this->editProfessionnalProfileForm->get('address');
+    $addressElement
+        ->setAttribute('id', 'signup-address')
+        ->setAttribute('class', 'form-control js-address-address')
+    ;
+
+    $zipcodeElement = $this->editProfessionnalProfileForm->get('zipcode');
+    $zipcodeElement
+        ->setAttribute('id', 'signup-zipcode')
+        ->setAttribute('class', 'form-control js-address-zipcode')
+    ;
+
+    $cityElement = $this->editProfessionnalProfileForm->get('city');
+    $cityElement
+        ->setAttribute('id', 'signup-city')
+        ->setAttribute('class', 'form-control js-address-city')
+    ;
+
+    $latitudeElement = $this->editProfessionnalProfileForm->get('latitude');
+    $latitudeElement
+        ->setAttribute('id', 'edit-salon-latitude')
+        ->setAttribute('class', 'form-control js-address-latitude')
+    ;
+
+    $longitudeElement = $this->editProfessionnalProfileForm->get('longitude');
+    $longitudeElement
+        ->setAttribute('id', 'edit-salon-longitude')
+        ->setAttribute('class', 'form-control js-address-longitude')
+    ;
+
+    $moveRangeElement = $this->editProfessionnalProfileForm->get('move-range');
+    $moveRangeElement
+        ->setAttribute('id', 'edit-move-range')
+        ->setAttribute('class', 'form-control')
+        ->setAttribute('placeholder', 'C\'est votre zone d\'intervention')
+    ;
+    
+    $biographyElement = $this->editProfessionnalProfileForm->get('biography');
+    $biographyElement
+        ->setAttribute('id', 'signup-biography')
+        ->setAttribute('class', 'form-control')
+        ->setAttribute('placeholder', 'Décrire votre expérience, ce que vous aimez dans ce métier, vos passions etc.')
+    ;
+?>
+<div class="row">
+    <div class="col-md-4">
+        <div class="box">
+            <div class="box-title-container clearfix">
+                <div class="box-title">Ma photo de profil</div>
+            </div>
+            <div class="box-content pb-5">
+                <?= $this->form()->openTag($this->uploadProfessionnalAccountImageForm); ?>
+        
+                <div class="alert alert-success alert-dismissible hidden js-account-image-upload-success">
+                    <button type="button" class="close" data-dismiss="alert"><i class="material-icons">&#xE5CD;</i></button>
+                    Votre photo de profil a été modifiée avec succès.
+                </div>
+
+                <div class="form-group js-account-image-uploaded-row  <?= ($account->getAccountImageFilename() === null) ? 'hidden': ''?>">
+                    <label class="control-label">Photo de profil</label>
+                    <div class="image-container">
+                        <img src="<?= $account->getAccountImageFilename() !== null ? $this->url('application-load-image', [
+                            'category' => 'account-image',
+                            'idImage' => $account->getAccountImageFilename()
+                        ]) : ''; ?>" class="img-responsive"/>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary mg-b js-show-account-image-edit <?= ($account->getAccountImageFilename() === null) ? 'hidden': ''?>">Modifier ma photo de profil</button>
+                
+                <div class="form-group js-account-image-upload-dropzone-row <?= ($account->getAccountImageFilename() !== null) ? 'hidden': ''?>">
+                    <label class="control-label" for="account-image-image">Nouvelle photo de profil</label>
+                    
+                        
+                    <div class="file-dropzone js-account-image-upload-dropzone">
+                        <p class="text-left small">Cette photo est importante pour permettre à vos clients de vous reconnaitre</p>
+                        <div class="drop-text">Glissez-déposez votre fichier ici</div>
+                        <div class="separator-text"><div class="text">ou</div></div>
+                        <?= $this->formFile($accountImageElement); ?>
+                        
+                        <div class="overlay hidden js-account-image-upload-dropzone-overlay">
+                            <div class="loading-text">
+                                Envoi en cours&hellip;<br />
+                                Progression : <span class="js-account-image-upload-dropzone-percentage">0</span>%
+                            </div>
+                        </div>
+                    </div>
+                    <div class="help-block hidden js-account-image-upload-dropzone-error"></div>
+                    <div class="text-muted text-small">Fichier autorisés: JPG, JPEG, PNG &mdash; Taille maximale : 1 Mo</div>
+                    
+                </div>
+                <?= $this->form()->closeTag($this->uploadProfessionnalAccountImageForm); ?>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="box">
+            <div class="box-title-container clearfix">
+                <div class="box-title">Modifier les données de mon profil</div>
+            </div>
+            <div class="box-content pb-5">
+                <?= $this->form()->openTag($this->editProfessionnalProfileForm); ?>
+                
+                    <?php if (isset($this->editProfileSuccess) === true) {
+                        echo $this->displayAlert($this->editProfileSuccess, DisplayAlert::SUCCESS);
+                    } ?>
+                    <?php if (isset($this->editProfileError) === true) {
+                        echo $this->displayAlert($this->editProfileError, DisplayAlert::ERROR);
+                    } ?>
+                
+                    <div class="form-group <?= ($lastNameElement->getMessages()) ? ' has-error' : ''; ?>">
+                        <label class="col-xs-12 col-sm-3 control-label" for="signup-last-name">Nom</label>
+                        <div class="col-xs-12 col-sm-8">
+                            <?= $this->formText($lastNameElement); ?>
+                            <?= $this->displayFormElementErrors($lastNameElement); ?>
+                        </div>
+                    </div>
+                
+                    <div class="form-group <?= ($firstNameElement->getMessages()) ? ' has-error' : ''; ?>">
+                        <label class="col-xs-12 col-sm-3 control-label" for="signup-first-name">Prénom</label>
+                        <div class="col-xs-12 col-sm-8">
+                            <?= $this->formText($firstNameElement); ?>
+                            <?= $this->displayFormElementErrors($firstNameElement); ?>
+                        </div>
+                    </div>
+                
+                    <div class="form-group <?= ($emailElement->getMessages()) ? ' has-error' : ''; ?>">
+                        <label class="col-xs-12 col-sm-3 control-label" for="signup-email">Email</label>
+                        <div class="col-xs-12 col-sm-8">
+                            <?= $this->formText($emailElement); ?>
+                            <?= $this->displayFormElementErrors($emailElement); ?>
+                        </div>
+                    </div>
+                
+                    <div class="form-group <?= ($phoneElement->getMessages()) ? ' has-error' : ''; ?>">
+                        <label class="col-xs-12 col-sm-3 control-label" for="signup-phone">Téléphone</label>
+                        <div class="col-xs-12 col-sm-8">
+                            <?= $this->formText($phoneElement); ?>
+                            <?= $this->displayFormElementErrors($phoneElement); ?>
+                        </div>
+                    </div>
+                
+                    <?php
+                        if ($addressElement->getMessages()
+                            || $zipcodeElement->getMessages()
+                            || $cityElement->getMessages()
+                            || $latitudeElement->getMessages()
+                            || $longitudeElement->getMessages()
+                        ) {
+                            $addressError = true;                
+                        }
+                        else {
+                            $addressError = false;
+                        }
+                    ?>
+
+                    <div class="form-group <?= ($addressError) ? ' has-error' : ''; ?>">
+                        <label class="col-xs-12 col-sm-3 control-label" for="edit-address">Adresse</label>
+                        <div class="col-xs-12 col-sm-8">
+                            <?php 
+                                if (strlen($addressElement->getValue()) > 0
+                                    && strlen($cityElement->getValue()) > 0
+                                ) {
+                                    $address = $addressElement->getValue() . ', ' . $cityElement->getValue();
+                                }
+                                else {
+                                    $address = "";
+                                }
+                            ?>
+                            <input type="text" placeholder="Mon adresse professionnelle" id="edit-address" class="js-address form-control" value="<?= $address ?>"/>
+                            <?= $this->displayFormElementErrors($addressElement); ?>
+                        </div>
+                    </div>
+
+                    <?= $this->formHidden($addressElement); ?>
+
+                    <?= $this->formHidden($zipcodeElement); ?>
+
+                    <?= $this->formHidden($cityElement); ?>
+
+                    <?= $this->formHidden($latitudeElement); ?>
+
+                    <?= $this->formHidden($longitudeElement); ?>
+                
+                    <?php if($this->isAllowed('edit-freelance-move-range')) : ?>
+                    <div class="form-group <?= ($moveRangeElement->getMessages()) ? ' has-error' : ''; ?>">
+                        <label class="col-xs-12 col-sm-3 control-label" for="edit-move-range">Rayon de déplacement</label>
+                        <div class="col-xs-12 col-sm-8">
+                            <div class="input-group">
+                                <?= $this->formNumber($moveRangeElement); ?>
+                                <?= $this->displayFormElementErrors($moveRangeElement); ?>
+                                <div class="input-group-addon">kilomètres</div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endif; ?>
+                
+                    <div class="form-group <?= ($biographyElement->getMessages()) ? ' has-error' : ''; ?>">
+                        <label class="col-xs-12 col-sm-3 control-label" for="signup-biography">Biographie</label>
+                        <div class="col-xs-12 col-sm-8">
+                            <?= $this->formTextarea($biographyElement); ?>
+                            <?= $this->displayFormElementErrors($biographyElement); ?>
+                        </div>
+                    </div>
+        
+                    <div class="form-group">
+                        <div class="col-sm-4 col-sm-offset-3">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fa fa-check"></i>&nbsp;
+                                Mettre à jour
+                            </button>
+                        </div>
+                    </div>
+                <?= $this->form()->closeTag($this->editProfessionnalProfileForm); ?>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="box-title-container clearfix">
+                <div class="box-title">Mon diplôme</div>
+            </div>
+            <div class="box-content pb-5">
+                <?= $this->form()->openTag($this->uploadProfessionnalQualificationForm); ?>
+
+                    <div class="alert alert-success alert-dismissible hidden js-qualification-upload-success">
+                        <button type="button" class="close" data-dismiss="alert"><i class="material-icons">&#xE5CD;</i></button>
+                        Votre diplôme a été modifié avec succès.
+                    </div>
+                    
+                    <?php 
+                        if ($account->getQualificationFilename() !== null) : 
+                    ?>
+                        <div class="box box-content clearfix">
+                            <div>
+                                <div class="pull-left " style="line-height: 38px;">
+                                    <b>Un diplôme à déjà été ajouté</b>
+                                </div>
+                                <div class="pull-right">
+                                    <a class="btn btn-default js-qualification-preview" target="_blank" href="<?= $this->url('application-load-image', ['category' => 'qualification', 'idImage' => $account->getQualificationFilename()]) ?>">Voir mon diplôme</a>
+                                    <button class="btn btn-primary js-show-qualification-edit">Modifier mon diplôme</button>
+                                </div>
+                            </div>
+                        </div>
+                    <?php 
+                        endif;
+                    ?>
+                    
+                    <div class="form-group js-qualification-upload-dropzone-row <?= ($account->getQualificationFilename() !== null) ? 'hidden': ''?>">
+                        <label for="qualification-qualification">Nouveau diplôme</label>
+                        <div class="file-dropzone js-qualification-upload-dropzone">
+                            <p class="text-left small">
+                                Vos clients seront rassurés que nous mentionnons tous vos diplômes dans votre profil.<br>
+                                Même des diplômes qui n'ont rien à voir avec votre métier.
+                            </p>
+                            <div class="drop-text">Glissez-déposez votre fichier ici</div>
+                            <div class="separator-text"><div class="text">ou</div></div>
+                            <?= $this->formFile($qualificationElement); ?>
+                            
+                            <div class="overlay hidden js-qualification-upload-dropzone-overlay">
+                                <div class="loading-text">
+                                    Envoi en cours&hellip;<br />
+                                    Progression : <span class="js-qualification-upload-dropzone-percentage">0</span>%
+                                </div>
+                            </div>
+                        </div>
+                        <div class="help-block hidden js-qualification-upload-dropzone-error"></div>
+                        <div class="text-muted text-small">Fichier autorisés: JPG, JPEG, PNG, PDF &mdash; Taille maximale : 10 Mo</div>
+                    </div>
+                    
+                <?= $this->form()->closeTag($this->uploadProfessionnalQualificationForm); ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<?php $this->inlineScript()->captureStart(); ?>
+$(document).ready(function() {
+    hairlov.professionnal.account.edit.init();
+});
+<?php $this->inlineScript()->captureEnd(); ?>

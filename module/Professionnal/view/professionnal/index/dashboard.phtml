@@ -1,0 +1,128 @@
+<?php if ($hasAttachmentRequest) : ?>
+    <div class="alert alert-info">
+        <div class="row">
+            <div class="col-md-8">
+                <b>Vous avez des demandes de rattachement en attente.</b><br>
+                Vous pouvez les gérer en accédant à l'interface des demandes de rattachement.
+            </div>
+            <div class="col-md-4 text-right">
+                <a href="<?= $this->url('professionnal-salon/salon-attachment-request-list'); ?>" class="btn btn-default">Gérer les demandes</a>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
+
+<div class="row">
+    <div class="col-sm-3">
+        <div class="box dashboard-profil">
+            <div class="box-content">
+                <?php $account = $this->layout()->account; ?>
+                <?php if($account->getAccountImageFilename() !== null): ?>
+                <img src="<?= $this->url('application-load-image', [
+                    'category' => 'account-image',
+                    'idImage' => $account->getAccountImageFilename()
+                ]); ?>" class="img-responsive ma"/>
+                <?php else: ?>
+                <img src="/img/avatar.jpg" class="img-responsive ma"/>
+                <?php endif; ?>
+                <div class="box-content">
+                    <div class="text-center">
+                        <div class="dashboard-profil-nom">
+                            <?= $account->getFirstName(); ?> <?= $account->getLastName(); ?>
+                        </div>
+                        <?php if ($this->isAllowed('professionnal-profile-edit')) : ?>
+                            <a href="<?= $this->url('professionnal-profile-edit'); ?>" class="btn btn-primary btn-block edit-profil">Modifier mon profil</a>
+                        <?php endif; ?>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box">
+            <div class="box-content">
+
+                <?php if ($salon !== null) : ?>
+                    <?php
+                        $professionalSlug = $this->slugify(
+                            $account->getFirstName() . ' ' .
+                            $account->getLastName() . ' a '.
+                            $salon->getCity()
+                        );
+                    ?>
+                <?php else : ?>
+                    <?php
+                        $professionalSlug = $this->slugify(
+                            $account->getFirstName() . ' ' .
+                            $account->getLastName() . ' a '.
+                            $account->getCity()
+                        );
+                    ?>
+                <?php endif; ?>
+                
+                
+                <a href="<?= $this->url('application-professional', ['idProfessional' => $account->getIdAccount()]); ?>-<?= $professionalSlug ?>" target="_blank" class="btn btn-info btn-block">Voir ma page</a>
+                
+                <?php if ($salon !== null) : ?>
+                    <?php
+                        $salonSlug = $this->slugify(
+                            $salon->getName() . ' a '.
+                            $salon->getCity()
+                        );
+                    ?>
+                <hr>
+                <a href="<?= $this->url('application-salon', ['salonId' => $salon->getIdSalon()]); ?>-<?= $salonSlug ?>" target="_blank" class="btn btn-info btn-block">Voir mon salon</a>
+                <?php endif; ?>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-9">
+        <div class="row mb-20">
+            <div class="col-sm-6">
+                <div class="icon-dashboard">
+                    <div class="icon lov">
+                        <span class="text"><?= $customerWhoLikeCounter ?></span>
+                    </div>
+                    <div class="text">Lov</div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="icon-dashboard">
+                    <div class="icon avis">
+                        <span class="text"><?= $professionalBookingCommentCounter ?></span>
+                    </div>
+                    <div class="text">Avis</div>
+                </div>
+            </div>
+        </div>
+        
+        <?php if ($lastJobServiceImages->count() > 0): ?>
+        <div class="title main">Mon Book</div>
+            <div class="galerie">
+                <div class="row gutters-5">
+                    <?php foreach ($lastJobServiceImages as $jobServiceImage) : ?>
+                        <div class="col-md-3 col-sm-3 col-xs-6">
+                            <a class="overflow-image small galerie-item show image-cover" style="background-image: url(<?= $this->url('application-load-image', ['category' => 'job-service-image', 'idImage' => $jobServiceImage->getFilepath()]) ?>)" href="<?= $this->url('professionnal-job-service/manage-images', ['idJobService' => $jobServiceImage->getIdJobService()]) ?>"></a>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        <?php else: ?>
+        <div class="box">
+            <div class="box-title-container clearfix">
+                <div class="box-title">Mon book</div>
+            </div>
+            <div class="box-content">
+                <div class="">
+                    <p>Vous n'avez actuellement aucune photo dans votre book.<br />
+                    Commencez par ajouter une prestation pour y ajouter des photos.</p>
+                </div>
+                <div class="text-center">
+                    <a href="<?= $this->url('professionnal-job-service/create'); ?>" class="btn btn-primary btn-lg">Ajouter une prestation</a>
+                </div>
+            </div>
+        </div>
+        
+        <?php endif; ?>
+    </div>
+</div>

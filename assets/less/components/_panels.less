@@ -1,0 +1,53 @@
+@import "../../vendor/bootstrap/variables.less";
+@import "../_variables.less";
+
+.panel {
+    border: none;
+    .panel-heading {
+        border-bottom: none;
+    }
+}
+
+.panel-heading {
+    backgound: @brand-success;
+    border: none;
+    padding: 10px 20px;
+}
+
+.panel-title {
+    float: left;
+    display: inline-block;
+}
+
+.panel-tools {
+    text-align: right;
+}
+
+.panel-border {
+    .panel-heading {
+        background-color: #ffffff;
+        border-top: 3px solid #DADFE2;
+        padding: 10px 20px 0px;
+    }
+
+    &.panel-primary .panel-heading {
+        color: @brand-primary;
+        border-color: @panel-primary-border;
+    }
+    &.panel-success .panel-heading {
+        color: @brand-success;
+        border-color: @panel-success-border;
+    }
+    &.panel-info .panel-heading {
+        color: @brand-info;
+        border-color: @panel-info-border;
+    }
+    &.panel-warning .panel-heading {
+        color: @brand-warning;
+        border-color: @panel-warning-border;
+    }
+    &.panel-danger .panel-heading {
+        color: @brand-danger;
+        border-color: @panel-danger-border;
+    }
+}

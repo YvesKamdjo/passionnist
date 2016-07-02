@@ -1,0 +1,96 @@
+<?php
+    // Chargement de l'API Google Maps
+    $this->headScript()
+        ->appendFile('https://maps.googleapis.com/maps/api/js?key='.$mapsApiConfig['applicationKey'].'&libraries=places');
+?>
+
+<div class="modal fade in show login-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="login-box">
+                            <div class="inner">
+                                <?php
+                                    $this->setLocationForm
+                                        ->setAttribute('id', 'setLocationForm')
+                                        ->setAttribute('class', 'form-inline')
+                                    ;
+                                ?>
+                                <?= $this->form()->openTag($this->setLocationForm); ?>
+
+                                    <?= $this->displayFlashMessages('success'); ?>
+                                    <div class="alert alert-danger hidden js-login-form-error"></div>
+                                    
+                                    <?php
+                                        $cityElement = $this->setLocationForm->get('city');
+                                        $cityElement
+                                            ->setAttribute('id', 'set-location-city')
+                                            ->setAttribute('class', 'form-control js-location-city')
+                                        ;
+                                    ?>
+
+                                    <?= $this->formHidden($cityElement); ?>
+                                    
+                                    <?php
+                                        $latitudeElement = $this->setLocationForm->get('latitude');
+                                        $latitudeElement
+                                            ->setAttribute('id', 'set-location-latitude')
+                                            ->setAttribute('class', 'form-control js-location-latitude')
+                                        ;
+                                    ?>
+                                    <?= $this->formHidden($latitudeElement); ?>
+
+                                    <?php
+                                        $longitudeElement = $this->setLocationForm->get('longitude');
+                                        $longitudeElement
+                                            ->setAttribute('id', 'set-location-longitude')
+                                            ->setAttribute('class', 'form-control js-location-longitude')
+                                        ;
+                                    ?>
+                                    <?= $this->formHidden($longitudeElement); ?>
+                                    
+                                    <?php
+                                        if ($cityElement->getMessages()
+                                            || $latitudeElement->getMessages()
+                                            || $longitudeElement->getMessages()
+                                        ) {
+                                            $addressError = true;                
+                                        }
+                                        else {
+                                            $addressError = false;
+                                        }
+                                    ?>
+                                    
+                                    <p>Afin de vous proposer une expérience adaptée à votre profil, merci de renseigner votre ville par défaut.</p>
+                                    
+                                    <div class="form-group <?= ($addressError) ? ' has-error' : ''; ?>">
+                                        <label class="control-label" for="set-location-city">Ville</label>
+                                        <input type="text" class="js-address-location-city form-control" value="<?= $cityElement->getValue() ?>" placeholder="Entrez votre ville"/>
+                                        <?php if ($addressError) : ?>
+                                        <div class="help-block">
+                                            La ville saisie est incorrecte.
+                                        </div>
+                                        <?php endif; ?>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary text-center pull-right">
+                                            Valider
+                                        </button>
+                                    </div>
+
+                                <?= $this->form()->closeTag($this->setLocationForm); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-backdrop fade in"></div>

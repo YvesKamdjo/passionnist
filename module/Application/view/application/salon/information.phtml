@@ -1,0 +1,12 @@
+<div class="container">
+    <?= $this->partial('partials/header', ['activeTab' => 'information', 'salon' => $salon, 'salonImage' => $salonImage]); ?>
+    
+    <div class="salon-information">
+        <div class="salon-titre">Adresse du salon</div>
+        <address>
+            <?= $salon->getName() ?> <br />
+            <?= $salon->getAddress() ?> <br />
+            <?= $salon->getZipcode() ?>, <?= $salon->getCity() ?> <br />
+        </address>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+<h2>Nouvelle réservation</h2>
+
+<p>
+    Vous venez d'effectuer une nouvelle réservation sur la plateforme <a href="<?= $this->urlDomain?>">HAIRLOV.com</a>.<br>
+    Vous pouvez la retrouver sur votre interface client en <a href="<?= $this->urlDomain.'mes-reservations' ?>">cliquant ici</a>.
+</p>
+
+<b>Détails :</b>
+<ul>
+    <li>Prestation : <?= $this->jobServiceName ?>
+    <li>Date de la réservation : Le <b><?= $this->start->format('d/m/Y') ?></b> à <b><?= $this->start->format('H\hi') ?></b></li>
+    <li>Durée : <b><?= $this->duration ?> minutes</b></li>
+    <li>Prix : <b><?=  number_format(($this->price - ($this->price * ($this->discountRate/100))), 2, ',', ' ') ?>€ <?php if ($this->discountRate > 0) : ?>(-<?= $this->discountRate ?>%)<?php endif; ?></b></li>
+</ul>
+
+<b>Lieu de la prestation :</b>
+<blockquote>
+    <?= $this->jobServicePlaceName ?><br>
+    <?= $this->jobServicePlaceAddress ?><br>
+    <?= $this->jobServicePlaceZipcode ?> <?= $this->jobServicePlaceCity ?><br>
+</blockquote>
+
+<b>Informations de facturation :</b>
+<blockquote>
+    <?= $this->billingName ?><br>
+    <?= $this->billingAddress ?><br>
+    <?= $this->billingZipcode ?> <?= $this->billingCity ?><br>
+</blockquote>
+

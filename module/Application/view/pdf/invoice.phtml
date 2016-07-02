@@ -1,0 +1,92 @@
+<html>
+<head>
+    <title>Facture</title>
+    
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <style type="text/css">
+        .table.no-border>tbody>tr>td,
+        .table.no-border>tbody>tr>th,
+        .table.no-border>tfoot>tr>td,
+        .table.no-border>tfoot>tr>th,
+        .table.no-border>thead>tr>td,
+        .table.no-border>thead>tr>th {
+            border: none;
+        }
+        tbody:before, tbody:after { display: none; }
+        .logo {
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <table width="100%">
+            <tr>
+                <td width="30%">
+                    <div class="logo">Hairlov</div>
+                </td>
+                <td width="70%" class="text-right">
+                    <strong>Numéro de facture :</strong> <?= $invoice->getIdInvoice(); ?><br>
+                    <strong>Edité le :</strong> <?php echo date('d/m/Y');?><br>
+                </td>
+            </tr>
+        </table>
+        <p>&nbsp;</p>
+        <table class="table no-border">
+                <tr>
+                    <td width="30%">
+                        Hairlov<br />
+                        Adresse<br />
+                        CP Ville
+                    </td>
+                    <?php if ($invoice->getBillingName()): ?>
+                    <td width="35%" class="text-right">
+                        <b>Adresse de facturation</b><br />
+                        <?= $invoice->getBillingName(); ?><br>
+                        <?= $invoice->getBillingAddress(); ?><br>
+                        <?= $invoice->getBillingZipCode(); ?> <?= $invoice->getBillingCity(); ?>
+                    </td>
+                    <td width="35%" class="text-right">
+                        <b>Adresse</b><br />
+                        <?= $invoice->getCustomerName(); ?><br>
+                        <?= $invoice->getCustomerAddress(); ?><br>
+                        <?= $invoice->getCustomerZipCode(); ?> <?= $invoice->getCustomerCity(); ?>
+                    </td>
+                    <?php else: ?>
+                    <td width="70%" class="text-right">
+                        <?= $invoice->getBillingName(); ?><br>
+                        <?= $invoice->getBillingAddress(); ?><br>
+                        <?= $invoice->getBillingZipCode(); ?> <?= $invoice->getBillingCity(); ?>
+                    </td>
+                    <?php endif ?>
+                    
+                </tr>
+        </table>
+        <p>&nbsp;</p>
+        <table class="table table-bordered">
+            <tr>
+                <td colspan="<?= ($invoice->getDiscountRate() != 0) ? '5' : '4'; ?>">Détails</td>
+            </tr>
+            <tr>
+                <td><strong>Description</strong></td>
+                <td><strong>Date</strong></td>
+                <td><strong>Durée</strong></td>
+                <?php if ($invoice->getDiscountRate() != 0): ?>
+                    <td><strong>Réduction</strong></td>
+                <?php endif; ?>
+                <td><strong>Montant total</strong></td>
+            </tr>
+            <tr>
+                <td><?= $invoice->getJobServiceName(); ?></td>
+                <td><?= date('d/m/Y à H\hi', strtotime($invoice->getStart())); ?></td>
+                <td><?= $invoice->getDuration(); ?> min</td>
+                
+                <?php if ($invoice->getDiscountRate() != 0): ?>
+                    <td><?= $invoice->getDiscountRate(); ?> %</td>
+                <?php endif; ?>
+                <td><?= $invoice->getJobServicePrice(); ?> &euro;</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

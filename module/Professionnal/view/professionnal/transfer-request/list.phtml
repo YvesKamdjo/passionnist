@@ -1,0 +1,42 @@
+<div class="box">
+    <div class="box-title-container clearfix">
+        <div class="box-tools pull-right">
+            <div class="btn-group">
+                <a href="<?= $this->url('professionnal-financial/create-transfer-request'); ?>" class="btn btn-primary btn-sm">
+                    <i class="fa fa-plus-circle"></i>&nbsp;
+                    Nouvelle demande de virement
+                </a>
+            </div>
+        </div>
+        <div class="box-title">Liste des demandes de virement</div>
+    </div>
+    <div class="box-content">
+        <div class="text-right mb-20">
+            <div class="label label-success label-"><b>Solde actuel :</b> <?= $this->totalBalance ?>€</div>
+        </div>
+        <?php if ($this->transferRequestCollection->count() > 0) : ?>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Montant du virement</th>
+                        <th>Date de la demande</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($this->transferRequestCollection as $transferRequest) : ?>
+                    <tr>
+                        <td><?= $transferRequest->getAmount() ?>€</td>
+                        <td><?= $transferRequest->getCreationDate() ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+        <?php else: ?>
+            <div class="alert alert-info">
+                Aucune demande de virement n'a été effectuée.
+            </div>
+        <?php endif; ?>
+    </div>
+</div>

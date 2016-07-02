@@ -1,0 +1,138 @@
+<?php $this->headTitle()->prepend('Réservation en cours'); ?>
+<?php
+    $this->addBookingInformationsForm
+        ->setAttribute('class', 'form-horizontal')
+        ->prepare();
+?>
+<div class="container">
+    <?= $this->form()->openTag($this->addBookingInformationsForm); ?>
+
+        <?php
+            $expectedDateElement = $this->addBookingInformationsForm->get('expectedDate');
+            echo $this->formHidden($expectedDateElement);
+
+            $customerInformationsElement = $this->addBookingInformationsForm->get('customerInformations');
+            $customerInformationsElement
+                ->setAttribute('id', 'customer-informations')
+                ->setAttribute('class', 'form-control')
+            ;
+        ?>
+        <div class="box">
+            <div class="box-title-container clearfix">
+                <div class="box-tools pull-right">
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        <i class="fa fa-credit-card"></i>&nbsp;
+                        Valider ma réserveration
+                    </button>
+                </div>
+                <div class="box-title">Récapitulatif de la réservation</div>
+            </div>
+            <div class="box-content">
+                    
+                <p>Voici le détail de votre réservation</p>
+                
+                <div class="table-responsive">
+                    <table class="table table-striped table-primary">
+                        <thead>
+                            <tr>
+                                <th>Date de la prestation</th>
+                                <th>Heure de la prestation</th>
+                                <th>Montant à payer</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <?php $date = new DateTime($bookingDatetimeStart) ?>
+                                <td><?= $date->format('d/m/Y') ?></td>
+                                <td><?= $date->format('H\Hi') ?></td>
+                                <td><?= ($jobService->getPrice() - ($jobService->getPrice() * ($discount->getRate()/100))) ?> €</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="row">
+                    
+
+                    <div class="col-md-6">
+                        <legend>Adresse de facturation</legend>
+                        <?php
+                            $billingInformationsElement = $this->addBookingInformationsForm->get('billingInformations');
+                            $billingInformationsElement
+                                ->setAttribute('id', 'billing-informations')
+                                ->setAttribute('class', 'form-control')
+                            ;
+                        ?>
+
+                        <?php foreach ($billingInformationsElement as $items) : ?>
+                            <?php foreach ($items as $item) : ?>
+                                <?php $item->setAttribute('class', 'form-control'); ?>
+                                <div class="form-group <?= ($item->getMessages()) ? ' has-error' : ''; ?>">
+                                    <label class="col-xs-12 col-sm-3 control-label" for="<?= $item->getAttribute('id'); ?>"><?= $item->getLabel(); ?></label>
+                                    <div class="col-xs-12 col-sm-9">
+                                        <?= $this->formText($item); ?>
+                                        <?= $this->displayFormElementErrors($item); ?>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php endforeach; ?>
+                        <?php
+                            $otherAddressElement = $this->addBookingInformationsForm->get('otherAddress');
+                            $otherAddressElement
+                                ->setAttribute('id', 'other-address')
+                                ->setAttribute('class', 'form-control')
+                            ;
+                        ?>
+                        <div class="form-group">
+                            <div class="col-sm-offset-3 col-sm-9">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="hidden" name="otherAddress" value="0">
+                                        <input type="checkbox" name="otherAddress" id="other-address-payment" value="1"> Utiliser une adresse de prestation différente
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="address-prestation-payment" class="col-md-6">
+                        <legend>Adresse de prestation</legend>
+
+                        <?php foreach ($customerInformationsElement as $items) : ?>
+                            <?php foreach ($items as $item) : ?>
+                                <?php $item->setAttribute('class', 'form-control')
+                                            ->setAttribute('disabled', 'disabled'); ?>
+                                <div class="form-group <?= ($item->getMessages()) ? ' has-error' : ''; ?>">
+                                    <label class="col-xs-12 col-sm-3 control-label" for="<?= $item->getAttribute('id'); ?>"><?= $item->getLabel(); ?></label>
+                                    <div class="col-xs-12 col-sm-9">
+                                        <?= $this->formText($item); ?>
+                                        <?= $this->displayFormElementErrors($item); ?>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="col-sm-12 text-right">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-credit-card"></i>&nbsp;
+                            Valider ma réserveration
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+            
+        </div>
+    <?= $this->form()->closeTag($this->addBookingInformationsForm); ?>
+</div>
+
+<?php $this->inlineScript()->captureStart(); ?>
+
+$(document).ready(function () {
+    hairlov.application.jobService.booking.init();
+});
+
+<?php $this->inlineScript()->captureEnd(); ?>

@@ -1,0 +1,19 @@
+<?php
+/**
+ * @package HAIRLOV.com
+ * @author contact@wixiweb.fr
+ */
+$url = $this->urlDomain . 'inscription-professionnel?email='. urlencode($this->manager->getEmail());
+?>
+
+<h2>Créez votre salon sur HAIRLOV.com</h2>
+
+<p>
+    Bonjour,<br>
+    <?= $this->professionnal->getFirstName() ?> vous invite à le rejoindre sur <a href="<?= $url?>">HAIRLOV.com</a>
+</p>
+<p>
+     HAIRLOV.com est la première plateforme exclusivement dédiée aux professionnels de la coiffure, qu'ils soient coiffeurs indépendants ou qu'ils travaillent en équipe au sein d'un salon.
+    Créez dès maintenant votre salon sur hairlov et prenez des réservations directement en ligne.
+    <a href="<?= $url?>" style="font-weight: bold;text-align: center">Inscription</a>
+</p>

@@ -1,0 +1,99 @@
+<div class="modal fade in show login-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="login-box">
+                            <div class="inner">
+                                <a href="#" class="btn btn-blue btn-block btn-lg js-facebook-login">Se connecter avec <b>FACEBOOK</b></a>
+                                <?php
+                                    $this->facebookLogInForm
+                                        ->setAttribute('id', 'facebookLogInForm')
+                                        ->setAttribute('class', 'js-facebook-log-in-form')
+                                        ->setAttribute('action', $this->url('application-facebook-login'))
+                                    ;
+                                ?>
+                                <?= $this->form()->openTag($this->facebookLogInForm); ?>
+                                <?php
+                                    $facebookLogInAccessTokenElement = $this->facebookLogInForm->get('access_token');
+                                    $facebookLogInAccessTokenElement
+                                        ->setAttribute('class', 'js-facebook-log-in-access-token')
+                                    ;
+                                ?>
+                                <?= $this->formHidden($facebookLogInAccessTokenElement); ?>
+
+                                <?= $this->form()->closeTag($this->facebookLogInForm); ?>
+                                <div class="line-container">
+                                    <div class="line"><span>ou</span></div>
+                                </div>
+
+                                <?php
+                                    $this->logInForm
+                                        ->setAttribute('id', 'logInForm')
+                                        ->setAttribute('action', $this->url('application-login'))
+                                    ;
+                                ?>
+                                <?= $this->form()->openTag($this->logInForm); ?>
+
+                                    <?= $this->displayFlashMessages('success'); ?>
+                                    <div class="alert alert-danger hidden js-login-form-error"></div>
+
+                                    <?php
+                                        $logInEmailElement = $this->logInForm->get('email');
+                                        $logInEmailElement
+                                            ->setAttribute('id', 'login-email')
+                                            ->setAttribute('class', 'form-control input-lg')
+                                            ->setAttribute('placeholder', 'Adresse e-mail')
+                                            ->setAttribute('required', true)
+                                        ;
+                                    ?>
+                                    <div class="form-group <?= ($logInEmailElement->getMessages()) ? 'has-error' : ''; ?> js-login-form-row">
+                                        <?= $this->formEmail($logInEmailElement); ?>
+                                        <?= $this->displayFormElementErrors($logInEmailElement); ?>
+                                    </div>
+
+                                    <?php
+                                        $logInPasswordElement = $this->logInForm->get('password');
+                                        $logInPasswordElement
+                                            ->setAttribute('id', 'login-password')
+                                            ->setAttribute('class', 'form-control input-lg')
+                                            ->setAttribute('placeholder', 'Mot de passe')    
+                                            ->setAttribute('required', true)
+                                        ;
+                                    ?>
+                                    <div class="form-group <?= ($logInPasswordElement->getMessages()) ? 'has-error' : ''; ?> js-login-form-row">
+                                        <?= $this->formPassword($logInPasswordElement); ?>
+                                        <?= $this->displayFormElementErrors($logInPasswordElement); ?>
+                                    </div>
+
+                                    <p class="text-muted small text-center">En cliquant ci-dessous, vous acceptez les <a href="<?= $this->url('application-legal'); ?>" class="underline link-muted h-link-muted">CGU</a></p>
+
+                                    <input type="hidden" name="isSignUp" value="0" class="js-is-signup" />
+
+                                    <div class="btn-group" role="group">
+                                        <button type="submit" class="btn btn-lg btn-primary text-center js-login-form-submit uppercase">
+                                            Se connecter
+                                        </button>
+                                        <button type="submit" class="btn btn-lg btn-primary text-center js-signup-form-submit uppercase">
+                                            Rejoindre Hairlov
+                                        </button>
+                                    </div>
+
+
+                                <?= $this->form()->closeTag($this->logInForm); ?>
+                            </div>
+                            <div class="text-right">
+                                <a href="<?= $this->url('application-password-lost') ?>" class="btn btn-link btn-sm underline">Vous avez oubliez votre mot de passe ?</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-backdrop fade in"></div>

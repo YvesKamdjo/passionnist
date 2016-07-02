@@ -1,0 +1,47 @@
+<?php $this->headTitle()->prepend('Avis sur '.$this->salon->getName() . ' à ' .$this->salon->getCity()); ?>
+<?php
+    use Backend\Infrastructure\DataTransferObject\CompleteBookingComment;
+?>
+    
+<div class="container">
+
+    <?= $this->partial('partials/header', ['activeTab' => 'booking-comment', 'salon' => $salon, 'salonImage' => $salonImage]); ?>
+    
+    <?php foreach ($bookingComments as $bookingComment) : ?>
+        <?php /* @var $bookingComment CompleteBookingComment */ ?>
+        <div class="avis-container clearfix">
+            <div class="pull-left avatar-container text-center">
+                <img src="/img/avatar.jpg" class="img-circle avatar" width="80">
+            </div>
+            <div class="pull-right avis-content">
+                <div class="inner">
+                    <div class="avis-header clearfix">
+                        <div class="pull-left">
+                            <?php $date = new DateTime($bookingComment->bookingStart); ?>
+                            <div class="avis-date"><?= $date->format('d/m/Y') ?></div>
+                        </div>
+                        <div class="pull-right">
+                            <div class="avis-note">
+                                <?php $note = round($bookingComment->rate) ?>
+                                <ul class="list-inline note-count">
+                                    <?php
+                                        foreach(range(1, 5) as $key):
+                                    ?>
+                                        <?php if($note >= $key): ?>
+                                            <li class="active"><span><i class="fa fa-circle"></i></span></li>
+                                        <?php else: ?>
+                                            <li><span><i class="fa fa-circle-thin"></i></span></li>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="avis-body">
+                        <p><?= $bookingComment->comment ?></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php endforeach; ?>
+</div>

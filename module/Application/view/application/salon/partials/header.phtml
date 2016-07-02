@@ -1,0 +1,38 @@
+<h1 class="h2 title main margin-top-0"><?= $salon->getName() ?>, <?= $salon->getCity() ?></h1>
+
+<?php if ( $salonImage->count() > 0 ): ?>
+    <div class="salon-image-container">
+        <div class="owl-carousel">
+            <?php foreach($salonImage as $image): ?>
+                <div class="item salon-image image-cover"
+                     style="background-image: url('<?= $this->url('application-load-image', [
+                        'category' => 'salon-image',
+                        'idImage' => $image->getFilepath(),
+                        'width' => '1140',
+                        'height' => '400',
+                        'align' => 'center'
+                    ]); ?>')"></div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+<?php endif; ?>
+
+<?php
+    $salonSlug = $this->slugify(
+        $salon->getName() . ' a ' .
+        $salon->getCity()
+    );
+?>
+
+<ul class="nav nav-tabs salon-tabs" role="tablist">
+    <li role="presentation"<?= ($activeTab == 'salon') ? ' class="active"' : ''; ?>><a href="<?= $this->url('application-salon', ['salonId' => $salon->getIdSalon() . '-' . $salonSlug]) ?>">Salon</a></li>
+    <li role="presentation"<?= ($activeTab == 'professional') ? ' class="active"' : ''; ?>><a href="<?= $this->url('application-salon/professional', ['salonId' => $salon->getIdSalon() . '-' . $salonSlug]) ?>">Coiffeurs</a></li>
+    <li role="presentation"<?= ($activeTab == 'job-service') ? ' class="active"' : ''; ?>><a href="<?= $this->url('application-salon/job-service', ['salonId' => $salon->getIdSalon() . '-' . $salonSlug]) ?>">Prestations</a></li>
+    <li role="presentation"<?= ($activeTab == 'booking-comment') ? ' class="active"' : ''; ?>><a href="<?= $this->url('application-salon/booking-comment', ['salonId' => $salon->getIdSalon() . '-' . $salonSlug]) ?>">Avis</a></li>
+</ul>
+
+<?php $this->inlineScript()->captureStart(); ?>
+$(document).ready(function () {
+    hairlov.application.salon.init();
+});
+<?php $this->inlineScript()->captureEnd(); ?>

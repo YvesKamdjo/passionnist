@@ -1,0 +1,127 @@
+<?php
+    $this->createAvailabilityExceptionForm
+            ->setAttribute('class', 'form-horizontal')
+            ->prepare();
+
+    $startTimeElement = $this->createAvailabilityExceptionForm->get('start-time');
+    $startTimeElement
+        ->setAttribute('id', 'start-time')
+        ->setAttribute('class', 'form-control')
+    ;
+
+    $endTimeElement = $this->createAvailabilityExceptionForm->get('end-time');
+    $endTimeElement
+        ->setAttribute('id', 'end-time')
+        ->setAttribute('class', 'form-control')
+    ;
+
+    $startDayElement = $this->createAvailabilityExceptionForm->get('start-day');
+    $startDayElement
+        ->setAttribute('id', 'start-day')
+        ->setAttribute('class', 'form-control')
+    ;
+
+    $startMonthElement = $this->createAvailabilityExceptionForm->get('start-month');
+    $startMonthElement
+        ->setAttribute('id', 'start-month')
+        ->setAttribute('class', 'form-control')
+    ;
+
+    $startYearElement = $this->createAvailabilityExceptionForm->get('start-year');
+    $startYearElement
+        ->setAttribute('id', 'start-year')
+        ->setAttribute('class', 'form-control')
+    ;
+
+    $endDayElement = $this->createAvailabilityExceptionForm->get('end-day');
+    $endDayElement
+        ->setAttribute('id', 'end-day')
+        ->setAttribute('class', 'form-control')
+    ;
+
+    $endMonthElement = $this->createAvailabilityExceptionForm->get('end-month');
+    $endMonthElement
+        ->setAttribute('id', 'end-month')
+        ->setAttribute('class', 'form-control')
+    ;
+
+    $endYearElement = $this->createAvailabilityExceptionForm->get('end-year');
+    $endYearElement
+        ->setAttribute('id', 'end-year')
+        ->setAttribute('class', 'form-control')
+    ;
+
+    $isAvailabilityElement = $this->createAvailabilityExceptionForm->get('is-availability');
+    $isAvailabilityElement
+        ->setAttribute('id', 'is-availability')
+    ;
+
+    $detailsElement = $this->createAvailabilityExceptionForm->get('details');
+    $detailsElement
+        ->setAttribute('id', 'details')
+        ->setAttribute('class', 'form-control')
+    ;
+
+?>
+
+<?php if ($this->isAllowed('professionnal-availabilities/exception-list')) : ?>
+    <a class="btn btn-link" href="<?= $this->url('professionnal-availabilities/exception-list') ?>">
+        &larr; Retourner à la liste des absences et disponibilités
+    </a>
+<?php endif; ?>
+
+<div class="box">
+    <div class="box-title-container clearfix">
+        <div class="box-title">Ajouter une absence</div>
+    </div>
+    <div class="box-content pb-5">
+        <?= $this->form()->openTag($this->createAvailabilityExceptionForm); ?>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-2 control-label" for="start-day">Début</label>
+            <div class="col-sm-1" <?= ($startDayElement->getMessages()) ? ' has-error' : ''; ?>>
+                <?php echo $this->formSelect($startDayElement); ?>
+            </div>
+            <div class="col-sm-2" <?= ($startMonthElement->getMessages()) ? ' has-error' : ''; ?>>
+                <?php echo $this->formSelect($startMonthElement); ?>
+            </div>
+            <div class="col-sm-2" <?= ($startYearElement->getMessages()) ? ' has-error' : ''; ?>>
+                <?php echo $this->formSelect($startYearElement); ?>
+            </div>
+            <div class="col-sm-3" <?= ($startTimeElement->getMessages()) ? ' has-error' : ''; ?>>
+                <?php echo $this->formSelect($startTimeElement); ?>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-2 control-label" for="end-day">Fin</label>
+            <div class="col-sm-1" <?= ($endDayElement->getMessages()) ? ' has-error' : ''; ?>>
+                <?php echo $this->formSelect($endDayElement); ?>
+            </div>
+            <div class="col-sm-2" <?= ($endMonthElement->getMessages()) ? ' has-error' : ''; ?>>
+                <?php echo $this->formSelect($endMonthElement); ?>
+            </div>
+            <div class="col-sm-2" <?= ($endYearElement->getMessages()) ? ' has-error' : ''; ?>>
+                <?php echo $this->formSelect($endYearElement); ?>
+            </div>
+            <div class="col-sm-3" <?= ($endTimeElement->getMessages()) ? ' has-error' : ''; ?>>
+                <?php echo $this->formSelect($endTimeElement); ?>
+            </div>
+        </div>
+
+        <div class="form-group" <?= ($detailsElement->getMessages()) ? ' has-error' : ''; ?>>
+            <label class="col-xs-12 col-sm-2 control-label" for="details">Détails</label>
+            <div class="col-sm-8">
+                <?php echo $this->formTextarea($detailsElement); ?>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-4 col-sm-offset-2">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-check"></i> Enregistrer l'absence
+                </button>
+            </div>
+        </div>
+        <?= $this->form()->closeTag($this->createAvailabilityExceptionForm); ?>
+    </div>
+</div>

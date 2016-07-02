@@ -1,0 +1,70 @@
+<?php $this->headTitle()->prepend('Date de réservation'); ?>
+<?php
+
+use Backend\Entity\CustomerCharacteristic;
+use Backend\Entity\Discount;
+use Backend\Entity\JobService;
+use Backend\Infrastructure\DataTransferObject\CompleteBookingComment;
+use Backend\Infrastructure\DataTransferObject\DayAvailability;
+
+/* @var $jobService JobService */
+$jobService = $this->jobService;
+?>
+
+<?php
+    $formUrl = $this->url(
+        'application-job-service/booking', 
+        ['idJobService' => $jobService->getIdJobService()]
+    );
+    
+    $total = 0;
+    foreach($this->weekAvailabilities as $weekAvailabilities):
+        if (time() < strtotime($weekAvailabilities->startTime)):
+            $total += 1;
+        endif;
+    endforeach;
+?>
+<div  id="availabilities">
+    <?php if ($total != 0): ?>
+        <div class="overflow">
+            <?php foreach($this->weekAvailabilities as $weekAvailabilities): ?>
+                <?php if (time() < strtotime($weekAvailabilities->startTime)): ?>
+                <?php
+                    /* @var $weekAvailabilities DayAvailability */
+                    $availabilityDate = DateTime::createFromFormat('Y-m-d H:i:s', $weekAvailabilities->startTime);
+                    $availabilityTime = new DateTime($availabilityDate->format('H:i:s'));
+
+                    $activeDiscount = new Discount();
+                    foreach ($this->dayDiscount as $discount) :
+                        /* @var $discount Discount */
+                        $startDiscountDate = new DateTime($discount->getStartTime());
+                        $endDiscountDate = new DateTime($discount->getEndTime());
+
+                        if ($startDiscountDate <= $availabilityTime
+                            && $availabilityTime <= $endDiscountDate
+                        ) {
+                            $activeDiscount = $discount;
+                            break;
+                        }
+
+                    endforeach;
+                ?>
+                    <form method="post" action="<?= $formUrl ?>">
+                        <input type="hidden" name="expectedDate" value="<?= $weekAvailabilities->startTime ?>" />
+                        <input type="hidden" name="discount" value="<?= $activeDiscount->getIdDiscount() ?>" />
+
+                        <button class="btn btn-link btn-block">
+                            <span class="pull-left"><?= date('H\Hi', strtotime($weekAvailabilities->startTime)); ?></span>
+                            <span class="pull-right">
+                                <?= (is_null($activeDiscount->getRate()))?'':'<span class="label label-success">'.$activeDiscount->getRate().' %</span>' ?>
+                                <?= ($jobService->getPrice() - ($jobService->getPrice() * ($activeDiscount->getRate()/100))) ?> €
+                            </span>
+                        </button>
+                    </form>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </div>
+    <?php else: ?>
+        <p class="prestation-availabilities-none">Aucune heure de disponible actuellement.</p>
+    <?php endif; ?>
+</div>

@@ -1,0 +1,80 @@
+<?php
+    $this->employeeEditJobServiceForm
+            ->setAttribute('class', 'form-horizontal');
+
+    $nameElement = $this->employeeEditJobServiceForm->get('name');
+    $nameElement
+        ->setAttribute('id', 'job-service-name')
+        ->setAttribute('class', 'form-control')
+    ;
+
+    $durationElement = $this->employeeEditJobServiceForm->get('duration');
+    $durationElement
+        ->setAttribute('id', 'job-service-duration')
+        ->setAttribute('class', 'form-control')
+    ;
+    
+    $descriptionElement = $this->employeeEditJobServiceForm->get('description');
+    $descriptionElement
+        ->setAttribute('id', 'job-service-description')
+        ->setAttribute('class', 'form-control')
+    ;
+
+    $salonJobServiceElement = $this->employeeEditJobServiceForm->get('salon-job-service');
+    $salonJobServiceElement
+        ->setAttribute('id', 'job-service-job-service-template')
+        ->setAttribute('class', 'form-control')
+?>
+
+<div class="box">
+    <div class="box-title-container clearfix">
+        <div class="box-title">Modifier une prestation</div>
+    </div>
+    <div class="box-content pb-5">
+        <?= $this->form()->openTag($this->employeeEditJobServiceForm); ?>
+        
+            <?php if (isset($this->employeeEditJobServiceFormError) === true) {
+                echo $this->displayAlert($this->employeeEditJobServiceFormError, DisplayAlert::ERROR);
+            } ?>
+
+            <div class="form-group <?= ($nameElement->getMessages()) ? ' has-error' : ''; ?>">
+                <label class="col-xs-12 col-sm-3 control-label" for="job-service-name">Titre</label>
+                <div class="col-xs-12 col-sm-8">
+                    <?= $this->formText($nameElement); ?>
+                    <?= $this->displayFormElementErrors($nameElement); ?>
+                </div>
+            </div>
+
+            <div class="form-group <?= ($durationElement->getMessages()) ? ' has-error' : ''; ?>">
+                <label class="col-xs-12 col-sm-3 control-label" for="job-service-duration">Durée</label>
+                <div class="col-xs-12 col-sm-8">
+                    <?= $this->formSelect($durationElement); ?>
+                </div>
+            </div>
+
+            <div class="form-group <?= ($descriptionElement->getMessages()) ? ' has-error' : ''; ?>">
+                <label class="col-xs-12 col-sm-3 control-label" for="job-service-description">Description</label>
+                <div class="col-xs-12 col-sm-8">
+                    <?= $this->formTextarea($descriptionElement); ?>
+                    <?= $this->displayFormElementErrors($descriptionElement); ?>
+                </div>
+            </div>
+
+            <div class="form-group <?= ($salonJobServiceElement->getMessages()) ? ' has-error' : ''; ?>">
+                <label class="col-xs-12 col-sm-3 control-label" for="job-service-job-service-template">Modèle de prestation</label>
+                <div class="col-xs-12 col-sm-8">
+                    <?= $this->formSelect($salonJobServiceElement); ?>
+                </div>
+            </div>
+
+            <div class="form-group text-right">
+                <div class="col-sm-8 col-sm-offset-3">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa fa-check"></i>&nbsp;
+                        Modifier la prestation
+                    </button>
+                </div>
+            </div>
+        <?= $this->form()->closeTag($this->employeeEditJobServiceForm); ?>
+    </div>
+</div>

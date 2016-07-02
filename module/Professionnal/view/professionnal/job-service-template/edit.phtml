@@ -1,0 +1,117 @@
+<?php
+    $this->editJobServiceTemplateForm
+            ->setAttribute('class', 'form-horizontal');
+
+    $nameElement = $this->editJobServiceTemplateForm->get('name');
+    $nameElement
+        ->setAttribute('id', 'job-service-name')
+        ->setAttribute('class', 'form-control')
+    ;
+
+    $priceElement = $this->editJobServiceTemplateForm->get('price');
+    $priceElement
+        ->setAttribute('id', 'job-service-price')
+        ->setAttribute('class', 'form-control')
+        ->setAttribute('placeholder', '€')
+    ;
+
+    $typeElement = $this->editJobServiceTemplateForm->get('jobServiceType');
+    $typeElement->setAttribute('id', 'job-service-type');
+
+    $customerCharacteristicElement = $this->editJobServiceTemplateForm->get('customerCharacteristic');
+    $customerCharacteristicElement->setAttribute('id', 'job-service-customer-characteristic');
+    
+    $synchronizeJobServiceElement = $this->editJobServiceTemplateForm->get('synchronize-job-service');
+    $synchronizeJobServiceElement
+        ->setAttribute('id', 'job-service-synchronize')
+    ;
+?>
+
+<div class="box">
+    <div class="box-title-container clearfix">
+        <div class="box-title">Modifier un type de prestation</div>
+    </div>
+    <div class="box-content pb-5">
+        <?= $this->form()->openTag($this->editJobServiceTemplateForm); ?>
+
+            <?php if (isset($this->editJobServiceTemplateError) === true) {
+                echo $this->displayAlert($this->editJobServiceTemplateError, DisplayAlert::ERROR);
+            } ?>
+
+            <div class="form-group <?= ($nameElement->getMessages()) ? ' has-error' : ''; ?>">
+                <label class="col-xs-12 col-sm-3 control-label" for="job-service-name">Titre</label>
+                <div class="col-xs-12 col-sm-8">
+                    <?= $this->formText($nameElement); ?>
+                    <?= $this->displayFormElementErrors($nameElement); ?>
+                </div>
+            </div>
+
+            <div class="form-group <?= ($priceElement->getMessages()) ? ' has-error' : ''; ?>">
+                <label class="col-xs-12 col-sm-3 control-label" for="job-service-price">Prix</label>
+                <div class="col-xs-12 col-sm-8">
+                    <div class="input-group">
+                        <?= $this->formText($priceElement); ?>
+                        <span class="input-group-addon">€</span>
+                    </div>
+                    <p class="help-block">Le prix inclut <?= number_format($fees, 2, ',', ' ') ?>€ de frais de gestion retenus par Hairlov</p>
+                    <?= $this->displayFormElementErrors($priceElement); ?>
+                </div>
+            </div>
+
+            <div class="form-group <?= ($typeElement->getMessages()) ? ' has-error' : ''; ?>">
+                <label class="col-xs-12 col-sm-3 control-label" for="job-service-type">Types</label>
+                <div class="col-xs-12 col-sm-8">
+                    <?php foreach($typeElement->getValueOptions() as $key => $item): ?>
+                        <?php $checked = (!is_array($typeElement->getValue()) || !in_array($key, $typeElement->getValue())) ?: ' checked="checked"'; ?>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="jobServiceType[]" value="<?= $key ?>"<?= $checked; ?>>
+                            <?= $item; ?>
+                        </label>
+                    <?php endforeach; ?>
+                    <?= $this->displayFormElementErrors($typeElement); ?>
+                </div>
+            </div>
+
+            <div class="form-group <?= ($customerCharacteristicElement->getMessages()) ? ' has-error' : ''; ?>">
+                <label class="col-xs-12 col-sm-3 control-label" for="job-service-customer-characteristic">S'adresse aux cheveux</label>
+                <div class="col-xs-12 col-sm-8">
+                    <?php foreach($customerCharacteristicElement->getValueOptions() as $key => $item): ?>
+                        <?php $checked = (!is_array($customerCharacteristicElement->getValue()) || !in_array($key, $customerCharacteristicElement->getValue())) ?: ' checked="checked"'; ?>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="customerCharacteristic[]" value="<?= $key ?>"<?= $checked; ?>>
+                            <?= $item; ?>
+                        </label>
+                    <?php endforeach; ?>
+                    <?= $this->displayFormElementErrors($customerCharacteristicElement); ?>
+                </div>
+            </div>
+        
+            <div class="row">
+                <div class="col-xs-12 col-sm-offset-3 col-sm-8">
+                    <b>Il est possible de modifier en cascade les prestations qui ont été créées à partir de ce type.</b>
+                </div>
+            </div>
+
+            <div class="form-group <?= ($synchronizeJobServiceElement->getMessages()) ? ' has-error' : ''; ?>">
+                <div class="col-xs-12 col-sm-offset-3 col-sm-6">
+                    <div class="checkbox">
+                        <label>
+                            <?= $this->formCheckbox($synchronizeJobServiceElement); ?>
+                            Mettre à jour les prestations liées à ce type
+                        </label>
+                    </div>
+                    <?= $this->displayFormElementErrors($synchronizeJobServiceElement); ?>
+                </div>
+            </div>
+
+            <div class="form-group text-right">
+                <div class="col-sm-8 col-sm-offset-3">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa fa-check"></i>&nbsp;
+                        Modifier le type de prestation
+                    </button>
+                </div>
+            </div>
+        <?= $this->form()->closeTag($this->editJobServiceTemplateForm); ?>
+    </div>
+</div>

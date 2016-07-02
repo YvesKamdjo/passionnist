@@ -1,0 +1,61 @@
+<?php $this->headTitle()->prepend('Donner votre avis'); ?>
+<?php
+    $this->createBookingCommentForm
+            ->setAttribute('class', 'form-horizontal');
+
+    $rateElement = $this->createBookingCommentForm->get('rate');
+    $rateElement
+        ->setAttribute('id', 'rate')
+        ->setAttribute('class', 'form-control')
+    ;
+
+    $commentElement = $this->createBookingCommentForm->get('comment');
+    $commentElement
+        ->setAttribute('id', 'comment')
+        ->setAttribute('class', 'form-control')
+    ;
+?>
+
+
+<div class="container">
+    <div class="box">
+        <div class="box-title-container clearfix">
+            <div class="box-title">Ajouter un commentaire</div>
+        </div>
+        <div class="box-content">
+            <?= $this->form()->openTag($this->createBookingCommentForm); ?>
+
+                <div class="form-group <?= ($commentElement->getMessages()) ? ' has-error' : ''; ?>">
+                    <label class="col-xs-12 col-sm-3 control-label" for="comment">Commentaire</label>
+                    <div class="col-xs-12 col-sm-8">
+                        <?= $this->formTextarea($commentElement); ?>
+                        <?= $this->displayFormElementErrors($commentElement); ?>
+                    </div>
+                </div>
+        
+                <div class="form-group <?= ($rateElement->getMessages()) ? ' has-error' : ''; ?>">
+                    <label class="col-xs-12 col-sm-3 control-label">Note</label>
+                    <div class="col-xs-12 col-sm-8">
+                        <?php foreach($rateElement->getValueOptions() as $key => $item): ?>
+                            <?php $checked = ($key == $rateElement->getValue()) ? ' checked="checked"' : ''; ?>
+                            <label class="radio-inline">
+                                <input type="radio" name="rate" value="<?= $key ?>"<?= $checked; ?>>
+                                <?= $item; ?>
+                            </label>
+                        <?php endforeach; ?>
+                        <?= $this->displayFormElementErrors($rateElement); ?>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-4 col-sm-offset-3">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-check"></i>&nbsp;
+                            Créer le commentaire
+                        </button>
+                    </div>
+                </div>
+            <?= $this->form()->closeTag($this->createBookingCommentForm); ?>
+        </div>
+    </div>
+</div>

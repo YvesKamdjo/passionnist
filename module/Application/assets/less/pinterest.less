@@ -1,0 +1,197 @@
+.pinterest {
+    position: relative;
+}
+
+.pinterest-mag {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    line-height: @line-height-computed * 3;
+    text-transform: uppercase;
+    font-size: 48px;
+    color: #FFFFFF;
+    font-weight: 300;
+    z-index: 5;
+    span {
+        margin-left: -10px;
+        font-size: 20px;
+        font-weight: 700;
+        vertical-align: middle;
+    }
+}
+
+.pinterest-column {
+    float: left;
+}
+
+.pinterest-large {
+    width: 480px;
+}
+
+.pinterest-medium {
+    width: 245px;
+}
+
+.pinterest-medium-small {
+    width: 245px;
+}
+
+.pinterest-small {
+    width: 170px;
+}
+
+.pinterest-image-large {
+    //width: 480px;
+    height: 480px;
+}
+
+.pinterest-image-medium {
+    //width: 245px;
+    height: 480px;
+}
+
+.pinterest-image-medium-small {
+    //width: 245px;
+    height: 360px;
+}
+
+.pinterest-image-small {
+    //width: 170px;
+    height: 168px;
+}
+
+.pinterest-background {
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: cover;
+    border: 1px solid #FFFFFF;
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        &.pink {
+            background: rgba(184, 59, 94, 0.25);
+        }
+        &.red {
+            background: rgba(255, 55, 87, 0.25);
+        }
+        &.yellow {
+            background: rgba(255, 243, 149, 0.25);
+        }
+        &.blue {
+            background: rgba(41, 205, 181, 0.25);
+        }
+        &.green {
+            background: rgba(205, 220, 57, 0.25);
+        }
+    }
+}
+
+.pinterest-date {
+    background: #FFFFFF;
+    text-align: center;
+    height: 144px;
+    line-height: 144px;
+    text-transform: uppercase;
+    span {
+        display: block;
+        font-weight: 900;
+        font-size: 36px;
+        line-height: 24px;
+    }
+    .pinterest-day {
+        color: #CCCCCC;
+    }
+    .pinterest-month {
+        color: #FF3757;
+        opacity: 0.5;
+    }
+    .pinterest-year {
+        color: #29CDB5;
+        opacity: 0.25;
+    }
+}
+
+.pinterest-more {
+    display: block;
+    font-weight: 300;
+    background: #FFFFFF;
+    font-size: 36px;
+    height: 120px;
+    line-height: 120px;
+    text-align: center;
+    text-transform: uppercase;
+    color: #CCCCCC;
+    .fa {
+        color: @brand-primary;
+        vertical-align: middle;
+    }
+}
+
+/*@media screen and (max-width: 1024px) {
+    .pinterest-large {
+        width: 280px;
+    }
+}
+
+@media screen and (max-width: @screen-sm) {
+    .pinterest {
+        height: 901px;
+    }
+    .pinterest-large {
+        width: 550px;
+    }
+    
+    .pinterest-medium,
+    .pinterest-medium-small {
+        width: 360px;
+    }
+    
+    .pinterest-image-medium,
+    .pinterest-image-medium-small{
+        height: 300px;
+    }
+    
+    .pinterest-more {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+}*/
+
+@media screen and (max-width: @screen-md-max) {
+    .pinterest {
+        height: 901px;
+    }
+    .pinterest-large {
+        width: 70%;
+    }
+    
+    .pinterest-small {
+        width: 30%;
+    }
+    
+    .pinterest-medium {
+        width: 50%;
+    }
+    
+    .pinterest-medium-small {
+        width: 50%;
+    }
+    
+    .pinterest-image-medium,
+    .pinterest-image-medium-small{
+        height: 300px;
+    }
+    
+    .pinterest-more {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+}

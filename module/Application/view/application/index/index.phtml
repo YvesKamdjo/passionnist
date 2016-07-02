@@ -1,0 +1,286 @@
+<?php
+    // Chargement de l'API Google Maps
+    $this->headScript()
+        ->appendFile('https://maps.googleapis.com/maps/api/js?key='.$mapsApiConfig['applicationKey'].'&libraries=places');
+    $this->headTitle()->set('HAIRLOV MAG : Les dernières tendances coiffure');
+?>
+
+<div class="container">
+        
+    <?php if (isset($fashionImages[0])) : ?>
+        <?= $this->partial('partial/fashion-images-block', ['images' => $fashionImages[0]]); ?>
+    <?php endif; ?>
+    
+    <div class="box no-border margin-bottom-48">
+        <div class="box-content">
+            <h2 class="title"><span>Rechercher</span> votre coiffeur privé</h2>
+            <form method="get" action="<?= $this->url('application-search-professional'); ?>">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group has-feedback has-feedback-left">
+                            <input type="text" name="address" id="address" class="form-control js-address input-lg" placeholder="Où ?" autocomplete="off">
+                            <i class="fa fa-map-marker form-control-feedback"></i>
+                            <input type="hidden" name="latitude" id="latitude" class="form-control js-latitude" value="">
+                            <input type="hidden" name="longitude" id="longitude" class="form-control js-longitude" value=""> 
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group has-feedback has-feedback-left">
+                            <input type="text" name="date" class="form-control input-lg datepicker-search" placeholder="Quand ?">
+                            <i class="fa fa-calendar form-control-feedback"></i>
+                            <input type="hidden" name="date_hidden">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block"><i class="fa fa-search"></i> Trouver</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <?php if (isset($fashionImages[1])) : ?>
+        <?= $this->partial('partial/fashion-images-block', ['images' => $fashionImages[1]]); ?>
+    <?php endif; ?>
+    
+    <div class="box inverse no-border margin-bottom-48">
+        <div class="box-content">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2 class="title"><span>Abonnez-vous</span> pour ne rien manquer</h2>
+                    
+                    <?php
+                        $this->subscribeNewsletterForm
+                            ->setAttribute('id', 'facebookLogInForm')
+                        ; 
+                        
+                        echo $this->form()->openTag($this->subscribeNewsletterForm); 
+                    ?>
+                        <?php
+                            $emailElement = $this->subscribeNewsletterForm->get('email');
+                            $emailElement
+                                ->setAttribute('class', 'form-control input-lg form-control-newsletter')
+                                ->setAttribute('placeholder', 'Adresse e-mail')
+                            ;
+                        ?>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group has-feedback has-feedback-left button-submit form-control-newsletter-container">
+                                    <?= $this->formEmail($emailElement); ?>
+                                    <i class="fa fa-envelope form-control-feedback"></i>
+                                    <button type="submit" class="btn btn-dark btn-square btn-sm no-border">Valider</button>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+
+                            </div>
+                        </div>
+                    
+                    <?= $this->form()->closeTag($this->subscribeNewsletterForm); ?>
+                    
+                </div>
+                <div class="col-md-6">
+                    <h2 class="title"><span>Suivez les tendances</span></h2>
+                    <div class="box-social">
+                        <a href="#" class="social">
+                            <i class="fa fa-facebook fa-2x"></i>                            
+                        </a>
+                    </div><div class="box-social">
+                        <a href="#" class="social">
+                            <i class="fa fa-twitter fa-2x"></i>                            
+                        </a>
+                    </div><div class="box-social">
+                        <a href="#" class="social">
+                            <i class="fa fa-google-plus fa-2x"></i>                            
+                        </a>
+                    </div><div class="box-social">
+                        <a href="#" class="social">
+                            <i class="fa fa-instagram fa-2x"></i>                            
+                        </a>
+                    </div><div class="box-social">
+                        <a href="#" class="social">
+                            <i class="fa fa-pinterest fa-2x"></i>                            
+                        </a>
+                    </div><div class="box-social">
+                        <a href="#" class="social">
+                            <i class="fa fa-youtube fa-2x"></i>                            
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    
+    
+</div>
+
+<?php if ($bestProfessionalList->count() > 0) : ?>
+
+<div class="section dark padding-top-48 padding-bottom-24 padding-top-xs-48 padding-bottom-xs-24">
+    <div class="container">
+        <h2 class="title-section text-center dark bold uppercase with-subtitle">Découvrez nos coiffeurs privés</h2>
+        <h3 class="subtitle-section text-center">Les meilleurs coiffeurs privés proche de chez vous</h3>
+        <div class="row">
+            <?php foreach ($bestProfessionalList as $bestProfessional) : ?>
+            <?php            
+                $professionalSlug = $this->slugify(
+                    $bestProfessional->firstName . ' ' .
+                    $bestProfessional->lastName . ' a ' .
+                    $bestProfessional->city
+                );
+            ?>
+            <div class="col-md-4">
+                <div class="coiffeur">
+                    <div class="coiffeur-image">
+                        <div class="overlay"></div>
+                        <?php $bestProfessional->accountImageFilename = ($bestProfessional->accountImageFilename != null)?$bestProfessional->accountImageFilename:'avatar.jpg';  ?>
+                        <div class="image-cover" style="height: 260px;background-image: url(<?= $this->url('application-load-image', [
+                            'category' => 'account-image',
+                            'idImage' => $bestProfessional->accountImageFilename,
+                            'width' => 360,
+                            'height' => 260
+                        ]) ?>)">
+                        </div>
+                        
+                        <div class="coiffeur-description">
+                            <h3 class="coiffeur-title uppercase"><?= $bestProfessional->firstName . ' ' . $bestProfessional->lastName ?></h3>
+                            <a class="btn btn-dark" href="<?= $this->url('application-professional', ['idProfessional' => $bestProfessional->idProfessional]) ?>-<?= $professionalSlug ?>">Réserver maintenant</a>
+                        </div>
+                    </div>
+                    <div class="coiffeur-content clearfix" style="overflow: hidden">
+                        <div class="coiffeur-lov">
+                            <span><?= $bestProfessional->like ?></span>
+                        </div>
+                        <p><?= substr($bestProfessional->biography, 0, 80); ?></p>
+                    </div>
+                </div>
+            </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</div>
+
+<?php endif; ?>
+
+<div class="section default padding-top-48 padding-bottom-24 padding-top-xs-48 padding-bottom-xs-24">
+    <div class="container">
+        <h2 class="title-section text-center dark bold uppercase with-subtitle">Trouvez votre coiffeur privé</h2>
+        <h3 class="subtitle-section text-center">Découvrez nos séléctions de coiffeurs professionnels</h3>
+        <div class="row">
+            <?php
+                if (!is_null($customer->getAddress())
+                    && !is_null($customer->getLatitude())
+                    && !is_null($customer->getLongitude())
+                ) :
+                    $mostPopularUrl = $this->url('application-search-professional').'?address='.urlencode($customer->getAddress()).'&latitude='.$customer->getLatitude().'&longitude='.$customer->getLongitude();
+                    $biggestDiscountUrl = $this->url('application-search-professional').'?address='.urlencode($customer->getAddress()).'&latitude='.$customer->getLatitude().'&longitude='.$customer->getLongitude().'&sort=discount&order=desc';
+                    $latestProfessionalUrl = $this->url('application-search-professional').'?address='.urlencode($customer->getAddress()).'&latitude='.$customer->getLatitude().'&longitude='.$customer->getLongitude().'&sort=latest&order=desc';
+                    $bestRatedUrl = $this->url('application-search-professional').'?address='.urlencode($customer->getAddress()).'&latitude='.$customer->getLatitude().'&longitude='.$customer->getLongitude().'&sort=rate&order=desc';
+                    $salonUrl = $this->url('application-search-professional').'?address='.urlencode($customer->getAddress()).'&latitude='.$customer->getLatitude().'&longitude='.$customer->getLongitude().'&idAccountType%5B%5D=1';
+                    $freelanceUrl = $this->url('application-search-professional').'?address='.urlencode($customer->getAddress()).'&latitude='.$customer->getLatitude().'&longitude='.$customer->getLongitude().'&idAccountType%5B%5D=3';
+                else :
+                    $mostPopularUrl = $this->url('application-search-professional');
+                    $biggestDiscountUrl = $this->url('application-search-professional').'?sort=discount&order=desc';
+                    $latestProfessionalUrl = $this->url('application-search-professional').'?sort=latest&order=desc';
+                    $bestRatedUrl = $this->url('application-search-professional').'?sort=rate&order=desc';
+                    $salonUrl = $this->url('application-search-professional').'?idAccountType%5B%5D=1';
+                    $freelanceUrl = $this->url('application-search-professional').'?idAccountType%5B%5D=3';
+                endif;
+            ?>
+            <div class="col-md-4">
+                <div class="discover">
+                    <div class="discover-image image-cover" style="height: 170px;background-image: url(/img/discover/derniers-inscrits.png)">
+                        <div class="overlay"></div>
+                        <div class="discover-description">
+                            <h3 class="discover-title uppercase">Les plus populaires</h3>
+                            <a class="btn btn-dark" style="" href="<?= $mostPopularUrl ?>">Découvrir</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="discover">
+                    <div class="discover-image image-cover" style="height: 170px;background-image: url(/img/discover/specialiste-enfants.png)">
+                        <div class="overlay"></div>
+                        <div class="discover-description">
+                            <h3 class="discover-title uppercase">Les bons plans</h3>
+                            <a class="btn btn-dark" href="<?= $biggestDiscountUrl ?>">Découvrir</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="discover">
+                    <div class="discover-image image-cover" style="height: 170px;background-image: url(/img/discover/specialiste-afro.png)">
+                        <div class="overlay"></div>
+                        <div class="discover-description">
+                            <h3 class="discover-title uppercase">Les nouveaux inscrits</h3>
+                            <a class="btn btn-dark" href="<?= $latestProfessionalUrl ?>">Découvrir</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="discover">
+                    <div class="discover-image image-cover" style="height: 170px;background-image: url(/img/discover/mieux-notes.png)">
+                        <div class="overlay"></div>
+                        <div class="discover-description">
+                            <h3 class="discover-title uppercase">Les mieux notés</h3>
+                            <a class="btn btn-dark" href="<?= $this->url('application-search-professional') ?>?sort=rate&order=desc">Découvrir</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="discover">
+                    <div class="discover-image image-cover" style="height: 170px;background-image: url(/img/discover/proche-de-moi.png)">
+                        <div class="overlay"></div>
+                        <div class="discover-description">
+                            <h3 class="discover-title uppercase">En salon</h3>
+                            <a class="btn btn-dark" href="<?= $this->url('application-search-professional') ?>?idAccountType%5B%5D=1">Découvrir</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="discover">
+                    <div class="discover-image image-cover" style="height: 170px;background-image: url(/img/discover/a-domicile.png)">
+                        <div class="overlay"></div>
+                        <div class="discover-description">
+                            <h3 class="discover-title uppercase">À domicile</h3>
+                            <a class="btn btn-dark" href="<?= $this->url('application-search-professional') ?>?idAccountType%5B%5D=3">Découvrir</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php 
+    if ($customer->getCity() === null
+        || $customer->getLatitude() === null
+        || $customer->getLongitude() === null
+    ) : 
+?>
+
+<?= $this->partial('partial/set-location'); ?>
+
+<?php $this->inlineScript()->captureStart(); ?>
+$(document).ready(function () {
+    hairlov.application.index.setLocation.init();
+});
+<?php $this->inlineScript()->captureEnd(); ?>
+
+<?php endif; ?>
+
+<?php $this->inlineScript()->captureStart(); ?>
+$(document).ready(function () {
+    hairlov.application.index.index.init();
+    hairlov.application.jobService.search.init();
+});
+<?php $this->inlineScript()->captureEnd(); ?>

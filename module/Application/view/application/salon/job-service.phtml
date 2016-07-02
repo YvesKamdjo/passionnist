@@ -1,0 +1,78 @@
+<?php $this->headTitle()->prepend('Toutes les prestations de '.$this->salon->getName() . ' à ' .$this->salon->getCity()); ?>
+<?php
+    use Backend\Infrastructure\DataTransferObject\CompleteJobService;
+?>
+    
+<div class="container">
+    <?= $this->partial('partials/header', ['activeTab' => 'job-service', 'salon' => $salon, 'salonImage' => $salonImage]); ?>
+    
+    <div class="row">
+        
+        <?php foreach ($jobServices as $jobService) : ?>
+            <?php
+                $professionalSlug = $this->slugify(
+                    $jobService->accountFirstName . ' ' . 
+                    $jobService->accountLastName . ' a ' .
+                    $salon->getCity()
+                );
+            ?>
+            <?php
+                $jobServiceSlug = $this->slugify(
+                    $jobService->name . ' par ' . 
+                    $jobService->accountFirstName . ' ' .
+                    $jobService->accountLastName
+                );
+            ?>
+            <?php /* @var $jobService CompleteJobService */ ?>
+            <div class="col-md-3">
+                <div class="prestation-list">
+                    <div class="prestation-image-container">
+                        <?php $jobServiceImages = explode(',', $jobService->jobServiceImages); ?>
+                        <div class="prestation-slider-container overflow-image image-cover" style="background-image: url('<?= $this->url('application-load-image', [
+                            'category' => 'job-service-image',
+                            'idImage' => array_shift($jobServiceImages) ?: 'empty.png',
+                            'width' => '263',
+                            'height' => '300'
+                        ]); ?>')">
+                        </div>
+                        <a href="<?= $this->url('application-professional', ['idProfessional' => $jobService->idProfessional]); ?>-<?= $professionalSlug ?>"
+                            class="author-avatar image-cover img-circle"
+                            data-toggle="tooltip"
+                            data-placement="top"
+                            title="<?= $jobService->accountFirstName ?> <?= $jobService->accountLastName ?>"
+                            style="background-image: url('<?= $this->url('application-load-image', [
+                                'category' => 'account-image',
+                                'idImage' => $jobService->accountImageFilename ?: 'avatar.jpg',
+                                'width' => '40',
+                                'height' => '40'
+                            ]); ?>')">
+                        </a>
+                    </div>
+                    <div class="inner">
+                        <div class="prestation-title-container">
+                            <h2 class="prestation-title"><a href="<?= $this->url('application-job-service', ['idJobService' => $jobService->idJobService]); ?>-<?= $jobServiceSlug ?>"><?= $jobService->name ?></a></h2>
+                            <div class="author">
+                                Proposé par <a href="<?= $this->url('application-professional', ['idProfessional' => $jobService->idProfessional]); ?>-<?= $professionalSlug ?>"><?= $jobService->accountFirstName ?> <?= $jobService->accountLastName ?></a>
+                            </div>
+                        </div>
+
+                        <div class="item characteristic-list">
+                            <?php $customerCharacteristics = explode(',', $jobService->customerCharacteristicList); ?>
+                            <?php foreach ($customerCharacteristics as $customerCharacteristic) : ?>
+                                <span class="badge"><?= $customerCharacteristic ?></span>
+                            <?php endforeach; ?>
+                        </div>
+
+                        <form method="post" class="text-right" action="<?= $this->url('application-job-service', ['idJobService' => $jobService->idJobService]) ?>-<?= $jobServiceSlug ?>">
+                            <input type="hidden" name="expectedDate" value="">
+
+                            <?php $calculatedPrice = ($jobService->price - ($jobService->price * ($jobService->maxDiscount/100))) ?>
+                            <button class="btn btn-primary btn-block btn-details">À&nbsp;partir de <?= $calculatedPrice ?> €</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+        
+    </div>
+</div>

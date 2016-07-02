@@ -1,0 +1,142 @@
+.prestation-list {
+    margin-bottom: 24px;
+    .inner {
+        padding: 24px;
+        background: #FFFFFF;
+    }
+    
+    .prestation-image-container {
+        position: relative;
+        .professional-location {
+            position: absolute;
+            right: 0px;
+            padding: 4px 8px;
+            background-color: rgba(255,255,255,0.6);
+        }
+        .author-avatar {
+            position: absolute;
+            bottom:-20px;
+            left: 50%;
+            margin-left: -20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+    }
+    .prestation-title-container {
+        margin-bottom: 12px;
+    }
+    .prestation-title {
+        font-weight: 700;
+        font-size: 18px;
+        margin: 0 0 0 0;
+        height: 48px;
+        overflow: hidden;
+        position: relative;
+        &:hover {
+           overflow: visible;
+           a {
+               background: white;
+           }
+        }
+        a {
+            color: #333333;
+            text-decoration: none;
+            &:hover {
+                color: @brand-primary;
+            }
+        }
+    }
+    .author {
+        font-size: 12px;
+    }
+    .btn-details {
+        margin-top: 12px;
+    }
+}
+
+.prestation-header-info {
+    margin-top: 24px;
+}
+
+.prestations-availabilities {
+    padding: 20px;
+    background: #FFFFFF;
+    .overflow {
+        margin-top: 12px;
+        height: 304px;
+        overflow-y: scroll;
+    }
+    .submit {
+        margin-top: 12px;
+    }
+    .prestation-link {
+        + .prestation-link {
+            margin-top: 12px;
+        }
+    }
+    .prestation-availabilities-none {
+        margin-top: 12px;
+    }
+}
+
+.job-service-professional {
+    padding: 20px;
+    background: #FFFFFF;
+    margin-bottom: @line-height-computed;
+    
+    .professional-location {
+        margin-top: -20px;
+    }
+    
+    .avatar-container {
+        float: left;
+        overflow: hidden;
+        border-radius: 50%;
+        width: 75px;
+        height: 75px;
+        margin-right: 20px;
+        border: 3px solid #FFFFFF;
+        background-size: cover;
+        background-position: center center;
+    }
+    .coiffeur-lov {
+        outline: none;
+        width: 48px;
+        text-align: center;
+        font-size: 14px;
+        background: url(/img/lov.png) no-repeat center 10px;
+        padding: 35px 5px 10px 5px;
+        border: none;
+        span {
+            display: block;
+        }
+    }
+}
+
+.prestation-salon {
+    .prestation-salon-image {
+        position: relative;
+        height: 300px;
+        margin-bottom: @line-height-computed;
+        
+        .content {
+            width: 100%;
+            padding: 0 30px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            
+        }
+        .prestation-salon-title {
+            color: #FFFFFF;
+            display: inline-block;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.4);
+            font-size: 25px;
+            text-shadow: 1px 1px 1px #000000;
+        }
+    }
+}

@@ -1,0 +1,51 @@
+<?php $weekFashionImages = iterator_to_array($images); ?>
+<?php if (count($weekFashionImages) == 5) : ?>
+    <div class="pinterest clearfix margin-bottom-48">
+        <div class="pinterest-mag hidden-xs">Hairlov <span>mag</span></div>
+        <div class="pinterest-column pinterest-large">
+            <div class="pinterest-background pinterest-image-large" style="background-image: url(<?= $weekFashionImages[0]->imageUrl ?>);">
+                <div class="overlay pink"></div>
+            </div>
+        </div>
+        <div class="pinterest-column pinterest-small">
+            <div class="pinterest-date">
+                <div class="va-middle">
+                    <?php $date = DateTime::createFromFormat('Y-m-d H:i:s', $weekFashionImages[0]->creationDate); ?>
+                    <span class="pinterest-day"><?= $date->format('d') ?></span>
+                    <span class="pinterest-month"><?= $date->format('M') ?></span>
+                    <span class="pinterest-year"><?= $date->format('Y') ?></span>
+                </div>
+            </div>
+            <div class="pinterest-background pinterest-image-small" style="background-image: url(<?= $weekFashionImages[1]->imageUrl ?>);">
+                <div class="overlay red"></div>
+            </div>
+            <div class="pinterest-background pinterest-image-small" style="background-image: url(<?= $weekFashionImages[2]->imageUrl ?>);">
+                <div class="overlay yellow"></div>
+            </div>
+        </div>
+        <div class="pinterest-column pinterest-medium">
+            <div class="pinterest-background pinterest-image-medium" style="background-image: url(<?= $weekFashionImages[3]->imageUrl ?>);">
+                <div class="overlay blue"></div>
+            </div>
+        </div>
+        <div class="pinterest-column pinterest-medium-small">
+            <?php
+                $remainingImages = $weekFashionImages[0]->totalCount - ($weekFashionImages[0]->page * 5);
+                if ((5 % $remainingImages) == 5) : 
+            ?>
+                <div class="pinterest-background pinterest-image-medium-small" style="background-image: url(<?= $weekFashionImages[4]->imageUrl ?>);">
+                    <div class="overlay green"></div>
+                </div>
+                <a href="#" class="pinterest-more" data-week="<?= $date->format('W') ?>" data-year="<?= $date->format('Y') ?>" data-page="<?= $weekFashionImages[4]->page ?>">
+                    <span class="va-middle">
+                        Encore <i class="fa fa-chevron-right fa-2x"></i>
+                    </span>
+                </a>
+            <?php else : ?>
+                <div class="pinterest-background pinterest-image-medium" style="background-image: url(<?= $weekFashionImages[4]->imageUrl ?>);">
+                    <div class="overlay green"></div>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+<?php endif; ?>

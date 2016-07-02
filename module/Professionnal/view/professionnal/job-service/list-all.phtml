@@ -1,0 +1,94 @@
+<?php if ($isSalonDeactivated) : ?>
+    <div class="alert alert-info">
+        <div class="row">
+            <div class="col-md-12">
+                <b>Vos prestations ne sont pas publiques.</b><br>
+                Le salon auquel vous appartenez n'est pas encore vérifié, votre profil n'est donc pas encore publique.
+            </div>
+        </div>
+    </div>
+<?php elseif ($isAccountDeactivated) : ?>
+    <div class="alert alert-info">
+        <div class="row">
+            <div class="col-md-12">
+                <b>Vos prestations ne sont pas publiques.</b><br>
+                Votre profil n'a pas encore vérifié, il n'est donc pas encore publique.
+            </div>
+        </div>
+    </div>
+<?php elseif ($hasJobServiceWithoutImage) : ?>
+    <div class="alert alert-info">
+        <div class="row">
+            <div class="col-md-12">
+                <b>Au moins une de vos prestations n'est pas pas publique.</b><br>
+                Afin de rendre une prestation publique, vous devez lui ajouter des images.
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
+
+<div class="text-muted mg-b">
+    <p><b class="underline">Attention :</b> Créez des prestations et rajoutez les photos par la suite en cliquant sur ajouter image</p>
+    <div>
+        <b class="underline">Comment faire:</b>
+        <ol>
+            <li>Cliquez sur « nouvelle prestation ».</li>
+            <li>Remplissez les données vides et surtout précisez les détails de la prestation dans description.</li>
+            <li>Choisissez les types ou les motes clés.</li>
+        </ol>
+    </div>
+</div>
+
+<div class="box">
+    <div class="box-title-container clearfix">
+        <div class="box-tools pull-right">
+            <div class="btn-group">
+                <a href="<?= $this->url('professionnal-job-service/create'); ?>" class="btn btn-primary btn-sm">
+                    <i class="fa fa-plus-circle"></i>&nbsp;
+                    Nouvelle prestation
+                </a>
+            </div>
+        </div>
+        <div class="box-title">Liste des prestations</div>
+    </div>
+    <div class="box-content">
+        <?php if ($this->jobServiceList->count() > 0) : ?>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prix</th>
+                            <th>Durée</th>
+                            <th width="200"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($this->jobServiceList as $jobService) : ?>
+                            <tr>
+                                <td><?= $jobService->name ?></td>
+                                <td><?= $jobService->price ?>€</td>
+                                <td><?= $jobService->duration ?> minutes</td>
+                                <td>
+                                    <a href="/professionnel/prestation/modifier/<?= $jobService->idJobService ?>" class="btn btn-default btn-square" data-toggle="tooltip" data-placement="top" title="Modifier"><i class="fa fa-pencil"></i></a>
+
+                                    <?php if ($jobService->jobServiceImagesCount > 0) : ?>
+                                    <a href="/professionnel/prestation/gerer-images/<?= $jobService->idJobService ?>" class="btn btn-default btn-square" data-toggle="tooltip" data-placement="top" title="Gérer les images"><i class="fa fa-picture-o"></i> <span class="badge"><?= $jobService->jobServiceImagesCount ?></span></a>
+                                    <?php else : ?>
+                                    <a href="/professionnel/prestation/gerer-images/<?= $jobService->idJobService ?>" class="btn btn-danger btn-square" data-toggle="tooltip" data-placement="top" title="Gérer les images"><i class="fa fa-picture-o"></i> <span class="badge"><?= $jobService->jobServiceImagesCount ?></span></a>
+                                    <?php endif; ?>
+
+                                    <a href="/professionnel/prestation/supprimer/<?= $jobService->idJobService ?>" class="btn btn-danger btn-square" data-toggle="tooltip" data-placement="top" title="Supprimer"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        <?php else : ?>
+            <div class="alert alert-info">
+                Aucune prestation n'a été créée.
+            </div>
+        <?php endif; ?>
+    </div>
+</div>

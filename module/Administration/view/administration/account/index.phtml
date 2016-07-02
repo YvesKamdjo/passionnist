@@ -1,0 +1,131 @@
+<?php if ($this->accountCollection->count() > 0) : ?>
+    <div class="box">
+        <div class="box-title-container clearfix">
+            <div class="box-tools pull-right">
+                <div class="btn-group">
+            
+                    <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown">
+                        Filtres <span class="caret"></span>
+                    </button>
+
+                    <ul class="dropdown-menu">
+                        <li><a href="<?= $this->url('administration-account') ?>">Tous les comptes</a></li>
+                        <li><a href="<?= $this->url('administration-account') ?>?filter=customer">Comptes client</a></li>
+                        <li><a href="<?= $this->url('administration-account') ?>?filter=manager">Comptes gérant</a></li>
+                        <li><a href="<?= $this->url('administration-account') ?>?filter=employee">Comptes employé</a></li>
+                        <li><a href="<?= $this->url('administration-account') ?>?filter=freelance">Comptes indépendant</a></li>
+                        <li><a href="<?= $this->url('administration-account') ?>?filter=admin">Comptes administrateur</a></li>
+                    </ul>
+
+                </div>
+            </div>
+            <div class="box-title">Liste des comptes</div>
+        </div>
+        
+        <div class="box-content">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Identité</th>
+                            <th>Rôles</th>
+                            <th>Statut</th>
+                            <th>Diplôme</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($this->accountCollection as $account) : ?>
+                    <tr>
+                        <td>
+                            <?= $account->firstName . ' ' . $account->lastName ?>
+                            <span class="text-small text-gray">(<?= $account->email ?>)</span>
+                        </td>
+                        <td>
+                            <?php foreach ($account->roleList as $role) : ?>
+                                <span class="label label-default"><?= $role ?></span>
+                            <?php endforeach; ?>
+                        </td>
+                        <td>
+                            <?php if($account->isActive == true) : ?>
+                                <span class="label label-success">Actif</span>
+                            <?php else : ?>
+                                <span class="label label-danger">Inactif</span>
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <?php if(!empty($account->qualificationFileName)) : ?>
+                                <span class="label label-success">Disponible</span>
+                            <?php else : ?>
+                                <span class="label label-danger">Indisponible</span>
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <?php if(!empty($account->qualificationFileName)) : ?>
+                                <a 
+                                    href="<?= $this->url('administration-account/qualification', ['idAccount' => $account->idAccount]) ?>" 
+                                    target="_blank" 
+                                    class="btn btn-default btn-square"
+                                    data-toggle="tooltip" 
+                                    data-placement="left" 
+                                    title="Visionner le diplôme"
+                                ><i class="fa fa-paperclip"></i></a>
+                            <?php else: ?>
+                                <button type="button" disabled="disabled" class="btn btn-default btn-square disabled">
+                                    <span class="text-gray">
+                                        <i class="fa fa-paperclip"></i>
+                                    </span>
+                                </button>
+                            <?php endif; ?>
+                            
+                            <a 
+                                href="<?= $this->url('administration-account/edit', ['idAccount' => $account->idAccount]) ?>" 
+                                class="btn btn-default btn-square"
+                                data-toggle="tooltip" 
+                                data-placement="left" 
+                                title="Modifier le compte"
+                            ><i class="fa fa-pencil"></i></a>
+                                
+                            <?php if($account->isActive == false) : ?>
+                                <a 
+                                    href="<?= $this->url('administration-account/activate', ['idAccount' => $account->idAccount]) ?>" 
+                                    class="btn btn-success btn-square"
+                                    data-toggle="tooltip" 
+                                    data-placement="left" 
+                                    title="Activer le compte"
+                                ><i class="fa fa-check"></i></a>
+                            <?php else: ?>
+                                <a 
+                                    href="<?= $this->url('administration-account/deactivate', ['idAccount' => $account->idAccount]) ?>" 
+                                    class="btn btn-warning btn-square"
+                                    data-toggle="tooltip" 
+                                    data-placement="left" 
+                                    title="Désactiver le compte"
+                                ><i class="fa fa-ban"></i></a>
+                            <?php endif; ?>
+                                
+                            <?php if(!array_key_exists(Backend\Entity\AccountType::ACCOUNT_TYPE_ADMIN, $account->roleList)) : ?>
+                                <a 
+                                    href="<?= $this->url('administration-account/take-over', ['idAccount' => $account->idAccount]) ?>" 
+                                    class="btn btn-default btn-square"
+                                    data-toggle="tooltip" 
+                                    data-placement="left" 
+                                    title="Prendre le contrôle"
+                                ><i class="fa fa-external-link"></i></a>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+<?php else : ?>
+
+    <div class="alert alert-info">
+        Aucun compte ne répond à cette recherche.
+    </div>
+
+<?php endif; ?>

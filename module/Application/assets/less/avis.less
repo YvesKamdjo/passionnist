@@ -1,0 +1,44 @@
+.note-count {
+    float: left;
+    margin: 0 10px 0 0;
+    padding: 0;
+    list-style: none;
+    li {
+        padding: 0 2px;
+        font-size: 12px;
+        color: @brand-primary;
+    }
+}
+.avis-count {
+    text-decoration: underline;
+}
+
+.avis-container {
+    + .avis-container {
+        margin-top: 24px;
+        padding-top: 24px;
+        border-top: 1px solid #e5e5e5;
+    }
+    .avatar-container {
+        width: 15%;
+    }
+    .avis-content {
+        width: 85%;
+    }
+}
+
+.avis-header {
+    margin-top: 12px;
+}
+
+.avis-auteur {
+    font-size: 18px;
+}
+
+.avis-date {
+    font-size: 14px;
+}
+
+.avis-body {
+    margin-top: 12px;
+}

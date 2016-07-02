@@ -1,0 +1,62 @@
+.modal-form {
+    background-color: fade(#333333, 50%);
+    bottom: 0;
+    left: -25px;
+    display: none;
+    overflow-y: auto;
+    position: fixed;
+    right: -25px;
+    top: 0;
+    z-index: 10;
+    
+    &.is-visible {
+        display: block;
+    }
+    
+    .inner {
+        background-color: fade(#FFFFFF, 90%);
+        border: solid 1px #797979;
+        margin: 5px 0;
+        padding: @line-height @gutter;
+        position: relative;
+        
+        .title {
+            font-size: 24px;
+            font-weight: 700;
+            line-height: @line-height;
+            margin: 0 0 @line-height 0;
+            padding: 0;
+        }
+        
+        .close-action {
+            background-color: transparent;
+            border: none;
+            padding: @line-height / 2;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+        
+        .row-mgb,
+        .form-row .checkbox {
+            margin-bottom: @line-height;
+        }
+    }
+}
+
+// sm
+@media screen and (min-width: 768px) {
+    .modal-form {
+        left: 0;
+        right: 0;
+        
+        .inner {
+            margin-bottom: 0;
+            margin-top: 2 * @line-height;
+            
+            .row-mgb {
+                margin-bottom: 0;
+            }
+        }
+    }
+}

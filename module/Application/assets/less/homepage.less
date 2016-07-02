@@ -1,0 +1,257 @@
+.homepage {
+    background-color: rgba(51, 51, 51, 0.3);
+    min-height: 22 * @line-height-computed;
+    position: relative;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    .landing-professional & {
+        background-image: url(/img/background-professionnel.jpg);
+    }
+    .landing-customer & {
+        background-image: url(/img/background-client.jpg);
+        background-position: top center;
+        
+        
+    }
+    
+    .header-nav {
+        position: relative;
+        margin-top: @line-height-computed;
+    }
+    
+        .header-nav-logo {
+            color: #FFFFFF;
+            display: block;
+            float: left;
+            font-size: 50px;
+            font-weight: 400;
+            height: 2 * @line-height-computed;
+            line-height: @line-height-computed;
+            text-align: center;
+            text-decoration: none;
+            text-shadow: 1px 1px 2px #000000;
+            text-transform: uppercase;
+            
+            .baseline {
+                font-size: 16px;
+                text-transform: none;
+            }
+        }
+            
+        .righ-nav {
+            float: right;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            
+            li {
+                display: block;
+                float: left;
+                margin: 0;
+                padding: 0;
+                
+                &:not(:last-child) {
+                    margin-right: @gutter / 2;
+                }
+            }
+        }
+
+    .hero {
+        margin-top: 2 * @line-height-computed;
+        text-align: center;
+    }
+    
+        .hero-title {
+            color: #FFFFFF;
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 3 * @line-height-computed;
+            margin: 0;
+            padding: 0;
+            text-shadow: 1px 1px 2px #000000;
+            @media screen and (max-width: @screen-sm) {
+                font-size: 32px;
+                line-height: 2 * @line-height-computed;
+            }
+        }
+
+        .hero-subtitle {
+            color: #FFFFFF;
+            font-size: 24px;
+            font-weight: 300;
+            line-height: 2 * @line-height-computed;
+            margin: 0;
+            padding: 0;
+            text-shadow: 1px 1px 2px #000000;
+        }
+        
+    .call-to-action {
+        display: block;
+        margin: (2 * @line-height) auto 0 auto;
+    }
+    
+    .footer {
+        background-color: fade(#333333, 50%);
+        color: #FFFFFF;
+        margin-top: 2 * @line-height-computed;
+        padding: @line-height-computed 0;
+        text-shadow: 1px 1px 2px #000000;
+        
+        .separated:after {
+            background-color: fade(#FFFFFF, 30%);
+            bottom: 0;
+            content: "";
+            display: none;
+            position: absolute;
+            right: 7px;
+            top: 0;
+            width: 1px;
+        }
+        
+        .img {
+            display: inline-block;
+            margin-right: 12px;
+            max-height: 2 * @line-height-computed;
+            max-width: 2 * @line-height-computed;
+            vertical-align: initial;
+        }
+        
+        .content {
+            vertical-align: middle;
+            display: inline-block;
+            font-weight: 300;
+            min-width: 130px;
+            max-width: 198px;
+            min-height: 101px;
+            padding: (@line-height / 2) 0;
+            
+            .big {
+                font-size: 28px;
+                font-weight: 400;
+                line-height: @line-height-computed;
+            }
+        }
+        
+        .button {
+            margin: @line-height 0;
+            text-align: center;
+        }
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            text-align: right;
+            a {
+                color: #FFFFFF;
+                text-decoration: none;
+                text-shadow: none;
+                text-transform: uppercase;
+                font-weight: 700;
+                &:hover {
+                    color: @brand-primary;
+                }
+            }
+        }
+    }
+    
+    .customer-landing-page-footer {
+        padding-bottom: 0;
+        
+        .img {
+            vertical-align: top;
+            margin-top: (@line-height / 2);
+        }
+        
+        .content {
+            vertical-align: top;
+            min-height: 72px;
+        }
+        
+        .footer-main {
+            height: auto;
+            margin-top: @line-height;
+        }
+    }
+}
+
+.service {
+    margin-bottom: 24px;
+    .service-content {
+        padding: 20px;
+        background: #FFFFFF;
+        color: #333333;
+    }
+    
+    @media (max-width: @screen-md-max) and (min-width: @screen-sm-max){
+        .service-content {
+            min-height: 250px;
+        }
+    }
+    @media (min-width: @screen-lg-min){
+        .service-content {
+            min-height: 200px;
+        }
+    }
+
+    .service-image {
+        position: relative;
+        text-align: center;
+    }
+    .service-description {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .service-title {
+        font-size: 30px;
+        line-height: 35px;
+        text-shadow: 1px 1px 1px #000000;
+    }
+    .btn {
+        margin-top: 24px;
+    }
+}
+
+// md + viewport height
+@media screen and (min-width: @screen-md) and (min-height: (24 * @line-height-computed)) {
+    .homepage {
+        height: 100vh;
+        padding-bottom: 6 * @line-height;
+        
+        .footer {
+            bottom: 0;
+            left: 0;
+            margin-top: 0;
+            min-height: 6 * @line-height;
+            position: absolute;
+            right: 0;
+
+            .separated:after {
+                display: block;
+            }
+            
+            &.customer-landing-page-footer {
+                min-height: 0;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: @screen-lg) and (min-height: 900px) {
+    .homepage {
+        .homepage-spacer {
+            height: 200px;
+        }
+    }
+}
+
+@media screen and (max-height: 837px) and (min-width: 990px) {
+    .homepage {
+        .landing-customer & {
+            height: auto;
+            padding-bottom: 12.5 * @line-height-computed;
+        }
+    }
+}

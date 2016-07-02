@@ -1,0 +1,51 @@
+<?php
+    $this->deleteJobServiceTemplateConfirmForm
+            ->setAttribute('class', 'form-horizontal');
+
+    $synchronizeJobServiceElement = $this->deleteJobServiceTemplateConfirmForm->get('synchronize-job-service');
+    $synchronizeJobServiceElement
+        ->setAttribute('id', 'job-service-synchronize')
+    ;
+?>
+
+
+<div class="box">
+    <div class="box-title-container clearfix">
+        <div class="box-title">Supprimer le type de prestation</div>
+    </div>
+    <div class="box-content pb-5">
+        <div class="alert alert-danger">
+            Vous êtes sur le point de supprimer un type de prestation.<br>
+            Attention, cette action est irréversible.
+        </div>
+        <?= $this->form()->openTag($this->deleteJobServiceTemplateConfirmForm); ?>
+            <div class="form-group <?= ($synchronizeJobServiceElement->getMessages()) ? ' has-error' : ''; ?>">
+                <div class="col-xs-12 col-sm-12">
+                    Il est possible de supprimer en cascade les prestations qui ont été créées à partir de ce type.
+                </div>
+                <div class="col-xs-12 col-sm-12">
+                    <div class="checkbox">
+                        <label>
+                            <?= $this->formCheckbox($synchronizeJobServiceElement); ?>
+                            Modifier les prestations liées à ce type
+                        </label>
+                    </div>
+                    <?= $this->displayFormElementErrors($synchronizeJobServiceElement); ?>
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <a href="<?= $this->url('professionnal-job-service-template'); ?>" class="btn btn-default pull-left">
+                        <i class="fa fa-close"></i>&nbsp;
+                        Annuler
+                    </a>
+                    <button type="submit" class="btn btn-primary pull-right">
+                        <i class="fa fa-trash"></i>&nbsp;
+                        Supprimer
+                    </button>
+                </div>
+            </div>
+        <?= $this->form()->closeTag($this->deleteJobServiceTemplateConfirmForm); ?>
+    </div>
+</div>

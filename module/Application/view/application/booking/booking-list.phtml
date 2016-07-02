@@ -1,0 +1,66 @@
+<?php $this->headTitle()->prepend('Mes réservations'); ?>
+<div class="container">
+
+    <div class="box">
+        <div class="box-title-container clearfix">
+            <div class="box-title">Liste des réservations</div>
+        </div>
+        <div class="box-content padding-bottom-5">
+            <?php if ($this->bookingCollection->count() > 0) : ?>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nom de la prestation</th>
+                            <th>Date</th>
+                            <th>Durée</th>
+                            <th>Prix</th>
+                            <th width="110"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($this->bookingCollection as $booking) : ?>
+                            <?php /* @var $booking Backend\Entity\Booking */ ?>
+                            <tr>
+                                <td>
+                                    <a href="<?= $this->url('application-job-service', ['idJobService' => $booking->getIdJobService()]);?> "><?= $booking->getJobServiceName() ?></a><br>
+                                </td>
+                                <td>
+                                    <?= date('d/m/Y H:i', strtotime($booking->getStart())); ?>
+                                </td>
+                                <td>
+                                    <?= $booking->getDuration() ?> min
+                                </td>
+                                <td>
+                                    <?= $booking->getJobServicePrice() ?> €
+                                </td>
+                                <td>
+                                    <a 
+                                        href="<?= $this->url("application-booking/comment", ['bookingId' => $booking->getIdBooking()]); ?>" 
+                                        class="btn btn-default btn-square"
+                                        data-toggle="tooltip" 
+                                        data-placement="top" 
+                                        title="Commenter"
+                                    ><i class="fa fa-comment-o"></i></a>
+                                    <a 
+                                        href="<?= $this->url("application-booking/generate-invoice", ['bookingId' => $booking->getIdBooking()]); ?>" 
+                                        class="btn btn-default btn-square"
+                                        data-toggle="tooltip" 
+                                        data-placement="top" 
+                                        title="Générer la facture"
+                                    ><i class="fa fa-file-text-o"></i></a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+            <?php else : ?>
+                <div class="alert alert-info">
+                    Vous n'avez aucune réservation.
+                </div>
+            <?php endif; ?>
+           
+        </div>
+    </div>
+</div>

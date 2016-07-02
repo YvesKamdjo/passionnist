@@ -1,0 +1,86 @@
+<?php
+    $this->createTransfertRequestForm
+            ->setAttribute('class', 'form-horizontal');
+
+    $amountElement = $this->createTransfertRequestForm->get('amount');
+    $amountElement
+        ->setAttribute('id', 'amount')
+        ->setAttribute('class', 'form-control')
+    ;
+
+    $applicantIdentityElement = $this->createTransfertRequestForm->get('applicant-identity');
+    $applicantIdentityElement
+        ->setAttribute('id', 'applicant-identity')
+        ->setAttribute('class', 'form-control')
+    ;
+
+    $ibanElement = $this->createTransfertRequestForm->get('iban');
+    $ibanElement
+        ->setAttribute('id', 'iban')
+        ->setAttribute('class', 'form-control')
+    ;
+
+    $bicElement = $this->createTransfertRequestForm->get('bic');
+    $bicElement
+        ->setAttribute('id', 'bic')
+        ->setAttribute('class', 'form-control')
+    ;
+?>
+
+<?php if ($this->isAllowed('professionnal-financial/list-transfer-request')) : ?>
+    <a class="btn btn-link" href="<?= $this->url('professionnal-financial/list-transfer-request') ?>">
+        &larr; Retourner à la liste des demandes de virement
+    </a>
+<?php endif; ?>
+
+<div class="box">
+    <div class="box-title-container clearfix">
+        <div class="box-title">Faire une demande de virement</div>
+    </div>
+    <div class="box-content pb-5">
+
+        <?= $this->form()->openTag($this->createTransfertRequestForm); ?>
+
+            <div class="form-group <?= ($amountElement->getMessages()) ? ' has-error' : ''; ?>">
+                <label class="col-xs-12 col-sm-3 control-label" for="amount">Montant</label>
+                <div class="col-xs-12 col-sm-8">
+                    <?= $this->formText($amountElement); ?>
+                    <?= $this->displayFormElementErrors($amountElement); ?>
+                </div>
+            </div>
+
+            <div class="form-group <?= ($applicantIdentityElement->getMessages()) ? ' has-error' : ''; ?>">
+                <label class="col-xs-12 col-sm-3 control-label" for="applicant-identity">Nom & prénom</label>
+                <div class="col-xs-12 col-sm-8">
+                    <?= $this->formText($applicantIdentityElement); ?>
+                    <?= $this->displayFormElementErrors($applicantIdentityElement); ?>
+                </div>
+            </div>
+
+            <div class="form-group <?= ($ibanElement->getMessages()) ? ' has-error' : ''; ?>">
+                <label class="col-xs-12 col-sm-3 control-label" for="iban">IBAN</label>
+                <div class="col-xs-12 col-sm-8">
+                    <?= $this->formText($ibanElement); ?>
+                    <?= $this->displayFormElementErrors($ibanElement); ?>
+                </div>
+            </div>
+
+            <div class="form-group <?= ($bicElement->getMessages()) ? ' has-error' : ''; ?>">
+                <label class="col-xs-12 col-sm-3 control-label" for="bic">BIC</label>
+                <div class="col-xs-12 col-sm-8">
+                    <?= $this->formText($bicElement); ?>
+                    <?= $this->displayFormElementErrors($bicElement); ?>
+                </div>
+            </div>
+
+            <div class="form-group text-right">
+            <div class="col-sm-8 col-sm-offset-3">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-check"></i>&nbsp;
+                    Créer la demande
+                </button>
+            </div>
+        </div>
+        <?= $this->form()->closeTag($this->createTransfertRequestForm); ?>
+    </div>
+</div>

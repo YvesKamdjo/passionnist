@@ -1,0 +1,45 @@
+<?php
+
+    $managerEmailElement = $this->professionnalJoinSalonForm->get('manager-email');
+    $managerEmailElement
+        ->setAttribute('id', 'join-salon-manager-email')
+        ->setAttribute('class', 'form-control')
+        ->setAttribute('placeholder', 'gerant@exemple.fr')
+    ;
+?>
+
+<div class="box">
+    <div class="box-title-container clearfix">
+        <div class="box-title">Rejoindre un salon de coiffure</div>
+    </div>
+    <div class="box-content pb-5">
+        <?= $this->form()->openTag($this->professionnalJoinSalonForm); ?>
+            <?php if (isset($this->joinSalonSuccess) === true) : ?>
+                <div class="alert alert-success"><?= $this->joinSalonSuccess ?></div>
+            <?php endif; ?>
+            <?php if (isset($this->joinSalonError) === true) : ?>
+                <div class="alert alert-danger"><?= $this->joinSalonError ?></div>
+            <?php endif; ?>
+            
+            <p>
+                Afin de rejoindre un salon, vous devez vous munir de l'adresse e-mail de son gérant.<br />
+                Celui-ci recevera une notification, et pourra ensuite accepter ou refuser votre demande.
+            </p>
+            
+            <div class="form-group <?= ($managerEmailElement->getMessages()) ? ' has-error' : ''; ?>">
+                <label class="control-label" for="join-salon-manager-email">Adresse e-mail du gérant</label>
+                
+                    <?= $this->formEmail($managerEmailElement); ?>
+                    <?= $this->displayFormElementErrors($managerEmailElement); ?>
+                
+            </div>
+        
+            <div class="form-group text-right">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-paper-plane"></i>&nbsp;
+                    Envoyer la demande
+                </button>
+            </div>
+        <?= $this->form()->closeTag($this->professionnalJoinSalonForm); ?>
+    </div>
+</div>

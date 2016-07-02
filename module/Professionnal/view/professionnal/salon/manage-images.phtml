@@ -1,0 +1,74 @@
+<?php
+    
+    $this->uploadSalonImageForm
+            ->setAttribute('action', $this->url('professionnal-salon/send-image'))
+            ->setAttribute('enctype', 'multipart/form-data');
+
+    $salonElement = $this->uploadSalonImageForm->get('salon-image');
+    $salonElement
+        ->setAttribute('id', 'salon-image')
+    ;
+?>
+
+<div class="box">
+    <div class="box-title-container clearfix">
+        <div class="box-title">Ajout d'images</div>
+    </div>
+    <div class="box-content pb-5">
+        <?= $this->form()->openTag($this->uploadSalonImageForm); ?>
+
+            <div class="alert alert-success alert-dismissible hidden js-salon-image-upload-success">
+                <button type="button" class="close" data-dismiss="alert"><i class="material-icons">&#xE5CD;</i></button>
+                Votre image a été envoyé avec succès.
+            </div>
+        
+            <div class="row">
+                <div class="col-sm-12">
+                <div class="form-group js-salon-image-upload-dropzone-row">
+
+                    <div class="file-dropzone js-salon-image-upload-dropzone">
+                        <p class="text-left small">
+                            <b>Ce sont uniquement les images pour montrer votre salon.</b><br>
+                            1photo extérieur et des photos intérieures valorisant au mieux votre salon.<br>
+                            Les clients sont très attentifs aux photos. Faites des efforts pour faire de belles photos.
+                        </p>
+                        <div class="drop-text">Glissez-déposez votre fichier ici</div>
+                        <div class="separator-text"><div class="text">ou</div></div>
+                        <?= $this->formFile($salonElement); ?>
+
+                        <div class="overlay hidden js-salon-image-upload-dropzone-overlay">
+                            <div class="loading-text">
+                                Envoi en cours&hellip;<br />
+                                Progression : <span class="js-salon-image-upload-dropzone-percentage">0</span>%
+                            </div>
+                        </div>
+                    </div>
+                    <div class="help-block hidden js-salon-image-upload-dropzone-error"></div>
+                    <div class="text-muted text-small">Fichier autorisés: JPG, JPEG, PNG &mdash; Taille maximale : 10 Mo</div>
+
+                    <?= $this->displayFormElementErrors($salonElement); ?>
+                </div>
+                </div>
+            </div>
+        
+            
+        <?= $this->form()->closeTag($this->uploadSalonImageForm); ?>
+        
+        <div class="row js-salon-image-list">
+                <?php foreach ($this->salonImageList as $salonImage): ?>
+                    <div class="col-xs-3 col-sm-3">
+                        <div class="thumbnail-with-delete-button overflow-image galerie-item grey">
+                            <button data-action="<?= $this->url('professionnal-salon/delete-image', ['imageId' => $salonImage->getIdSalonImage()]) ?>" type="button" class="btn btn-danger delete-image" data-toggle="tooltip" data-placement="top" title="Supprimer"><i class="fa fa-trash"></i></button>
+                            <img src="/image/salon-image/<?= $salonImage->getFilepath() ?>" class="img-responsive" >
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+    </div>
+</div>
+
+<?php $this->inlineScript()->captureStart(); ?>
+    $(document).ready(function() {
+        hairlov.professionnal.salon.manageImages.init();
+    });
+<?php $this->inlineScript()->captureEnd(); ?>

@@ -1,0 +1,111 @@
+<?php $this->headTitle()->prepend('Mes LOV'); ?>
+<div class="container">
+    <h1 class="h2 title main margin-top-0">Mes coiffeurs lovés</h1>
+    <div class="row">
+        <div class="col-md-12">
+
+                <?php if(isset($this->likedProfessionalList) && !$this->likedProfessionalList->isEmpty()): ?>
+
+                    <div class="row">
+
+                        <?php foreach($this->likedProfessionalList as $professional): ?>
+                            <?php
+                                $professionalSlug = $this->slugify(
+                                    $professional->accountName . ' a ' .
+                                    $professional->accountLocation
+                                );
+                            ?>
+                            <?php /* @var $professional ProfessionalSearchResult */ ?>
+
+                            <div class="col-md-6">
+                                <div class="coiffeur-list">
+                                    <div class="inner">
+                                        <div class="coiffeur-header clearfix">
+                                            <div class="coiffeur-title-container clearfix">
+                                                <?php $professional->accountImageFilename = ($professional->accountImageFilename != null)?$professional->accountImageFilename:'avatar.jpg';  ?>
+                                                <div class="avatar-container" style="background-image: url('<?= $this->url('application-load-image', [
+                                                    'category' => 'account-image',
+                                                    'idImage' => $professional->accountImageFilename,
+                                                    'width' => 100,
+                                                    'height' => 100
+                                                ]) ?>') ">
+
+                                                </div>
+                                                <div class="coiffeur-nom-container va-middle">
+                                                    <h1 class="h2 coiffeur-nom"><a href="<?= $this->url('application-professional', ['idProfessional' => $professional->accountId]) ?>-<?= $professionalSlug ?>"><?= $professional->accountName; ?></a></h1>
+
+                                                    <?php if($professional->accountRate != null) : ?>
+                                                    <?php $note = round($professional->accountRate) ?>
+                                                        <small>(<?= $note ?>/5)</small>
+                                                        <ul class="list-inline note-count">
+                                                            <?php
+                                                                foreach(range(1, 5) as $key):
+                                                            ?>
+                                                                <?php if($note >= $key): ?>
+                                                                    <li class="active"><span><i class="fa fa-circle"></i></span></li>
+                                                                <?php else: ?>
+                                                                    <li><span><i class="fa fa-circle-thin"></i></span></li>
+                                                                <?php endif; ?>
+                                                            <?php endforeach; ?>
+                                                        </ul>
+                                                    <?php else: ?>
+                                                        <span class="badge">Aucune évaluation</span>
+                                                    <?php endif; ?>
+
+                                                </div>
+                                                <div class="pull-right">
+                                                    <div class="coiffeur-lov-height">
+                                                        <button class="js-like-switch coiffeur-lov va-middle" data-professional="<?= $professional->accountId; ?>" data-toggle="tooltip" data-placement="bottom" title="Lover">
+                                                            <span><?= $professional->accountLike ?></span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="coiffeur-prestation">
+
+                                            <?php $jobServiceImageFilenameList = explode(',', $professional->jobServiceImageFilenameList); ?>
+                                            <?php if (count($jobServiceImageFilenameList) > 0) : ?>
+                                                <div class="row">
+                                                    <?php for ($i = 0; $i < count($jobServiceImageFilenameList) && $i < 4; $i++) : ?>
+                                                        <div class="col-md-3 col-sm-3 col-xs-3">
+                                                            <div class="book-photo overflow-image xs image-cover" style="background-image: url('<?= $this->url('application-load-image', [
+                                                                'category' => 'job-service-image',
+                                                                'idImage' => $jobServiceImageFilenameList[$i],
+                                                                'width' => 105,
+                                                                'height' => 120
+                                                            ]) ?>')">
+                                                            </div>
+                                                        </div>
+                                                    <?php endfor; ?>
+                                                </div>
+                                            <?php endif; ?>
+
+                                            <div class="text-right">
+                                                <a href="<?= $this->url('application-professional', ['idProfessional' => $professional->accountId]) ?>-<?= $professionalSlug ?>" class="btn btn-primary btn-block">Voir le profil</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        <?php endforeach; ?>
+
+                    </div>
+
+                <?php else : ?>
+
+                <div class="alert alert-info">Vous n'avez lové aucun coiffeur</div>
+
+                <?php endif; ?>
+
+        </div>
+    </div>
+</div>
+
+<?php $this->inlineScript()->captureStart(); ?>
+$(document).ready(function () {
+    hairlov.application.professional.professionalPage.init();
+});
+<?php $this->inlineScript()->captureEnd(); ?>

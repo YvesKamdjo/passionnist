@@ -1,0 +1,32 @@
+<?php
+    /*
+     * Génération de l'url de pré-inscription
+     */
+    $url = $this->urlDomain . 'inscription-professionnel?';
+    
+    $data = [];
+    
+    if (!empty($this->email)) {
+        $data['email'] = $this->email;
+    }
+    if (!empty($this->firstName)) {
+        $data['firstName'] = $this->firstName;
+    }
+    if (!empty($this->lastName)) {
+        $data['lastName'] = $this->lastName;
+    }
+    if (!empty($this->phone)) {
+        $data['phone'] = $this->phone;
+    }
+    
+    $url .= http_build_query($data);
+
+?>
+
+<h2>Bienvenue sur HAIRLOV.com</h2>
+
+<p>Vous avez bénéficié d'une pré-inscription, <a href="<?= $url ?>">cliquez ici</a> pour finaliser cette inscription ou copiez ce lien dans votre navigateur :<br>
+<a href="<?= $url ?>">
+    <?= $url ?>
+</a>
+</p>

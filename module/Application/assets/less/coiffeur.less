@@ -1,0 +1,154 @@
+/*
+* Liste des coiffeurs
+*/
+
+.coiffeur {
+    margin-bottom: 24px;
+    .coiffeur-content {
+        height: @line-height-computed * 5;
+        padding: 24px;
+        background: #FFFFFF;
+        color: #333333;
+    }
+    .coiffeur-image {
+        position: relative;
+        text-align: center;
+    }
+    .coiffeur-description {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        padding: 0 20px;
+    }
+    .coiffeur-title {
+        color: #FFFFFF;
+        font-size: 30px;
+        line-height: 35px;
+        text-shadow: 1px 1px 1px #000000;
+    }
+    .btn {
+        margin-top: 24px;
+    }
+    
+    .coiffeur-lov {
+        margin-right: 24px;
+        width: 48px;
+        text-align: center;
+        font-size: 14px;
+        background: url(/img/lov.png) no-repeat center 10px;
+        padding: 30px 5px 10px 5px;
+        float: left;
+        .box-shadow(2px 2px 2px rgba(0, 0, 0, 0.35));
+        span {
+            display: block;
+            margin-top: 5px;
+        }
+    }
+}
+
+.coiffeur-list {
+    background: #FFFFFF;
+    margin-bottom: 24px;
+    position: relative;
+    .professional-location {
+        position: absolute;
+        right: 0px;
+        padding: 4px 8px;
+        background-color: rgba(0,0,0,0.02);
+    }
+    .inner {
+        padding: 24px;
+    }
+    .coiffeur-nom {
+        font-size: 20px;
+        a {
+            color: #333333;
+            text-decoration: none;
+            &:hover {
+                color: @brand-primary;
+            }
+        }
+    }
+    .coiffeur-lov-height {
+        line-height: 100px;
+    }
+    .coiffeur-lov {
+        width: 48px;
+        text-align: center;
+        font-size: 14px;
+        background: url(/img/lov.png) no-repeat center 10px;
+        padding: 35px 5px 10px 5px;
+        span {
+            display: block;
+        }
+    }
+    .coiffeur-prestation {
+        padding-top: 12px;
+        border-top: 1px solid #e5e5e5;
+        margin-top: 12px;
+    }
+    .coiffeur-prestation-prix {
+        margin-bottom: 12px;
+        font-weight: 300;
+    }
+}
+
+.coiffeur-information-nom-container {
+    
+}
+
+.coiffeur-title-container {
+    height: 100px;
+    line-height: 100px;
+    .avatar-container {
+        float: left;
+        overflow: hidden;
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+        margin-right: 20px;
+        border: 3px solid #FFFFFF;
+        background-size:cover;
+        background-position:center center;
+        .avatar {
+            border: none;
+            display: block;
+        }
+    }
+    .coiffeur-lov-height {
+        line-height: 100px;
+    }
+    .coiffeur-lov {
+        outline: none;
+        width: 48px;
+        text-align: center;
+        font-size: 14px;
+        background: url(/img/lov.png) no-repeat center 10px;
+        padding: 35px 5px 10px 5px;
+        border: none;
+        span {
+            display: block;
+        }
+    }
+}
+
+.coiffeur-nom-container {
+    .coiffeur-nom {
+        margin: 0 0 12px;
+    }
+    .coiffeur-note {
+    }
+    .professional-location {
+        margin-bottom: 10px;
+    }
+}
+
+.coiffeur-bio {
+    margin-top: 24px;
+}
+
+.book-photo {
+    margin-bottom: 12px;
+}
