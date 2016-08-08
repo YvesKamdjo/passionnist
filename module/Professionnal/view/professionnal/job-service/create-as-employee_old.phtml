@@ -1,0 +1,88 @@
+<?php
+    $this->createJobServiceForm
+            ->setAttribute('class', 'form-horizontal');
+
+    $nameElement = $this->createJobServiceForm->get('name');
+    $nameElement
+        ->setAttribute('id', 'job-service-name')
+        ->setAttribute('class', 'form-control')
+        ->setAttribute('placeholder', 'Choisir un titre simple et clair')
+    ;
+
+    $durationElement = $this->createJobServiceForm->get('duration');
+    $durationElement
+        ->setAttribute('id', 'job-service-duration')
+        ->setAttribute('class', 'form-control')
+    ;
+    
+    $descriptionElement = $this->createJobServiceForm->get('description');
+    $descriptionElement
+        ->setAttribute('id', 'job-service-description')
+        ->setAttribute('class', 'form-control')
+        ->setAttribute('placeholder', 'C\'est important de bien préciser les détails de la prestation, avec ou sans shampoing, les produits utilisés ou des observations clients sur cette prestation')
+    ;
+
+    $salonJobServiceElement = $this->createJobServiceForm->get('salon-job-service');
+    $salonJobServiceElement
+        ->setAttribute('id', 'job-service-job-service-template')
+        ->setAttribute('class', 'form-control')
+?>
+
+<?php if ($this->isAllowed('professionnal-job-service/create')) : ?>
+    <a class="btn btn-link" href="<?= $this->url('professionnal-job-service/create') ?>">
+        &larr; Retourner à la liste des prestations
+    </a>
+<?php endif; ?>
+
+<div class="box">
+    <div class="box-title-container clearfix">
+        <div class="box-title">Créer une prestation</div>
+    </div>
+    <div class="box-content pb-5">
+        <?= $this->form()->openTag($this->createJobServiceForm); ?>
+
+        <?php if (isset($this->createJobServiceError) === true) {
+            echo $this->displayAlert($this->createJobServiceError, DisplayAlert::ERROR);
+        } ?>
+
+        <div class="form-group <?= ($nameElement->getMessages()) ? ' has-error' : ''; ?>">
+            <label class="col-xs-12 col-sm-3 control-label" for="job-service-name">Titre</label>
+            <div class="col-xs-12 col-sm-8">
+                <?= $this->formText($nameElement); ?>
+                <?= $this->displayFormElementErrors($nameElement); ?>
+            </div>
+        </div>
+
+        <div class="form-group <?= ($durationElement->getMessages()) ? ' has-error' : ''; ?>">
+            <label class="col-xs-12 col-sm-3 control-label" for="job-service-duration">Durée</label>
+            <div class="col-xs-12 col-sm-8">
+                <?= $this->formSelect($durationElement); ?>
+            </div>
+        </div>
+
+        <div class="form-group <?= ($descriptionElement->getMessages()) ? ' has-error' : ''; ?>">
+            <label class="col-xs-12 col-sm-3 control-label" for="job-service-description">Description</label>
+            <div class="col-xs-12 col-sm-8">
+                <?= $this->formTextarea($descriptionElement); ?>
+                <?= $this->displayFormElementErrors($descriptionElement); ?>
+            </div>
+        </div>
+
+        <div class="form-group <?= ($salonJobServiceElement->getMessages()) ? ' has-error' : ''; ?>">
+            <label class="col-xs-12 col-sm-3 control-label" for="job-service-job-service-template">Modèle de prestation</label>
+            <div class="col-xs-12 col-sm-8">
+                <?= $this->formSelect($salonJobServiceElement); ?>
+            </div>
+        </div>
+
+        <div class="form-group text-right">
+            <div class="col-sm-8 col-sm-offset-3">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-check"></i>&nbsp;
+                    Créer la prestation
+                </button>
+            </div>
+        </div>
+        <?= $this->form()->closeTag($this->createJobServiceForm); ?>
+    </div>
+</div>
